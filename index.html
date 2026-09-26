@@ -1359,10 +1359,6 @@
                     <form onsubmit="changeAdminPassword(event)">
                         <div class="form-grid">
                             <div class="form-group">
-                                <label>وشەی نهێنی ئێستا</label>
-                                <input type="password" id="currentAdminPass" required placeholder="وشەی کۆن">
-                            </div>
-                            <div class="form-group">
                                 <label>وشەی نهێنی نوێ</label>
                                 <input type="password" id="newAdminPass" required placeholder="وشەی نوێ">
                             </div>
@@ -1380,7 +1376,7 @@
                     <div class="form-grid">
                         <div class="form-group"><label>ناوی بەکارهێنەر (Username)</label><input type="text" id="newUsername" required autocapitalize="none" autocorrect="off"></div>
                         <div class="form-group"><label>ناوی تەواو</label><input type="text" id="newFullName" required></div>
-                        <div class="form-group"><label>وشەی نهێنی</label><input type="password" id="newPassword" required autocapitalize="none" autocorrect="off"></div>
+                        <div class="form-group"><label>وشەی نهێنی</label><input type="text" id="newPassword" required value="بە دڵی خۆیان دایبنێ لە Firebase"></div>
                     </div>
 
                     <div style="margin-bottom: 16px;">
@@ -1470,10 +1466,6 @@
                     <option value="user">یوزەری ئاسایی (User)</option>
                     <option value="admin">بەڕێوەبەر (Admin)</option>
                 </select>
-            </div>
-            <div class="form-group" style="margin-bottom: 12px;">
-                <label>وشەی نهێنی نوێ (ئەگەر ناتەوێ بگۆڕدرێ بە بەتاڵی جێیبهێڵە)</label>
-                <input type="password" id="editUserPassword" placeholder="دانانی وشەی نوێ...">
             </div>
 
             <div id="editPermissionsWrap" style="margin-bottom: 16px;">
@@ -1651,10 +1643,11 @@
 
 <!-- Firebase SDK -->
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
 
 <script>
-    // ڕێکخستنی فایەربەیس - ئەمە ئەو کۆدەیە کە خۆت ناردت
+    // ڕێکخستنی فایەربەیس
     const firebaseConfig = {
       apiKey: "AIzaSyDNxVtqbYiY4JWTfID8nSoEpZgoW1gDCAo",
       authDomain: "ara-guide22.firebaseapp.com",
@@ -1673,13 +1666,11 @@
             id: 1,
             username: 'admin',
             fullName: 'بەڕێوەبەری گشتی',
-            password: 'admin123',
             role: 'admin',
             permissions: ['all']
         }
     ];
 
-    // دروستکردنی گۆڕاوی db کە خاڵییە تا لە فایەربەیسەوە پڕ دەکرێتەوە
     let db = {
         users: [], itemCategories: [], items: [], suppliers: [], customers: [],
         purchases: [], sales: [], returns: [], payments: [], supplierPayments: [],
@@ -1687,10 +1678,6 @@
     };
 
     let currentUser = null;
-    try {
-        currentUser = JSON.parse(sessionStorage.getItem('active_user'));
-    } catch(e) { currentUser = null; }
-
     let targetSelectId = '';
     let currentMatrixFilter = 'all';
     let currentCart = [];
@@ -1704,7 +1691,6 @@
     document.getElementById('expenseDate').value = today;
     document.getElementById('purchaseDate').value = today;
 
-    // فانکشنی نوێ بۆ ناردنی زانیارییەکان بۆ فایەربەیس
     async function saveData() {
         try {
             await firestore.collection("SystemData").doc("MainDB").set(db);
@@ -1712,47 +1698,59 @@
             renderImplantMatrix();
         } catch (error) {
             console.error("هەڵە لە خەزنکردنی داتاکان: ", error);
-            alert("کێشەیەک هەیە لە خەزنکردنی زانیارییەکان لە ئۆنلاین!");
         }
     }
 
-    function checkAuth() {
-        if (!currentUser) {
-            document.getElementById('loginScreen').style.display = 'flex';
-        } else {
-            document.getElementById('loginScreen').style.display = 'none';
-            document.getElementById('currentUserName').innerText = currentUser.fullName;
-            document.getElementById('currentUserRole').innerText = currentUser.role === 'admin' ? 'ئەدمین' : 'یوزەر';
-            applyPermissions();
-        }
-    }
-
-    function handleLogin(e) {
-        if(e) e.preventDefault();
+    // سیستەمی چوونەژوورەوەی سیکیوریتی فایەربەیس
+    async function handleLogin(e) {
+        e.preventDefault();
         const u = document.getElementById('loginUsername').value.trim().toLowerCase();
         const p = document.getElementById('loginPassword').value.trim();
+        const email = u + "@araguide.com"; // فایەربەیس پێویستی بە ئیمەیڵە، ئێمە ناوەکە دەکەین بە ئیمەیڵ
 
-        const found = db.users.find(user => 
-            user.username.trim().toLowerCase() === u && 
-            user.password.trim() === p
-        );
-
-        if (found) {
-            currentUser = found;
-            try { sessionStorage.setItem('active_user', JSON.stringify(found)); } catch(err) {}
-            checkAuth();
-        } else {
+        try {
+            await firebase.auth().signInWithEmailAndPassword(email, p);
+        } catch (error) {
             alert('ناوی بەکارهێنەر یان وشەی نهێنی هەڵەیە!');
+            console.error(error);
         }
     }
 
     function logout() {
         if (confirm('دڵنیایت لە دەرچوون؟')) {
-            currentUser = null;
-            try { sessionStorage.removeItem('active_user'); } catch(e) {}
-            checkAuth();
+            firebase.auth().signOut().then(() => {
+                currentUser = null;
+                document.getElementById('loginScreen').style.display = 'flex';
+            });
         }
     }
+
+    // چاودێریکردنی دۆخی لۆگین لەلایەن فایەربەیسەوە
+    firebase.auth().onAuthStateChanged(async (user) => {
+        if (user) {
+            // بەکارهێنەر لۆگینی کردووە، با داتاکان بهێنین
+            await loadDataFromFirebase();
+            
+            // ناوی بەکارهێنەر دەردەهێنینەوە لە ئیمەیڵەکە
+            const usernameStr = user.email.split('@')[0];
+            const found = db.users.find(u => u.username.toLowerCase() === usernameStr);
+            
+            if (found) {
+                currentUser = found;
+                document.getElementById('loginScreen').style.display = 'none';
+                document.getElementById('currentUserName').innerText = currentUser.fullName;
+                document.getElementById('currentUserRole').innerText = currentUser.role === 'admin' ? 'ئەدمین' : 'یوزەر';
+                applyPermissions();
+            } else {
+                alert('هەژمارەکەت لە داتابەیسی سیستەمەکەدا نەدۆزرایەوە!');
+                firebase.auth().signOut();
+            }
+        } else {
+            // کەس لۆگینی نەکردووە
+            currentUser = null;
+            document.getElementById('loginScreen').style.display = 'flex';
+        }
+    });
 
     function applyPermissions() {
         const isAdmin = currentUser && currentUser.role === 'admin';
@@ -2087,54 +2085,39 @@
         generateStatement();
     }
 
-    function changeAdminPassword(e) {
+    // گۆڕینی پاسوۆرد لە ڕێگەی فایەربەیس
+    async function changeAdminPassword(e) {
         e.preventDefault();
-        const currentPass = document.getElementById('currentAdminPass').value.trim();
         const newPass = document.getElementById('newAdminPass').value.trim();
         const confirmPass = document.getElementById('confirmAdminPass').value.trim();
-
-        const adminIndex = db.users.findIndex(u => u.username.toLowerCase() === 'admin');
-
-        if (adminIndex === -1) {
-            return alert('ئەژماری ئەدمین نەدۆزرایەوە!');
-        }
-
-        if (db.users[adminIndex].password.trim() !== currentPass) {
-            return alert('وشەی نهێنی ئێستات هەڵەیە!');
-        }
 
         if (newPass !== confirmPass) {
             return alert('وشەی نهێنی نوێ و دووبارەکردنەوەکەی وەک یەک نین!');
         }
 
-        if (newPass.length < 4) {
-            return alert('وشەی نهێنی نوێ دەبێت لانیکەم ٤ پیت یان ژمارە بێت!');
+        if (newPass.length < 6) {
+            return alert('وشەی نهێنی فایەربەیس دەبێت لانیکەم ٦ پیت یان ژمارە بێت!');
         }
 
-        db.users[adminIndex].password = newPass;
-
-        if (currentUser.username.toLowerCase() === 'admin') {
-            currentUser.password = newPass;
-            try { sessionStorage.setItem('active_user', JSON.stringify(currentUser)); } catch(e) {}
+        try {
+            const user = firebase.auth().currentUser;
+            await user.updatePassword(newPass);
+            alert('✅ وشەی نهێنی ئەدمین بە سەرکەوتوویی گۆڕدرا!');
+            document.getElementById('newAdminPass').value = '';
+            document.getElementById('confirmAdminPass').value = '';
+        } catch (error) {
+            console.error(error);
+            alert('کێشەیەک ڕوویدا لە کاتی گۆڕینی پاسوۆرد. پێویستە سەرەتا لۆگاوت بکەیت و دووبارە لۆگین بکەیتەوە ئینجا پاسوۆرد بگۆڕیت بەهۆی سیکیوریتی فایەربەیسەوە.');
         }
-
-        saveData();
-
-        document.getElementById('currentAdminPass').value = '';
-        document.getElementById('newAdminPass').value = '';
-        document.getElementById('confirmAdminPass').value = '';
-
-        alert('✅ وشەی نهێنی ئەدمین بە سەرکەوتوویی گۆڕدرا!');
     }
 
     function addUser(e) {
         e.preventDefault();
         const username = document.getElementById('newUsername').value.trim().toLowerCase();
         const fullName = document.getElementById('newFullName').value.trim();
-        const password = document.getElementById('newPassword').value.trim();
 
         if (db.users.find(u => u.username.toLowerCase() === username)) {
-            return alert('ئەم ناوی بەکارهێنەرە پێشتر بەکارهاتووە!');
+            return alert('ئەم ناوی بەکارهێنەرە پێشتر لە داتابەیسەکەدا تۆمار کراوە!');
         }
 
         const checkedPerms = [];
@@ -2148,7 +2131,6 @@
             id: Date.now(),
             username,
             fullName,
-            password,
             role: 'user',
             permissions: checkedPerms
         };
@@ -2157,7 +2139,8 @@
         saveData();
         renderUsers();
         document.getElementById('userForm').reset();
-        alert('بەکارهێنەری نوێ بە سەرکەوتوویی زیادکرا!');
+        
+        alert(`بەکارهێنەری نوێ لە سیستەمەکە زیادکرا!\n\n⚠️ تێبینی زۆر گرنگ: بۆ ئەوەی ئەم کەسە بتوانێت بێتە ژوورەوە، تکایە بڕۆ بۆ بەشی Authentication لە سایتەکەی Firebase و ئەم ئیمەیڵە بە پاسوۆردێکەوە بۆی زیاد بکە:\n\nئیمەیڵ: ${username}@araguide.com`);
     }
 
     function renderUsers() {
@@ -2206,7 +2189,6 @@
         });
     }
 
-    /* 🛠️ دەستکاریکردنی ڕۆڵ و دەسەڵاتی یوزەر بەبێ سڕینەوە */
     function openEditUserModal(userId) {
         const user = db.users.find(u => u.id === userId);
         if (!user) return alert('بەکارهێنەر نەدۆزرایەوە!');
@@ -2214,7 +2196,6 @@
         document.getElementById('editUserId').value = user.id;
         document.getElementById('editFullName').value = user.fullName;
         document.getElementById('editUserRole').value = user.role;
-        document.getElementById('editUserPassword').value = '';
 
         const userPerms = user.permissions || [];
         document.querySelectorAll('input[name="editPerms"]').forEach(cb => {
@@ -2247,14 +2228,9 @@
 
         const fullName = document.getElementById('editFullName').value.trim();
         const role = document.getElementById('editUserRole').value;
-        const newPassword = document.getElementById('editUserPassword').value.trim();
 
         user.fullName = fullName;
         user.role = role;
-
-        if (newPassword) {
-            user.password = newPassword;
-        }
 
         if (role === 'admin') {
             user.permissions = ['all'];
@@ -2273,7 +2249,7 @@
     }
 
     function deleteUser(id) {
-        if (confirm('دڵنیایت لە سڕینەوەی ئەم بەکارهێنەرە؟')) {
+        if (confirm('دڵنیایت لە سڕینەوەی ئەم بەکارهێنەرە لە داتابەیس؟ پێویستە لە فایەربەیسیش ئیمەیڵەکەی بسڕیتەوە.')) {
             db.users = db.users.filter(u => u.id !== id);
             saveData();
             renderUsers();
@@ -2302,7 +2278,6 @@
     function clearAllData() {
         const confirmCode = prompt("⚠️ بۆ پشتڕاستکردنەوەی سڕینەوەی گشتی بنووسە: DELETE");
         if (confirmCode === "DELETE") {
-            // سڕینەوە لە فایەربەیس
             db = {
                 users: defaultUsers, itemCategories: [], items: [], suppliers: [], customers: [],
                 purchases: [], sales: [], returns: [], payments: [], supplierPayments: [],
@@ -3081,7 +3056,7 @@
         reader.readAsText(event.target.files[0]);
     }
 
-    // فانکشنی سەرەکی بۆ هێنان و دەستپێکردنی سیستەمەکە
+    // هێنانی داتاکان لە کاتی لۆگین بوون
     async function loadDataFromFirebase() {
         try {
             const docRef = firestore.collection("SystemData").doc("MainDB");
@@ -3098,30 +3073,24 @@
                 db.returns = []; db.payments = []; db.supplierPayments = []; db.expenses = [];
                 await saveData(); 
             }
+            
+            updateItemCategoryDropdowns(); 
+            renderItems(); 
+            renderSuppliers(); 
+            renderCustomers(); 
+            renderPurchases(); 
+            renderSales(); 
+            renderReturns(); 
+            renderPayments(); 
+            renderSupPayments(); 
+            renderExpenses();
+            renderImplantMatrix();
+            if(currentUser && currentUser.role === 'admin') renderDashboard(); 
 
-            checkAuth();
-            if(currentUser) {
-                renderDashboard(); 
-                updateItemCategoryDropdowns(); 
-                renderItems(); 
-                renderSuppliers(); 
-                renderCustomers(); 
-                renderPurchases(); 
-                renderSales(); 
-                renderReturns(); 
-                renderPayments(); 
-                renderSupPayments(); 
-                renderExpenses();
-                renderImplantMatrix();
-            }
         } catch (error) {
             console.error("هەڵەیەک ڕوویدا لە کاتی هێنانی داتاکان: ", error);
-            alert("نەتوانرا پەیوەندی بە داتابەیسەوە بکرێت. تکایە دڵنیابە لە هێڵی ئینتەرنێتەکەت و ڕێکخستنەکانی فایەربەیس.");
         }
     }
-
-    // دەستپێکردن
-    loadDataFromFirebase();
 </script>
 
 </body>
