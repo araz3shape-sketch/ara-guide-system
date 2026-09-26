@@ -1,0 +1,3128 @@
+<!DOCTYPE html>
+<html lang="ckb" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Ara Guide - سیستەمی پێشکەوتووی کۆگای مەوادی ددان</title>
+    
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0d9488">
+    <link rel="apple-touch-icon" href="logo.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        :root {
+            --primary: #0d9488;
+            --primary-hover: #0f766e;
+            --primary-light: #ccfbf1;
+            --secondary: #0f172a;
+            --secondary-light: #1e293b;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+            --danger: #ef4444;
+            --danger-light: #fee2e2;
+            --success: #10b981;
+            --success-light: #d1fae5;
+            --warning: #f59e0b;
+            --warning-light: #fef3c7;
+            --indigo: #6366f1;
+            --indigo-light: #e0e7ff;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.04);
+            --radius-md: 10px;
+            --radius-lg: 16px;
+        }
+
+        * { 
+            box-sizing: border-box; 
+            font-family: 'Vazirmatn', -apple-system, BlinkMacSystemFont, sans-serif; 
+            margin: 0; 
+            padding: 0; 
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        html, body {
+            height: 100vh;
+            overflow: hidden;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+        }
+
+        .implant-svg-icon {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+            display: inline-block;
+            vertical-align: middle;
+            transition: all 0.2s;
+        }
+
+        #loginScreen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at top right, #115e59 0%, #0f172a 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+        .login-card {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(12px);
+            padding: 35px 28px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 380px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .login-logo {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            object-fit: contain;
+            margin-bottom: 12px;
+            box-shadow: var(--shadow-md);
+            padding: 4px;
+            background: #fff;
+        }
+        .login-card h2 {
+            margin-bottom: 4px;
+            color: var(--secondary);
+            font-size: 22px;
+            font-weight: 800;
+        }
+        .login-card p {
+            color: var(--text-muted);
+            font-size: 13.5px;
+            margin-bottom: 20px;
+        }
+
+        .container { 
+            max-width: 100%; 
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding: 14px 18px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #0f172a 0%, #115e59 100%);
+            color: white;
+            padding: 16px 28px;
+            border-radius: var(--radius-lg);
+            margin-bottom: 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            flex-shrink: 0;
+            box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .header-brand {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+        .header-logo {
+            width: 62px;
+            height: 62px;
+            border-radius: 50%;
+            object-fit: contain;
+            background: #fff;
+            padding: 3px;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.18);
+            border: 2px solid rgba(255, 255, 255, 0.4);
+        }
+        .header-brand h1 {
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            line-height: 1.1;
+        }
+        .header-brand .sub-text {
+            font-size: 13px;
+            color: #99f6e4;
+            font-weight: 400;
+            display: block;
+            margin-top: 3px;
+        }
+
+        .user-info-badge {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            font-size: 14px;
+            background: rgba(255, 255, 255, 0.12);
+            padding: 8px 18px;
+            border-radius: 30px;
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+        .btn-logout {
+            background-color: var(--danger);
+            color: white;
+            border: none;
+            padding: 6px 14px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 12.5px;
+            transition: all 0.2s;
+        }
+        .btn-logout:hover { opacity: 0.9; transform: scale(0.96); }
+
+        .backup-controls { display: flex; gap: 8px; }
+        .btn-backup { 
+            background: rgba(255, 255, 255, 0.12); 
+            color: white; 
+            padding: 9px 16px; 
+            border: 1px solid rgba(255, 255, 255, 0.2); 
+            border-radius: 10px; 
+            cursor: pointer; 
+            font-size: 13px; 
+            font-weight: 600; 
+            transition: all 0.2s; 
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-backup:hover { background: rgba(255, 255, 255, 0.25); }
+
+        .app-layout {
+            display: flex;
+            gap: 16px;
+            flex: 1;
+            min-height: 0;
+        }
+
+        .tabs-sidebar { 
+            display: flex; 
+            flex-direction: column;
+            width: 290px;
+            min-width: 290px;
+            gap: 6px; 
+            background: var(--card-bg);
+            padding: 14px;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-color);
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .tab-btn { 
+            padding: 12px 16px; 
+            border: none; 
+            background-color: transparent; 
+            color: #475569; 
+            font-weight: 600; 
+            border-radius: var(--radius-md); 
+            cursor: pointer; 
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); 
+            font-size: 15px; 
+            text-align: right;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-shrink: 0;
+            user-select: none;
+            -webkit-user-select: none;
+            touch-action: manipulation;
+        }
+
+        .tab-btn i, .tab-btn svg { width: 22px; text-align: center; color: var(--text-muted); }
+        .tab-btn:hover { background-color: #f1f5f9; color: var(--secondary); }
+        .tab-btn.active { 
+            background-color: var(--primary) !important; 
+            color: white !important; 
+            box-shadow: 0 4px 12px rgba(13, 148, 136, 0.35);
+        }
+        .tab-btn.active i, .tab-btn.active svg { color: white !important; fill: white !important; }
+
+        .tab-btn.danger-tab {
+            color: var(--danger);
+            margin-top: 10px;
+            border-top: 1px solid var(--border-color);
+            border-radius: 0 0 var(--radius-md) var(--radius-md);
+            padding-top: 14px;
+        }
+        .tab-btn.danger-tab i { color: var(--danger); }
+        .tab-btn.danger-tab:hover { background-color: var(--danger-light); }
+        .tab-btn.danger-tab.active {
+            background-color: var(--danger) !important;
+            color: white !important;
+        }
+
+        .main-content {
+            flex: 1;
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 0;
+        }
+
+        .tab-content { 
+            display: none; 
+            background: var(--card-bg); 
+            padding: 24px; 
+            border-radius: var(--radius-lg); 
+            box-shadow: var(--shadow-sm);
+            flex: 1;
+            overflow-y: auto;
+            border: 1px solid var(--border-color);
+            -webkit-overflow-scrolling: touch;
+        }
+        .tab-content.active { 
+            display: flex; 
+            flex-direction: column; 
+        }
+
+        .tab-content h2 {
+            font-size: 20px;
+            font-weight: 800;
+            margin-bottom: 20px;
+            color: var(--secondary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .dash-header-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 22px;
+            background: #f8fafc;
+            padding: 16px 20px;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
+        }
+        .dash-title-group h2 { margin: 0; font-size: 20px; font-weight: 800; }
+        .dash-title-group p { font-size: 13px; color: var(--text-muted); margin-top: 2px; }
+
+        .dash-filter-wrap {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .dash-date-input {
+            padding: 8px 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 13.5px;
+            outline: none;
+            background-color: #fff;
+            color: var(--text-main);
+        }
+
+        .dash-grid-modern {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .dash-stat-card {
+            background: #ffffff;
+            border-radius: var(--radius-lg);
+            padding: 22px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-sm);
+            transition: all 0.25s ease;
+        }
+        .dash-stat-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .dash-stat-info { display: flex; flex-direction: column; gap: 4px; }
+        .dash-stat-label { font-size: 13px; font-weight: 600; color: var(--text-muted); }
+        .dash-stat-value { font-size: 25px; font-weight: 800; color: var(--secondary); letter-spacing: -0.5px; }
+
+        .dash-stat-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            flex-shrink: 0;
+        }
+
+        .icon-teal { background: var(--primary-light); color: var(--primary); }
+        .icon-green { background: var(--success-light); color: var(--success); }
+        .icon-red { background: var(--danger-light); color: var(--danger); }
+        .icon-amber { background: var(--warning-light); color: var(--warning); }
+        .icon-indigo { background: var(--indigo-light); color: var(--indigo); }
+
+        .charts-container {
+            display: grid;
+            grid-template-columns: 2fr 1.2fr;
+            gap: 18px;
+            margin-bottom: 24px;
+        }
+        .chart-card {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 20px;
+            box-shadow: var(--shadow-sm);
+        }
+        .chart-card h4 {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--secondary);
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .chart-wrapper {
+            position: relative;
+            height: 250px;
+            width: 100%;
+        }
+
+        .debtors-panel {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 20px;
+            margin-bottom: 24px;
+            box-shadow: var(--shadow-sm);
+        }
+        .debtors-panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 14px;
+        }
+        .debtors-panel-header h3 {
+            font-size: 16px;
+            font-weight: 800;
+            color: var(--danger);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .implant-matrix-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 14px;
+            background: #f8fafc;
+            padding: 16px 20px;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
+            margin-bottom: 20px;
+        }
+        .filter-pill-group {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .filter-pill {
+            padding: 6px 14px;
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+            background: #fff;
+            color: var(--text-muted);
+            font-size: 13.5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .filter-pill.active {
+            background: var(--primary);
+            color: #fff;
+            border-color: var(--primary);
+            box-shadow: 0 2px 6px rgba(13, 148, 136, 0.3);
+        }
+
+        .implant-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 18px;
+        }
+
+        .implant-card {
+            background: #ffffff;
+            border-radius: var(--radius-lg);
+            border: 1.5px solid var(--border-color);
+            padding: 22px;
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            transition: all 0.25s ease;
+        }
+        .implant-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .implant-card.out-of-stock {
+            border-color: #fca5a5;
+            background: linear-gradient(180deg, #ffffff 0%, #fff1f2 100%);
+        }
+        .implant-card.out-of-stock::before {
+            content: "نەماوە / تەواوبوو";
+            position: absolute;
+            top: 14px;
+            left: 14px;
+            background: var(--danger);
+            color: #fff;
+            font-size: 11.5px;
+            font-weight: 800;
+            padding: 3px 10px;
+            border-radius: 20px;
+            box-shadow: 0 2px 5px rgba(239, 68, 68, 0.3);
+        }
+
+        .implant-card.low-stock {
+            border-color: #fde68a;
+            background: linear-gradient(180deg, #ffffff 0%, #fffbeb 100%);
+        }
+        .implant-card.low-stock::before {
+            content: "کەمماوە";
+            position: absolute;
+            top: 14px;
+            left: 14px;
+            background: var(--warning);
+            color: #fff;
+            font-size: 11.5px;
+            font-weight: 800;
+            padding: 3px 10px;
+            border-radius: 20px;
+        }
+
+        .implant-card.in-stock::before {
+            content: "بەردەستە";
+            position: absolute;
+            top: 14px;
+            left: 14px;
+            background: var(--success);
+            color: #fff;
+            font-size: 11.5px;
+            font-weight: 800;
+            padding: 3px 10px;
+            border-radius: 20px;
+        }
+
+        .implant-size-badge {
+            font-size: 26px;
+            font-weight: 900;
+            color: var(--secondary);
+            letter-spacing: -0.5px;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .implant-name-lg {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 2px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .implant-type-sub {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+            font-weight: 500;
+        }
+
+        .implant-qty-container {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            border-top: 1px dashed var(--border-color);
+            padding-top: 14px;
+            margin-top: 8px;
+        }
+        .implant-qty-label { font-size: 13.5px; color: var(--text-muted); font-weight: 600; }
+        .implant-qty-number { font-size: 30px; font-weight: 900; line-height: 1; }
+
+        .table-panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 14px;
+        }
+        .table-panel-header h3 { font-size: 16px; color: var(--secondary); font-weight: 700; display: flex; align-items: center; gap: 8px; }
+
+        .form-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); 
+            gap: 16px; 
+            margin-bottom: 18px; 
+        }
+        
+        .form-group { 
+            display: flex; 
+            flex-direction: column; 
+            gap: 6px; 
+        }
+        
+        .form-group label { 
+            font-weight: 600; 
+            font-size: 13.5px; 
+            color: var(--secondary); 
+        }
+        
+        .form-group input, .form-group select { 
+            padding: 10px 14px; 
+            border: 1px solid var(--border-color); 
+            border-radius: 8px; 
+            outline: none; 
+            font-size: 14.5px; 
+            background-color: #fff;
+            width: 100%;
+            transition: all 0.2s;
+        }
+        .form-group input:focus, .form-group select:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.15);
+        }
+
+        .input-with-btn { display: flex; gap: 8px; align-items: center; }
+        .input-with-btn select { flex: 1; }
+
+        .btn { 
+            padding: 10px 20px; 
+            border: none; 
+            border-radius: 8px; 
+            background-color: var(--primary); 
+            color: white; 
+            font-weight: 600; 
+            cursor: pointer; 
+            font-size: 14px; 
+            touch-action: manipulation; 
+            transition: all 0.2s; 
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .btn:hover { background-color: var(--primary-hover); transform: translateY(-1px); }
+        .btn-success { background-color: var(--success); }
+        .btn-success:hover { background-color: #059669; }
+        .btn-danger { background-color: var(--danger); }
+        .btn-danger:hover { background-color: #dc2626; }
+        .btn-warning { background-color: var(--warning); }
+        .btn-warning:hover { background-color: #d97706; }
+        .btn-purple { background-color: var(--indigo); }
+        .btn-purple:hover { background-color: #4f46e5; }
+        .btn-sm { padding: 6px 12px; font-size: 13px; border-radius: 6px; }
+
+        .search-box { 
+            margin-bottom: 14px; 
+            width: 100%; 
+            padding: 11px 16px; 
+            border: 1px solid var(--border-color); 
+            border-radius: var(--radius-md); 
+            font-size: 14.5px; 
+            background: #fff; 
+            outline: none;
+            transition: all 0.2s;
+        }
+        .search-box:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.15);
+        }
+        
+        .table-responsive {
+            flex: 1;
+            overflow-y: auto;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            background: #fff;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        table { width: 100%; border-collapse: collapse; }
+        
+        th, td { border-bottom: 1px solid var(--border-color); padding: 13px 16px; text-align: right; font-size: 14px; vertical-align: middle; }
+        th { background-color: #f8fafc; position: sticky; top: 0; z-index: 10; font-weight: 700; color: #475569; border-bottom: 2px solid #e2e8f0; }
+        .t-center { text-align: center !important; }
+
+        .badge { padding: 4px 10px; border-radius: 6px; font-size: 12px; font-weight: 700; display: inline-block; }
+        .badge-low { background-color: var(--danger-light); color: var(--danger); }
+        .badge-sup { background-color: var(--warning-light); color: #b45309; }
+        .badge-cust { background-color: #e0e7ff; color: #4338ca; }
+        .badge-implant { background-color: var(--primary-light); color: var(--primary); }
+        .badge-access { background-color: #f3e8ff; color: #7e22ce; }
+        .badge-void { background-color: var(--danger-light); color: #dc2626; border: 1px solid #fca5a5; }
+
+        tr.void-row { background-color: #fff1f2 !important; color: #9f1239; }
+        .strikethrough { text-decoration: line-through; color: #94a3b8; }
+
+        .clean-card {
+            background: #fff;
+            border: 1px solid var(--border-color);
+            border-right: 4px solid var(--danger);
+            padding: 18px;
+            border-radius: var(--radius-md);
+            margin-bottom: 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .modal { display: none; position: fixed; z-index: 100; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); align-items: center; justify-content: center; backdrop-filter: blur(4px); }
+        .modal-content { background: white; padding: 26px; border-radius: var(--radius-lg); width: 90%; max-width: 450px; box-shadow: var(--shadow-lg); max-height: 90vh; overflow-y: auto; }
+
+        #printableInvoice, #printableReceipt { display: none; }
+
+        .invoice-box { 
+            border: 1px solid #cbd5e1; 
+            padding: 30px; 
+            border-radius: 8px; 
+            font-size: 14px; 
+            background: #fff; 
+            max-width: 800px; 
+            margin: 0 auto; 
+        }
+        .invoice-header { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
+            border-bottom: 2px solid var(--secondary); 
+            padding-bottom: 15px; 
+            margin-bottom: 20px; 
+        }
+        .print-logo {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            object-fit: contain;
+            background: #fff;
+        }
+        
+        .print-table { 
+            width: 100%; 
+            border-collapse: collapse; 
+            margin-top: 15px; 
+            margin-bottom: 20px; 
+        }
+        .print-table th { 
+            background-color: #f1f5f9 !important; 
+            color: var(--secondary); 
+            border: 1px solid #cbd5e1 !important; 
+            padding: 10px 12px; 
+            font-weight: bold; 
+            -webkit-print-color-adjust: exact; 
+            print-color-adjust: exact; 
+        }
+        .print-table td { 
+            border: 1px solid #cbd5e1 !important; 
+            padding: 10px 12px; 
+            color: #334155; 
+        }
+
+        @media print {
+            html, body { height: auto !important; overflow: visible !important; }
+            .container, .modal, .no-print, #loginScreen { display: none !important; }
+            body * { visibility: hidden; }
+            .print-active, .print-active * { visibility: visible !important; }
+            .print-active { display: block !important; position: absolute; right: 0; left: 0; top: 0; width: 100%; padding: 15px; margin: 0; }
+        }
+
+        .statement-summary { display: flex; gap: 15px; margin-bottom: 16px; background: #f8fafc; padding: 16px; border: 1px solid var(--border-color); border-radius: var(--radius-md); flex-wrap: wrap; }
+        .summary-item { flex: 1; min-width: 140px; }
+        .summary-item label { display: block; font-size: 13px; color: var(--text-muted); font-weight: 600; margin-bottom: 2px; }
+        .summary-item span { font-size: 19px; font-weight: 800; }
+
+        .permissions-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 8px;
+            background: #f8fafc;
+            padding: 14px;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
+        }
+        .permissions-grid label {
+            font-size: 13.5px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+
+        .password-box {
+            background: #f8fafc;
+            border: 1px solid var(--border-color);
+            border-right: 4px solid var(--primary);
+            padding: 20px;
+            border-radius: var(--radius-md);
+            margin-bottom: 24px;
+        }
+
+        @media (max-width: 900px) {
+            .charts-container { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 768px) {
+            html, body { height: auto; overflow: auto; }
+            .container { height: auto; padding: 10px; }
+            .app-layout { flex-direction: column; }
+            .tabs-sidebar { width: 100%; min-width: 100%; max-height: 250px; }
+            .main-content { height: auto; }
+            .tab-content { overflow-y: visible; padding: 16px; }
+            .dash-header-bar { flex-direction: column; align-items: flex-start; }
+            .dash-filter-wrap { width: 100%; }
+            header { padding: 14px 16px; gap: 12px; }
+            .header-logo { width: 50px; height: 50px; }
+            .header-brand h1 { font-size: 20px; }
+        }
+    </style>
+
+    <script>
+        function fixNumbers(input) {
+            const kurdishNums = [/٠/g, /١/g, /٢/g, /٣/g, /٤/g, /٥/g, /٦/g, /٧/g, /٨/g, /٩/g];
+            const persianNums = [/۰/g, /۱/g, /۲/g, /۳/g, /۴/g, /۵/g, /۶/g, /۷/g, /۸/g, /۹/g];
+            let val = input.value;
+            for(let i=0; i<10; i++) {
+                val = val.replace(kurdishNums[i], i).replace(persianNums[i], i);
+            }
+            val = val.replace(/[^0-9.]/g, '');
+            const parts = val.split('.');
+            if (parts.length > 2) {
+                val = parts[0] + '.' + parts.slice(1).join('');
+            }
+            if (input.value !== val) {
+                input.value = val;
+            }
+        }
+    </script>
+</head>
+<body>
+
+<div id="loginScreen">
+    <div class="login-card">
+        <img src="logo.png" alt="Ara Guide" class="login-logo" onerror="this.style.display='none'">
+        <h2>Ara Guide</h2>
+        <p>چوونەژوورەوە بۆ سیستەمی بەڕێوەبردن</p>
+        <form onsubmit="handleLogin(event)">
+            <div class="form-group" style="margin-bottom: 16px; text-align: right;">
+                <label>ناوی بەکارهێنەر</label>
+                <input type="text" id="loginUsername" required placeholder="admin" 
+                       autocapitalize="none" 
+                       autocomplete="username" 
+                       autocorrect="off" 
+                       spellcheck="false">
+            </div>
+            <div class="form-group" style="margin-bottom: 22px; text-align: right;">
+                <label>وشەی نهێنی</label>
+                <input type="password" id="loginPassword" required placeholder="admin123" 
+                       autocapitalize="none" 
+                       autocomplete="current-password" 
+                       autocorrect="off" 
+                       spellcheck="false">
+            </div>
+            <button type="submit" class="btn btn-purple" style="width: 100%; padding: 12px;">
+                <i class="fa-solid fa-lock-open"></i> چوونەژوورەوە
+            </button>
+        </form>
+    </div>
+</div>
+
+<div class="container no-print">
+    <header>
+        <div class="header-brand">
+            <img src="logo.png" alt="Ara Guide" class="header-logo" onerror="this.style.display='none'">
+            <div>
+                <h1>Ara Guide</h1>
+                <span class="sub-text">سیستەمی پێشکەوتووی کۆگای مەوادی ددان</span>
+            </div>
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 14px; flex-wrap: wrap;">
+            <div class="user-info-badge">
+                <span><i class="fa-regular fa-circle-user"></i> <strong id="currentUserName">-</strong> (<span id="currentUserRole">-</span>)</span>
+                <button type="button" class="btn-logout" onclick="logout()">دەرچوون</button>
+            </div>
+            <div class="backup-controls">
+                <button type="button" class="btn-backup" onclick="exportBackup()"><i class="fa-solid fa-download"></i> باکئەپ</button>
+                <button type="button" class="btn-backup" onclick="document.getElementById('importFile').click()"><i class="fa-solid fa-upload"></i> هێنانەوە</button>
+                <input type="file" id="importFile" style="display: none;" accept=".json" onchange="importBackup(event)">
+            </div>
+        </div>
+    </header>
+
+    <div class="app-layout">
+        <div class="tabs-sidebar" id="sidebarTabs">
+            <button type="button" class="tab-btn active" data-tab="dashboard" id="dashboardTabBtn" onclick="switchTab('dashboard')"><i class="fa-solid fa-chart-pie"></i> داشبۆرد</button>
+            
+            <button type="button" class="tab-btn" data-tab="implantMatrix" onclick="switchTab('implantMatrix')">
+                <svg class="implant-svg-icon" viewBox="0 0 24 24">
+                    <path d="M7 2h10v3l-1.5 1.5v1.5l1.5 1V10l-1.5 1v1.5l1.5 1V15l-1.5 1v1.5l1.5 1V19l-3 3h-2l-3-3v-.5l1.5-1V16l-1.5-1v-1.5l1.5-1V11l-1.5-1V8.5l1.5-1V6L7 4.5V2zm3 2v1h4V4h-4zm-1 3.5l1.5 1v1L9 11v1.5l1.5 1v1L9 16v1.5l1.5 1v1L12 21l1.5-1.5v-1l1.5-1V16l-1.5-1.5v-1l1.5-1V11l-1.5-1.5v-1l1.5-1V6.5L13.5 5h-3L9 6.5v1z"/>
+                </svg>
+                چاودێری ئیمپلانتەکان
+            </button>
+            
+            <button type="button" class="tab-btn" data-tab="sales" onclick="switchTab('sales')"><i class="fa-solid fa-cart-shopping"></i> بەشی فرۆشتن</button>
+            <button type="button" class="tab-btn" data-tab="payments" onclick="switchTab('payments')"><i class="fa-solid fa-receipt"></i> وەسڵی قەبز (پزیشکان)</button>
+            <button type="button" class="tab-btn" data-tab="supPayments" onclick="switchTab('supPayments')"><i class="fa-solid fa-money-bill-transfer"></i> پارەدان بە دابینکەر</button>
+            <button type="button" class="tab-btn" data-tab="expenses" onclick="switchTab('expenses')"><i class="fa-solid fa-wallet"></i> خەرجییەکان</button>
+            <button type="button" class="tab-btn" data-tab="items" onclick="switchTab('items')"><i class="fa-solid fa-boxes-stacked"></i> کۆگا</button>
+            <button type="button" class="tab-btn" data-tab="purchases" onclick="switchTab('purchases')"><i class="fa-solid fa-truck-ramp-box"></i> کڕین لە دابینکەر</button>
+            <button type="button" class="tab-btn" data-tab="returns" onclick="switchTab('returns')"><i class="fa-solid fa-arrow-rotate-left"></i> گەڕاندنەوە</button>
+            <button type="button" class="tab-btn" data-tab="statement" onclick="switchTab('statement')"><i class="fa-solid fa-file-invoice-dollar"></i> کەشفی حساب</button>
+            <button type="button" class="tab-btn" data-tab="suppliers" onclick="switchTab('suppliers')"><i class="fa-solid fa-building"></i> دابینکەران</button>
+            <button type="button" class="tab-btn" data-tab="customers" onclick="switchTab('customers')"><i class="fa-solid fa-user-doctor"></i> کڕیاران (پزیشکان)</button>
+            <button type="button" class="tab-btn" data-tab="users" id="usersTabBtn" onclick="switchTab('users')"><i class="fa-solid fa-users-gear"></i> بەکارهێنەران و ڕۆڵەکان</button>
+            <button type="button" class="tab-btn danger-tab" data-tab="dataCleaning" id="cleaningTabBtn" onclick="switchTab('dataCleaning')"><i class="fa-solid fa-trash-can"></i> پاککردنەوەی داتا</button>
+        </div>
+
+        <div class="main-content">
+            <!-- 0. داشبۆرد -->
+            <div id="dashboard" class="tab-content active">
+                <div class="dash-header-bar">
+                    <div class="dash-title-group">
+                        <h2>پوختەی گشتی و چاودێری ئامارەکان</h2>
+                        <p>ڕاپۆرتی بەراوردکاری، چارتە گرافیکییەکان و دۆخی دارایی کۆگا</p>
+                    </div>
+                    <div class="dash-filter-wrap">
+                        <input type="date" id="dashStartDate" class="dash-date-input" title="لە بەرواری">
+                        <input type="date" id="dashEndDate" class="dash-date-input" title="تا بەرواری">
+                        <button type="button" class="btn btn-purple btn-sm" onclick="renderDashboard()"><i class="fa-solid fa-filter"></i> فلتەر</button>
+                        <button type="button" class="btn btn-warning btn-sm" onclick="resetDashFilter()"><i class="fa-solid fa-arrows-rotate"></i> هەمووی</button>
+                    </div>
+                </div>
+
+                <div class="dash-grid-modern">
+                    <div class="dash-stat-card">
+                        <div class="dash-stat-info">
+                            <span class="dash-stat-label">کۆی گشتی فرۆش</span>
+                            <span class="dash-stat-value" id="dashSales">$0.00</span>
+                        </div>
+                        <div class="dash-stat-icon icon-teal"><i class="fa-solid fa-sack-dollar"></i></div>
+                    </div>
+
+                    <div class="dash-stat-card">
+                        <div class="dash-stat-info">
+                            <span class="dash-stat-label">کۆی خەرجییەکان</span>
+                            <span class="dash-stat-value" id="dashExpenses" style="color: var(--danger);">$0.00</span>
+                        </div>
+                        <div class="dash-stat-icon icon-red"><i class="fa-solid fa-hand-holding-dollar"></i></div>
+                    </div>
+
+                    <div class="dash-stat-card">
+                        <div class="dash-stat-info">
+                            <span class="dash-stat-label">قەرزی دکتۆرەکان لای ئێمە</span>
+                            <span class="dash-stat-value" id="dashDue" style="color: var(--primary);">$0.00</span>
+                        </div>
+                        <div class="dash-stat-icon icon-green"><i class="fa-solid fa-user-doctor"></i></div>
+                    </div>
+
+                    <div class="dash-stat-card">
+                        <div class="dash-stat-info">
+                            <span class="dash-stat-label">قەرزی دابینکەران</span>
+                            <span class="dash-stat-value" id="dashSupDue" style="color: var(--warning);">$0.00</span>
+                        </div>
+                        <div class="dash-stat-icon icon-amber"><i class="fa-solid fa-boxes-packing"></i></div>
+                    </div>
+
+                    <div class="dash-stat-card">
+                        <div class="dash-stat-info">
+                            <span class="dash-stat-label">مەوادی کەمماوە لە کۆگا</span>
+                            <span class="dash-stat-value" id="dashLowStock" style="color: var(--indigo);">0</span>
+                        </div>
+                        <div class="dash-stat-icon icon-indigo"><i class="fa-solid fa-triangle-exclamation"></i></div>
+                    </div>
+                </div>
+
+                <div class="debtors-panel">
+                    <div class="debtors-panel-header">
+                        <h3><i class="fa-solid fa-hand-holding-dollar"></i> کڕیارە قەرزدارەکان (پزیشکانی ماوەی قەرز)</h3>
+                        <span id="debtorsCountBadge" class="badge badge-low">0 قەرزدار</span>
+                    </div>
+                    <div class="table-responsive">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ناوی پزیشک / کلینیک</th>
+                                    <th>تەلەفۆن</th>
+                                    <th class="t-center">کۆی فرۆش</th>
+                                    <th class="t-center">کۆی پارەی وەرگیراو</th>
+                                    <th class="t-center">بڕی قەرزی ماوە</th>
+                                    <th class="t-center">کردار</th>
+                                </tr>
+                            </thead>
+                            <tbody id="debtorsTable"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="charts-container">
+                    <div class="chart-card">
+                        <h4><i class="fa-solid fa-chart-line" style="color: var(--primary);"></i> بەراوردی فرۆش و خەرجی (تێڕوانینی کاتی)</h4>
+                        <div class="chart-wrapper">
+                            <canvas id="salesExpensesChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="chart-card">
+                        <h4><i class="fa-solid fa-chart-pie" style="color: var(--indigo);"></i> دابەشبوونی گشتی باڵانس</h4>
+                        <div class="chart-wrapper">
+                            <canvas id="balanceDoughnutChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="table-panel-header">
+                    <h3><i class="fa-solid fa-clock-rotate-left"></i> دواین فرۆشتنە تۆمارکراوەکان</h3>
+                </div>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>مێژوو</th>
+                                <th>کڕیار / کلینیک</th>
+                                <th>مەواد</th>
+                                <th class="t-center">بڕ</th>
+                                <th class="t-center">کۆی گشتی</th>
+                            </tr>
+                        </thead>
+                        <tbody id="recentSalesTable"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- چاودێری ئیمپلانتەکان -->
+            <div id="implantMatrix" class="tab-content">
+                <h2>
+                    <svg class="implant-svg-icon" style="width: 26px; height: 26px; color: var(--primary);" viewBox="0 0 24 24">
+                        <path d="M7 2h10v3l-1.5 1.5v1.5l1.5 1V10l-1.5 1v1.5l1.5 1V15l-1.5 1v1.5l1.5 1V19l-3 3h-2l-3-3v-.5l1.5-1V16l-1.5-1v-1.5l1.5-1V11l-1.5-1V8.5l1.5-1V6L7 4.5V2zm3 2v1h4V4h-4zm-1 3.5l1.5 1v1L9 11v1.5l1.5 1v1L9 16v1.5l1.5 1v1L12 21l1.5-1.5v-1l1.5-1V16l-1.5-1.5v-1l1.5-1V11l-1.5-1.5v-1l1.5-1V6.5L13.5 5h-3L9 6.5v1z"/>
+                    </svg>
+                    چاودێری و کۆگای ئیمپلانتەکان (بەپێی قیاس)
+                </h2>
+                
+                <div class="implant-matrix-header">
+                    <div class="filter-pill-group">
+                        <button type="button" class="filter-pill active" onclick="filterImplantMatrix('all')">هەموو قیاسەکان</button>
+                        <button type="button" class="filter-pill" onclick="filterImplantMatrix('out')">❌ نەماوە (تەواوبوو)</button>
+                        <button type="button" class="filter-pill" onclick="filterImplantMatrix('low')">⚠️ کەمماوە (&lt; 5)</button>
+                        <button type="button" class="filter-pill" onclick="filterImplantMatrix('available')">✅ بەردەستەکان</button>
+                    </div>
+                    <input type="text" id="matrixSearchInput" onkeyup="renderImplantMatrix()" placeholder="🔍 گەڕان بەپێی قیاس یان مۆدێل..." style="padding: 8px 14px; border: 1px solid var(--border-color); border-radius: 8px; font-size: 13.5px; outline: none; width: 220px;">
+                </div>
+
+                <div class="implant-grid" id="implantGridContainer"></div>
+            </div>
+
+            <!-- 1. بەشی فرۆشتن -->
+            <div id="sales" class="tab-content">
+                <h2><i class="fa-solid fa-cart-plus"></i> تۆمارکردنی فرۆشتنی نوێ (چەند مەوادێک لە یەک پسوولەدا)</h2>
+                
+                <div style="background: #f8fafc; padding: 18px; border-radius: var(--radius-md); border: 1px solid var(--border-color); margin-bottom: 18px;">
+                    <div class="form-grid" style="margin-bottom: 12px;">
+                        <div class="form-group"><label>کڕیار (پزیشک/کلینیک)</label><select id="saleCustomer" required></select></div>
+                        <div class="form-group"><label>بەروار</label><input type="date" id="saleDate" required></div>
+                    </div>
+                    
+                    <div class="form-grid" style="align-items: flex-end; margin-bottom: 0;">
+                        <div class="form-group"><label>مەواد</label><select id="saleItem" onchange="autoFillSellPrice()"></select></div>
+                        <div class="form-group"><label>بڕ</label><input type="text" inputmode="numeric" id="saleQty" value="1" oninput="fixNumbers(this)"></div>
+                        <div class="form-group"><label>نرخی یەک دانە ($)</label><input type="text" inputmode="decimal" id="saleUnitPrice" oninput="fixNumbers(this)"></div>
+                        <div class="form-group">
+                            <button type="button" class="btn btn-purple" onclick="addToCart()"><i class="fa-solid fa-cart-arrow-down"></i> زیادکردن بۆ سەبەتە</button>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 style="font-size: 16px; font-weight: 700; margin-bottom: 10px;">مەوادەکانی ناو ئەم پسوولەیە (Cart)</h3>
+                <div class="table-responsive" style="max-height: 220px; margin-bottom: 15px;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>مەواد</th>
+                                <th class="t-center">بڕ</th>
+                                <th class="t-center">نرخی تاک</th>
+                                <th class="t-center">کۆی گشتی</th>
+                                <th class="t-center">کردار</th>
+                            </tr>
+                        </thead>
+                        <tbody id="cartTableBody">
+                            <tr><td colspan="5" class="t-center" style="color: var(--text-muted); padding: 20px;">سەبەتە بەتاڵە. مەواد هەڵبژێرە و زیادی بکە.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div style="display: flex; justify-content: space-between; align-items: center; background: #fffbeb; padding: 14px 20px; border-radius: var(--radius-md); border: 1px solid #fde68a; margin-bottom: 18px;">
+                    <span style="font-size: 16px; font-weight: 800; color: #92400e;">کۆی گشتی پسوڵەکە:</span>
+                    <span id="cartGrandTotal" style="font-size: 22px; font-weight: 900; color: #92400e;">$0.00</span>
+                </div>
+
+                <button type="button" class="btn btn-success" onclick="checkoutSale()" style="padding: 12px 24px; font-size: 16px;"><i class="fa-solid fa-check-double"></i> تەواوکردنی فرۆشتن و دابڕین لە کۆگا (چاپکردن)</button>
+
+                <h3 style="margin-top: 30px; font-size: 16px; font-weight: 700;">مێژووی فرۆشتنەکان</h3>
+                <div class="table-responsive" style="margin-top: 10px;">
+                    <table>
+                        <thead><tr><th>فاکتەر #</th><th>مێژوو</th><th>کڕیار</th><th>مەوادەکان</th><th class="t-center">کۆی گشتی</th><th class="t-center">پرێنت</th></tr></thead>
+                        <tbody id="salesTable"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- 1.5 وەسڵی قەبز -->
+            <div id="payments" class="tab-content">
+                <h2><i class="fa-solid fa-receipt"></i> تۆمارکردنی وەسڵی قەبز (وەرگرتنی پارە لە پزیشک)</h2>
+                <form id="paymentForm" onsubmit="addPayment(event)">
+                    <div class="form-grid">
+                        <div class="form-group"><label>پزیشک / کلینیک</label><select id="payCustomer" required></select></div>
+                        <div class="form-group"><label>بڕی پارەی وەرگیراو ($)</label><input type="text" inputmode="decimal" id="payAmount" oninput="fixNumbers(this)" required placeholder="0.00"></div>
+                        <div class="form-group"><label>بەرواری پارەدان</label><input type="date" id="payDate" required></div>
+                        <div class="form-group"><label>تێبینی / شێوازی پارەدان</label><input type="text" id="payNote" placeholder="کاش، نەقد، حەواڵە..."></div>
+                    </div>
+                    <button type="submit" class="btn btn-purple"><i class="fa-solid fa-print"></i> تۆمارکردنی وەسڵ و چاپکردن</button>
+                </form>
+
+                <h3 style="margin-top: 24px; font-size: 16px; font-weight: 700;">مێژووی وەسڵەکان</h3>
+                <div class="table-responsive" style="margin-top: 10px;">
+                    <table>
+                        <thead><tr><th>وەسڵ #</th><th>بەروار</th><th>پزیشک</th><th class="t-center">بڕی پارە ($)</th><th>تێبینی / هۆکاری پووچەڵکردنەوە</th><th class="t-center">کردارەکان</th></tr></thead>
+                        <tbody id="paymentsTable"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- 1.6 پارەدان بۆ دابینکەر -->
+            <div id="supPayments" class="tab-content">
+                <h2><i class="fa-solid fa-money-bill-transfer"></i> تۆمارکردنی پارەدان بۆ دابینکەر (سەنەدی سەرف)</h2>
+                <form id="supPaymentForm" onsubmit="addSupPayment(event)">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>ناوی دابینکەر</label>
+                            <div class="input-with-btn">
+                                <select id="supPaySupplier" required></select>
+                                <button type="button" class="btn btn-sm" onclick="openSupplierModal('supPaySupplier')"><i class="fa-solid fa-plus"></i> نوێ</button>
+                            </div>
+                        </div>
+                        <div class="form-group"><label>بڕی پارەی دراو ($)</label><input type="text" inputmode="decimal" id="supPayAmount" oninput="fixNumbers(this)" required placeholder="0.00"></div>
+                        <div class="form-group"><label>بەرواری پارەدان</label><input type="date" id="supPayDate" required></div>
+                        <div class="form-group"><label>تێبینی / شێوازی پارەدان</label><input type="text" id="supPayNote" placeholder="حەواڵە، کاش..."></div>
+                    </div>
+                    <button type="submit" class="btn btn-success"><i class="fa-solid fa-check"></i> تۆمارکردنی پارەدان</button>
+                </form>
+
+                <h3 style="margin-top: 24px; font-size: 16px; font-weight: 700;">مێژووی پارەدانەکان بۆ دابینکەران</h3>
+                <div class="table-responsive" style="margin-top: 10px;">
+                    <table>
+                        <thead><tr><th>سەنەد #</th><th>بەروار</th><th>دابینکەر</th><th class="t-center">بڕی پارە ($)</th><th>تێبینی / هۆکار</th><th class="t-center">کردارەکان</th></tr></thead>
+                        <tbody id="supPaymentsTable"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- 1.7 خەرجییەکان -->
+            <div id="expenses" class="tab-content">
+                <h2><i class="fa-solid fa-wallet"></i> تۆمارکردنی خەرجی نوێ</h2>
+                <form id="expenseForm" onsubmit="addExpense(event)">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>کاتیگۆری / جۆری خەرجی</label>
+                            <div class="input-with-btn">
+                                <select id="expenseCategory" required></select>
+                                <button type="button" class="btn btn-sm" onclick="openCategoryModal()"><i class="fa-solid fa-plus"></i> کاتیگۆری</button>
+                            </div>
+                        </div>
+                        <div class="form-group"><label>بڕی پارەی خەرجکراو ($)</label><input type="text" inputmode="decimal" id="expenseAmount" oninput="fixNumbers(this)" required placeholder="0.00"></div>
+                        <div class="form-group"><label>بەروار</label><input type="date" id="expenseDate" required></div>
+                        <div class="form-group"><label>تێبینی</label><input type="text" id="expenseNote" placeholder="ڕوونکردنەوەی خەرجی..."></div>
+                    </div>
+                    <button type="submit" class="btn btn-danger"><i class="fa-solid fa-minus"></i> تۆمارکردنی خەرجی</button>
+                </form>
+
+                <h3 style="margin-top: 24px; font-size: 16px; font-weight: 700;">مێژووی خەرجییەکان</h3>
+                <div class="table-responsive" style="margin-top: 10px;">
+                    <table>
+                        <thead><tr><th>#</th><th>بەروار</th><th>جۆری خەرجی</th><th class="t-center">بڕی پارە ($)</th><th>تێبینی</th><th class="t-center">کردارەکان</th></tr></thead>
+                        <tbody id="expensesTable"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- 2. بەشی مەوادەکان -->
+            <div id="items" class="tab-content">
+                <h2><i class="fa-solid fa-boxes-stacked"></i> زیادکردنی مەواد و پێداویستییەکان بۆ کۆگا</h2>
+                <form id="itemForm" onsubmit="addItem(event)">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>کاتیگۆری (جۆری مەواد)</label>
+                            <div class="input-with-btn">
+                                <select id="itemCategory" required></select>
+                                <button type="button" class="btn btn-sm" onclick="openItemCategoryModal()"><i class="fa-solid fa-plus"></i> نوێ</button>
+                            </div>
+                        </div>
+                        <div class="form-group"><label>ناوی مەواد / براند</label><input type="text" id="itemName" required placeholder="Ara Guide"></div>
+                        <div class="form-group"><label>جۆر / مۆدێل (Platform)</label><input type="text" id="itemType" required placeholder="Bone Level / Regular"></div>
+                        <div class="form-group"><label>قیاس (Diameter x Length)</label><input type="text" id="itemSize" required placeholder="4.0 x 10 mm"></div>
+                        <div class="form-group"><label>کۆد / بارکۆد</label><input type="text" id="itemCode" required placeholder="AG-001"></div>
+                        <div class="form-group"><label>بڕی سەرەتایی کۆگا</label><input type="text" inputmode="numeric" id="itemQty" value="0" oninput="fixNumbers(this)" required></div>
+                        <div class="form-group"><label>نرخی کڕین ($)</label><input type="text" inputmode="decimal" id="itemBuyPrice" oninput="fixNumbers(this)" required></div>
+                        <div class="form-group"><label>نرخی فرۆشتن ($)</label><input type="text" inputmode="decimal" id="itemSellPrice" oninput="fixNumbers(this)" required></div>
+                    </div>
+                    <button type="submit" class="btn"><i class="fa-solid fa-plus"></i> زیادکردن بۆ کۆگا</button>
+                </form>
+                <hr style="margin: 18px 0; border: none; border-top: 1px solid var(--border-color);">
+                <input type="text" class="search-box" id="searchItem" onkeyup="filterItems()" placeholder="🔍 گەڕان بەپێی ناو، کۆد، قیاس یان جۆری مەواد...">
+                
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th class="t-center">کۆد</th>
+                                <th>ناوی مەواد</th>
+                                <th class="t-center">کاتیگۆری</th>
+                                <th class="t-center">جۆر/مۆدێل</th>
+                                <th class="t-center">قیاس</th>
+                                <th class="t-center">بڕی کۆگا</th>
+                                <th class="t-center">نرخی کڕین</th>
+                                <th class="t-center">نرخی فرۆشتن</th>
+                                <th class="t-center">کردارەکان</th>
+                            </tr>
+                        </thead>
+                        <tbody id="itemsTable"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- 3. کڕین لە دابینکەر -->
+            <div id="purchases" class="tab-content">
+                <h2><i class="fa-solid fa-truck-ramp-box"></i> تۆمارکردنی کڕینی نوێ لە دابینکەر</h2>
+                <form id="purchaseForm" onsubmit="addPurchase(event)">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>دابینکەر</label>
+                            <div class="input-with-btn">
+                                <select id="purchaseSupplier" required></select>
+                                <button type="button" class="btn btn-sm" onclick="openSupplierModal('purchaseSupplier')"><i class="fa-solid fa-plus"></i> نوێ</button>
+                            </div>
+                        </div>
+                        <div class="form-group"><label>مەواد</label><select id="purchaseItem" required onchange="autoFillBuyPrice()"></select></div>
+                        <div class="form-group"><label>بڕی کڕدراو</label><input type="text" inputmode="numeric" id="purchaseQty" value="1" oninput="fixNumbers(this)" required></div>
+                        <div class="form-group"><label>نرخی یەک دانە ($)</label><input type="text" inputmode="decimal" id="purchaseUnitPrice" oninput="fixNumbers(this)" required></div>
+                        <div class="form-group"><label>بەروار</label><input type="date" id="purchaseDate" required></div>
+                    </div>
+                    <button type="submit" class="btn btn-success"><i class="fa-solid fa-check"></i> تۆمارکردنی کڕین (+ کۆگا زیاد دەکات)</button>
+                </form>
+                <h3 style="margin-top: 24px; font-size: 16px; font-weight: 700;">مێژووی کڕینەکان</h3>
+                <div class="table-responsive" style="margin-top: 10px;">
+                    <table>
+                        <thead><tr><th>مێژوو</th><th>دابینکەر</th><th>مەواد</th><th class="t-center">بڕ</th><th class="t-center">نرخی تاک</th><th class="t-center">کۆی گشتی</th></tr></thead>
+                        <tbody id="purchasesTable"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- 4. بەشی گەڕاندنەوە -->
+            <div id="returns" class="tab-content">
+                <h2><i class="fa-solid fa-arrow-rotate-left"></i> تۆمارکردنی گەڕاندنەوەی مەواد</h2>
+                <form id="returnForm" onsubmit="processReturn(event)">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>جۆری گەڕاندنەوە</label>
+                            <select id="returnType" required onchange="toggleReturnPartyOptions()">
+                                <option value="to_supplier">↩️ گەڕاندنەوە بۆ دابینکەر (- کۆگا)</option>
+                                <option value="from_customer">↪️ گەڕاندنەوە لە کڕیارەوە (+ کۆگا)</option>
+                            </select>
+                        </div>
+                        <div class="form-group"><label id="returnPartyLabel">دابینکەر</label><select id="returnParty" required></select></div>
+                        <div class="form-group"><label>مەواد</label><select id="returnItem" required></select></div>
+                        <div class="form-group"><label>بڕی گەڕێنراوە</label><input type="text" inputmode="numeric" id="returnQty" value="1" oninput="fixNumbers(this)" required></div>
+                        <div class="form-group"><label>هۆکاری گەڕاندنەوە</label><input type="text" id="returnReason" placeholder="ئێکسپایەر، تێکچوو..."></div>
+                    </div>
+                    <button type="submit" class="btn btn-warning"><i class="fa-solid fa-rotate-left"></i> تۆمارکردنی گەڕاندنەوە</button>
+                </form>
+                <h3 style="margin-top: 24px; font-size: 16px; font-weight: 700;">مێژووی گەڕاندنەوەکان</h3>
+                <div class="table-responsive" style="margin-top: 10px;">
+                    <table>
+                        <thead><tr><th>مێژوو</th><th>جۆر</th><th>لایەن</th><th>مەواد</th><th class="t-center">بڕ</th><th>هۆکار</th></tr></thead>
+                        <tbody id="returnsTable"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- 5. کەشفی حساب -->
+            <div id="statement" class="tab-content">
+                <h2><i class="fa-solid fa-file-invoice-dollar"></i> کەشفی حسابی گشتی</h2>
+                <div class="form-grid" style="margin-top: 10px;">
+                    <div class="form-group">
+                        <label>جۆری کەشف</label>
+                        <select id="statementType" onchange="updateStatementDropdown()">
+                            <option value="customer">کەشف بۆ کڕیار (پزیشکان)</option>
+                            <option value="supplier">کەشف بۆ دابینکەر</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>ناوی لایەن</label>
+                        <select id="statementParty" onchange="generateStatement()"></select>
+                    </div>
+                </div>
+
+                <div class="statement-summary" id="statementSummary">
+                    <div class="summary-item"><label id="lblStat1">کۆی فرۆش</label><span id="statTotalSales">$0.00</span></div>
+                    <div class="summary-item"><label id="lblStat2">کۆی پارەی وەردراو</label><span id="statTotalPaid" style="color:var(--success);">$0.00</span></div>
+                    <div class="summary-item"><label id="lblStat3">باقیات (باڵانسی ماوە)</label><span id="statBalance" style="color:var(--danger);">$0.00</span></div>
+                </div>
+
+                <div class="table-responsive">
+                    <table>
+                        <thead><tr><th>بەروار</th><th>جۆری مامەڵە</th><th>مەواد / تێبینی</th><th class="t-center">بڕ</th><th class="t-center">نرخ</th><th class="t-center">کۆی گشتی ($)</th></tr></thead>
+                        <tbody id="statementTable"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- 6. دابینکەران -->
+            <div id="suppliers" class="tab-content">
+                <h2><i class="fa-solid fa-building"></i> زیادکردنی دابینکەری نوێ</h2>
+                <form id="supplierForm" onsubmit="addSupplier(event)">
+                    <div class="form-grid">
+                        <div class="form-group"><label>ناوی دابینکەر</label><input type="text" id="supName" required></div>
+                        <div class="form-group"><label>ژمارەی تەلەفۆن</label><input type="text" id="supPhone" required></div>
+                        <div class="form-group"><label>ناونیشان</label><input type="text" id="supAddress"></div>
+                    </div>
+                    <button type="submit" class="btn"><i class="fa-solid fa-plus"></i> زیادکردن</button>
+                </form>
+                <div class="table-responsive" style="margin-top: 18px;">
+                    <table>
+                        <thead><tr><th>ناو</th><th>تەلەفۆن</th><th>ناونیشان</th><th class="t-center">کردارەکان</th></tr></thead>
+                        <tbody id="suppliersTable"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- 7. کڕیاران -->
+            <div id="customers" class="tab-content">
+                <h2><i class="fa-solid fa-user-doctor"></i> زیادکردنی کڕیار (پزیشک/کلینیک)</h2>
+                <form id="customerForm" onsubmit="addCustomer(event)">
+                    <div class="form-grid">
+                        <div class="form-group"><label>ناوی پزیشک/کلینیک</label><input type="text" id="custName" required></div>
+                        <div class="form-group"><label>ژمارەی تەلەفۆن</label><input type="text" id="custPhone" required></div>
+                        <div class="form-group"><label>ناونیشان</label><input type="text" id="custAddress"></div>
+                    </div>
+                    <button type="submit" class="btn"><i class="fa-solid fa-plus"></i> زیادکردن</button>
+                </form>
+                <div class="table-responsive" style="margin-top: 18px;">
+                    <table>
+                        <thead><tr><th>ناو</th><th>تەلەفۆن</th><th>ناونیشان</th><th class="t-center">باڵانس (قەرز)</th><th class="t-center">کردارەکان</th></tr></thead>
+                        <tbody id="customersTable"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- بەشی بەکارهێنەران و ڕۆڵەکان -->
+            <div id="users" class="tab-content">
+                <h2><i class="fa-solid fa-users-gear"></i> بەڕێوەبردنی بەکارهێنەران و دەسەڵاتەکان</h2>
+
+                <div class="password-box">
+                    <h3 style="font-size: 15.5px; margin-bottom: 12px; color: var(--secondary); font-weight: 700;"><i class="fa-solid fa-key"></i> دەستکاریکردنی وشەی نهێنی ئەدمین</h3>
+                    <form onsubmit="changeAdminPassword(event)">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>وشەی نهێنی ئێستا</label>
+                                <input type="password" id="currentAdminPass" required placeholder="وشەی کۆن">
+                            </div>
+                            <div class="form-group">
+                                <label>وشەی نهێنی نوێ</label>
+                                <input type="password" id="newAdminPass" required placeholder="وشەی نوێ">
+                            </div>
+                            <div class="form-group">
+                                <label>دووبارەکردنەوە</label>
+                                <input type="password" id="confirmAdminPass" required placeholder="دووبارەکردنەوە">
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-purple"><i class="fa-solid fa-shield-halved"></i> نوێکردنەوەی وشەی نهێنی</button>
+                    </form>
+                </div>
+
+                <h3 style="font-size: 16px; margin-bottom: 10px; font-weight: 700;">زیادکردنی بەکارهێنەری نوێ</h3>
+                <form id="userForm" onsubmit="addUser(event)">
+                    <div class="form-grid">
+                        <div class="form-group"><label>ناوی بەکارهێنەر (Username)</label><input type="text" id="newUsername" required autocapitalize="none" autocorrect="off"></div>
+                        <div class="form-group"><label>ناوی تەواو</label><input type="text" id="newFullName" required></div>
+                        <div class="form-group"><label>وشەی نهێنی</label><input type="password" id="newPassword" required autocapitalize="none" autocorrect="off"></div>
+                    </div>
+
+                    <div style="margin-bottom: 16px;">
+                        <label style="font-weight: 600; margin-bottom: 6px; display: block; font-size: 13.5px;">دەسەڵاتەکان و تابە ڕێگەپێدراوەکان:</label>
+                        <div class="permissions-grid">
+                            <label><input type="checkbox" name="userPerms" value="implantMatrix" checked> چاودێری ئیمپلانتەکان</label>
+                            <label><input type="checkbox" name="userPerms" value="sales" checked> بەشی فرۆشتن</label>
+                            <label><input type="checkbox" name="userPerms" value="payments" checked> وەسڵی قەبز</label>
+                            <label><input type="checkbox" name="userPerms" value="supPayments"> پارەدان بە دابینکەر</label>
+                            <label><input type="checkbox" name="userPerms" value="expenses"> خەرجییەکان</label>
+                            <label><input type="checkbox" name="userPerms" value="items" checked> کۆگا</label>
+                            <label><input type="checkbox" name="userPerms" value="purchases"> کڕین لە دابینکەر</label>
+                            <label><input type="checkbox" name="userPerms" value="returns"> گەڕاندنەوە</label>
+                            <label><input type="checkbox" name="userPerms" value="statement"> کەشفی حساب</label>
+                            <label><input type="checkbox" name="userPerms" value="suppliers"> دابینکەران</label>
+                            <label><input type="checkbox" name="userPerms" value="customers" checked> کڕیاران</label>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-success"><i class="fa-solid fa-user-plus"></i> زیادکردنی بەکارهێنەر</button>
+                </form>
+
+                <h3 style="margin-top: 26px; font-size: 16px; font-weight: 700;">لیستی بەکارهێنەران</h3>
+                <div class="table-responsive" style="margin-top: 10px;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ناوی بەکارهێنەر</th>
+                                <th>ناوی تەواو</th>
+                                <th>ڕۆڵ</th>
+                                <th>دەسەڵاتەکان</th>
+                                <th class="t-center">کردارەکان</th>
+                            </tr>
+                        </thead>
+                        <tbody id="usersTable"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- 8. پاککردنەوەی داتا -->
+            <div id="dataCleaning" class="tab-content">
+                <h2 style="color: var(--danger);"><i class="fa-solid fa-triangle-exclamation"></i> پاککردنەوە و خاوێنکردنی داتاکان</h2>
+                <p style="margin-top: 4px; color: var(--text-muted); font-size: 14px;">تکایە ئاگاداربە، پێش سڕینەوەی داتاکان، هەڵگرتنی یەدەگ (Backup) بکە!</p>
+
+                <div style="margin-top: 20px;">
+                    <div class="clean-card">
+                        <div>
+                            <h3 style="font-size: 15.5px; font-weight: 700;">سڕینەوەی وەسڵ و مامەڵەکان (Reset Transactions)</h3>
+                            <p style="font-size: 13.5px; color: var(--text-muted); margin-top: 2px;">تەنها سەرجەم وەسڵەکانی فرۆشتن، کڕین، پارەدان، خەرجی و گەڕاندنەوەکان دەسڕێتەوە.</p>
+                        </div>
+                        <button type="button" class="btn btn-warning" onclick="clearTransactionsOnly()"><i class="fa-solid fa-eraser"></i> سڕینەوەی مامەڵەکان</button>
+                    </div>
+
+                    <div class="clean-card">
+                        <div>
+                            <h3 style="font-size: 15.5px; font-weight: 700;">سڕینەوەی تەواوی کۆگا (Clear Inventory)</h3>
+                            <p style="font-size: 13.5px; color: var(--text-muted); margin-top: 2px;">تەنها سەرجەم مەوادەکانی ناو کۆگا و بڕەکانیان دەسڕێتەوە.</p>
+                        </div>
+                        <button type="button" class="btn btn-warning" onclick="clearItemsOnly()"><i class="fa-solid fa-boxes-packing"></i> سڕینەوەی کۆگا</button>
+                    </div>
+
+                    <div class="clean-card" style="border-right-color: #b91c1c; background-color: #fef2f2;">
+                        <div>
+                            <h3 style="font-size: 15.5px; color: #991b1b; font-weight: 700;">سڕینەوەی گشتی داتاکان (Full System Reset)</h3>
+                            <p style="font-size: 13.5px; color: #991b1b; margin-top: 2px;">سەرجەم داتاکان دەسڕێنەوە و دەبێتەوە وەکو ڕۆژی یەکەم.</p>
+                        </div>
+                        <button type="button" class="btn btn-danger" onclick="clearAllData()"><i class="fa-solid fa-trash-can"></i> سڕینەوەی گشتی</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- مۆدێلی دەستکاریکردنی ڕۆڵ و دەسەڵاتی یوزەر بەبێ سڕینەوە -->
+<div id="editUserModal" class="modal">
+    <div class="modal-content">
+        <h3><i class="fa-solid fa-user-pen"></i> دەستکاریکردنی بەکارهێنەر و ڕۆڵ</h3>
+        <form onsubmit="saveUserChanges(event)" style="margin-top: 15px;">
+            <input type="hidden" id="editUserId">
+            <div class="form-group" style="margin-bottom: 12px;">
+                <label>ناوی تەواو</label>
+                <input type="text" id="editFullName" required>
+            </div>
+            <div class="form-group" style="margin-bottom: 12px;">
+                <label>ڕۆڵ (Role)</label>
+                <select id="editUserRole" onchange="toggleEditPermissionsUI()">
+                    <option value="user">یوزەری ئاسایی (User)</option>
+                    <option value="admin">بەڕێوەبەر (Admin)</option>
+                </select>
+            </div>
+            <div class="form-group" style="margin-bottom: 12px;">
+                <label>وشەی نهێنی نوێ (ئەگەر ناتەوێ بگۆڕدرێ بە بەتاڵی جێیبهێڵە)</label>
+                <input type="password" id="editUserPassword" placeholder="دانانی وشەی نوێ...">
+            </div>
+
+            <div id="editPermissionsWrap" style="margin-bottom: 16px;">
+                <label style="font-weight: 600; margin-bottom: 6px; display: block; font-size: 13.5px;">دەسەڵاتەکان و بەشە ڕێگەپێدراوەکان:</label>
+                <div class="permissions-grid">
+                    <label><input type="checkbox" name="editPerms" value="implantMatrix"> چاودێری ئیمپلانتەکان</label>
+                    <label><input type="checkbox" name="editPerms" value="sales"> بەشی فرۆشتن</label>
+                    <label><input type="checkbox" name="editPerms" value="payments"> وەسڵی قەبز</label>
+                    <label><input type="checkbox" name="editPerms" value="supPayments"> پارەدان بە دابینکەر</label>
+                    <label><input type="checkbox" name="editPerms" value="expenses"> خەرجییەکان</label>
+                    <label><input type="checkbox" name="editPerms" value="items"> کۆگا</label>
+                    <label><input type="checkbox" name="editPerms" value="purchases"> کڕین لە دابینکەر</label>
+                    <label><input type="checkbox" name="editPerms" value="returns"> گەڕاندنەوە</label>
+                    <label><input type="checkbox" name="editPerms" value="statement"> کەشفی حساب</label>
+                    <label><input type="checkbox" name="editPerms" value="suppliers"> دابینکەران</label>
+                    <label><input type="checkbox" name="editPerms" value="customers"> کڕیاران</label>
+                </div>
+            </div>
+
+            <div style="display: flex; gap: 10px; justify-content: flex-end;">
+                <button type="button" class="btn btn-danger" onclick="closeEditUserModal()">پاشگەزبوونەوە</button>
+                <button type="submit" class="btn btn-success"><i class="fa-solid fa-floppy-disk"></i> پاشەکەوتکردنی گۆڕانکاری</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- مۆدێلەکان -->
+<div id="itemCategoryModal" class="modal">
+    <div class="modal-content">
+        <h3>زیادکردنی کاتیگۆری مەوادی نوێ</h3>
+        <form id="itemCategoryForm" onsubmit="saveItemCategory(event)" style="margin-top: 15px;">
+            <div class="form-group" style="margin-bottom: 15px;">
+                <label>ناوی کاتیگۆری</label>
+                <input type="text" id="newItemCategoryName" placeholder="نموونە: ئیمپلانت، ئامێرەکان..." required>
+            </div>
+            <div style="display: flex; gap: 10px; justify-content: flex-end;">
+                <button type="button" class="btn btn-danger" onclick="closeItemCategoryModal()">پاشگەزبوونەوە</button>
+                <button type="submit" class="btn btn-success">خەزنکردن</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div id="quickSupplierModal" class="modal">
+    <div class="modal-content">
+        <h3>زیادکردنی دابینکەری نوێ</h3>
+        <form id="quickSupplierForm" onsubmit="saveQuickSupplier(event)" style="margin-top: 15px;">
+            <div class="form-group" style="margin-bottom: 10px;">
+                <label>ناوی دابینکەر</label>
+                <input type="text" id="quickSupName" required>
+            </div>
+            <div class="form-group" style="margin-bottom: 10px;">
+                <label>تەلەفۆن</label>
+                <input type="text" id="quickSupPhone">
+            </div>
+            <div class="form-group" style="margin-bottom: 15px;">
+                <label>ناونیشان</label>
+                <input type="text" id="quickSupAddress">
+            </div>
+            <div style="display: flex; gap: 10px; justify-content: flex-end;">
+                <button type="button" class="btn btn-danger" onclick="closeSupplierModal()">پاشگەزبوونەوە</button>
+                <button type="submit" class="btn btn-success">خەزنکردن</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div id="categoryModal" class="modal">
+    <div class="modal-content">
+        <h3>زیادکردنی کاتیگۆری خەرجی نوێ</h3>
+        <form id="categoryForm" onsubmit="saveCategory(event)" style="margin-top: 15px;">
+            <div class="form-group" style="margin-bottom: 15px;">
+                <label>ناوی کاتیگۆری (جۆری خەرجی)</label>
+                <input type="text" id="catName" placeholder="نموونە: کرێی شوێن، کارەبا..." required>
+            </div>
+            <div style="display: flex; gap: 10px; justify-content: flex-end;">
+                <button type="button" class="btn btn-danger" onclick="closeCategoryModal()">پاشگەزبوونەوە</button>
+                <button type="submit" class="btn btn-success">خەزنکردن</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div id="voidModal" class="modal">
+    <div class="modal-content">
+        <h3 style="color: var(--danger);"><i class="fa-solid fa-ban"></i> پووچەڵکردنەوەی وەسڵ</h3>
+        <p style="margin-top: 10px; font-size: 14px;">تکایە هۆکاری پووچەڵکردنەوەی ئەم وەسڵە بنووسە:</p>
+        <form onsubmit="confirmVoidPayment(event)" style="margin-top: 15px;">
+            <input type="hidden" id="voidTargetId">
+            <input type="hidden" id="voidTargetType">
+            <div class="form-group" style="margin-bottom: 15px;">
+                <label>هۆکاری پووچەڵکردنەوە</label>
+                <input type="text" id="voidReasonInput" placeholder="نموونە: هەڵە لە تۆمارکردن..." required>
+            </div>
+            <div style="display: flex; gap: 10px; justify-content: flex-end;">
+                <button type="button" class="btn btn-warning" onclick="closeVoidModal()">پاشگەزبوونەوە</button>
+                <button type="submit" class="btn btn-danger">پووچەڵکردنەوە</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- پرێنتکردنی فاکتەری فرۆشتن -->
+<div id="printableInvoice">
+    <div class="invoice-box">
+        <div class="invoice-header">
+            <div style="display: flex; align-items: center; gap: 15px;">
+                <img src="logo.png" alt="Ara Guide" class="print-logo" onerror="this.style.display='none'">
+                <div>
+                    <h2 style="font-size: 22px; color: #0f172a; margin-bottom: 4px;">Ara Guide</h2>
+                    <p style="color: #64748b; font-size: 13px;">پسوولەی فرۆشتنی مەواد</p>
+                </div>
+            </div>
+            <div style="text-align: left; font-size: 13px; color: #334155; line-height: 1.6;">
+                <p><strong>ژمارەی فاکتەر:</strong> #<span id="invId"></span></p>
+                <p><strong>مێژوو:</strong> <span id="invDate"></span></p>
+            </div>
+        </div>
+
+        <div style="margin-bottom: 15px; font-size: 15px; color: #0f172a;">
+            <strong>ناوی کڕیار:</strong> <span id="invCustomer" style="margin-right: 5px;"></span>
+        </div>
+        
+        <table class="print-table">
+            <thead>
+                <tr>
+                    <th style="text-align: right; width: 45%;">مەواد</th>
+                    <th class="t-center" style="width: 15%;">بڕ</th>
+                    <th class="t-center" style="width: 20%;">نرخی تاک</th>
+                    <th class="t-center" style="width: 20%;">کۆی گشتی</th>
+                </tr>
+            </thead>
+            <tbody id="printableInvoiceItems"></tbody>
+        </table>
+
+        <div style="display: flex; justify-content: flex-end; margin-top: 15px;">
+            <div style="min-width: 200px; padding: 10px 14px; background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 6px; text-align: left;">
+                <span style="font-size: 14px; color: #64748b; font-weight: bold; margin-left: 10px;">کۆی گشتی:</span>
+                <strong style="font-size: 18px; color: #0f172a;">$<span id="invGrandTotal"></span></strong>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- پرێنتکردنی وەسڵی قەبز -->
+<div id="printableReceipt">
+    <div class="invoice-box">
+        <div class="invoice-header">
+            <div style="display: flex; align-items: center; gap: 15px;">
+                <img src="logo.png" alt="Ara Guide" class="print-logo" onerror="this.style.display='none'">
+                <div>
+                    <h2 style="font-size: 22px; color: #0f172a; margin-bottom: 4px;">Ara Guide</h2>
+                    <p style="font-size: 14px; font-weight: bold; color: #64748b;">وەسڵی قەبز (سەنەدی وەرگرتنی پارە)</p>
+                </div>
+            </div>
+            <div style="text-align: left; font-size: 13px; color: #334155; line-height: 1.6;">
+                <p><strong>ژمارەی وەسڵ:</strong> #<span id="recId"></span></p>
+                <p><strong>بەروار:</strong> <span id="recDate"></span></p>
+            </div>
+        </div>
+        
+        <div style="line-height: 2.2; font-size: 15px; margin: 25px 0; border-bottom: 1px dashed #cbd5e1; padding-bottom: 20px;">
+            <p>وەرگیرا لە بەڕێز: <strong><span id="recCustomer"></span></strong></p>
+            <p>بڕی پارە: <strong style="color: #0f172a; font-size: 17px;">$<span id="recAmount"></span></strong></p>
+            <p>تێبینی / لەبەرامبەر: <strong><span id="recNote"></span></strong></p>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; margin-top: 40px; padding: 0 10px; font-size: 14px;">
+            <div>ئیمزای وەرگر: _________________</div>
+            <div>ئیمزای بەخشەر: _________________</div>
+        </div>
+    </div>
+</div>
+
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+
+<script>
+    // ڕێکخستنی فایەربەیس - ئەمە ئەو کۆدەیە کە خۆت ناردت
+    const firebaseConfig = {
+      apiKey: "AIzaSyDNxVtqbYiY4JWTfID8nSoEpZgoW1gDCAo",
+      authDomain: "ara-guide22.firebaseapp.com",
+      databaseURL: "https://ara-guide22-default-rtdb.firebaseio.com",
+      projectId: "ara-guide22",
+      storageBucket: "ara-guide22.firebasestorage.app",
+      messagingSenderId: "1078858995746",
+      appId: "1:1078858995746:web:bbcbb6cf33521e300b527b"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const firestore = firebase.firestore();
+
+    const defaultUsers = [
+        {
+            id: 1,
+            username: 'admin',
+            fullName: 'بەڕێوەبەری گشتی',
+            password: 'admin123',
+            role: 'admin',
+            permissions: ['all']
+        }
+    ];
+
+    // دروستکردنی گۆڕاوی db کە خاڵییە تا لە فایەربەیسەوە پڕ دەکرێتەوە
+    let db = {
+        users: [], itemCategories: [], items: [], suppliers: [], customers: [],
+        purchases: [], sales: [], returns: [], payments: [], supplierPayments: [],
+        expenseCategories: [], expenses: []
+    };
+
+    let currentUser = null;
+    try {
+        currentUser = JSON.parse(sessionStorage.getItem('active_user'));
+    } catch(e) { currentUser = null; }
+
+    let targetSelectId = '';
+    let currentMatrixFilter = 'all';
+    let currentCart = [];
+    let salesExpensesChartInstance = null;
+    let balanceDoughnutChartInstance = null;
+
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById('saleDate').value = today;
+    document.getElementById('payDate').value = today;
+    document.getElementById('supPayDate').value = today;
+    document.getElementById('expenseDate').value = today;
+    document.getElementById('purchaseDate').value = today;
+
+    // فانکشنی نوێ بۆ ناردنی زانیارییەکان بۆ فایەربەیس
+    async function saveData() {
+        try {
+            await firestore.collection("SystemData").doc("MainDB").set(db);
+            renderDashboard();
+            renderImplantMatrix();
+        } catch (error) {
+            console.error("هەڵە لە خەزنکردنی داتاکان: ", error);
+            alert("کێشەیەک هەیە لە خەزنکردنی زانیارییەکان لە ئۆنلاین!");
+        }
+    }
+
+    function checkAuth() {
+        if (!currentUser) {
+            document.getElementById('loginScreen').style.display = 'flex';
+        } else {
+            document.getElementById('loginScreen').style.display = 'none';
+            document.getElementById('currentUserName').innerText = currentUser.fullName;
+            document.getElementById('currentUserRole').innerText = currentUser.role === 'admin' ? 'ئەدمین' : 'یوزەر';
+            applyPermissions();
+        }
+    }
+
+    function handleLogin(e) {
+        if(e) e.preventDefault();
+        const u = document.getElementById('loginUsername').value.trim().toLowerCase();
+        const p = document.getElementById('loginPassword').value.trim();
+
+        const found = db.users.find(user => 
+            user.username.trim().toLowerCase() === u && 
+            user.password.trim() === p
+        );
+
+        if (found) {
+            currentUser = found;
+            try { sessionStorage.setItem('active_user', JSON.stringify(found)); } catch(err) {}
+            checkAuth();
+        } else {
+            alert('ناوی بەکارهێنەر یان وشەی نهێنی هەڵەیە!');
+        }
+    }
+
+    function logout() {
+        if (confirm('دڵنیایت لە دەرچوون؟')) {
+            currentUser = null;
+            try { sessionStorage.removeItem('active_user'); } catch(e) {}
+            checkAuth();
+        }
+    }
+
+    function applyPermissions() {
+        const isAdmin = currentUser && currentUser.role === 'admin';
+        const perms = (currentUser && currentUser.permissions) ? currentUser.permissions : [];
+
+        const allButtons = document.querySelectorAll('.tab-btn');
+        allButtons.forEach(btn => {
+            const tab = btn.getAttribute('data-tab');
+            if (isAdmin) {
+                btn.style.display = 'flex';
+            } else {
+                if (tab === 'dashboard' || tab === 'users' || tab === 'dataCleaning') {
+                    btn.style.display = 'none';
+                } else if (perms.includes(tab)) {
+                    btn.style.display = 'flex';
+                } else {
+                    btn.style.display = 'none';
+                }
+            }
+        });
+
+        if (isAdmin) {
+            switchTab('dashboard');
+        } else {
+            const firstAllowedBtn = Array.from(allButtons).find(b => b.style.display !== 'none');
+            if (firstAllowedBtn) {
+                switchTab(firstAllowedBtn.getAttribute('data-tab'));
+            }
+        }
+    }
+
+    function switchTab(tabId) {
+        if (currentUser && currentUser.role !== 'admin' && (tabId === 'dashboard' || tabId === 'users' || tabId === 'dataCleaning')) {
+            return;
+        }
+
+        const contents = document.querySelectorAll('.tab-content');
+        for (let i = 0; i < contents.length; i++) {
+            contents[i].classList.remove('active');
+            contents[i].style.display = 'none';
+        }
+
+        const buttons = document.querySelectorAll('.tab-btn');
+        for (let i = 0; i < buttons.length; i++) {
+            buttons[i].classList.remove('active');
+        }
+
+        const targetContent = document.getElementById(tabId);
+        if (targetContent) {
+            targetContent.classList.add('active');
+            targetContent.style.display = 'flex';
+        }
+
+        const targetBtn = document.querySelector(`.tab-btn[data-tab="${tabId}"]`);
+        if (targetBtn) {
+            targetBtn.classList.add('active');
+        }
+        
+        if (tabId === 'sales') { updateSaleDropdowns(); renderCart(); renderSales(); }
+        if (tabId === 'payments') updatePaymentDropdowns();
+        if (tabId === 'supPayments') updateSupPaymentDropdowns();
+        if (tabId === 'expenses') updateExpenseDropdowns();
+        if (tabId === 'items') updateItemCategoryDropdowns();
+        if (tabId === 'purchases') updatePurchaseDropdowns();
+        if (tabId === 'returns') updateReturnDropdowns();
+        if (tabId === 'statement') updateStatementDropdown();
+        if (tabId === 'customers') renderCustomers();
+        if (tabId === 'implantMatrix') renderImplantMatrix();
+        if (tabId === 'users') renderUsers();
+        if (tabId === 'dashboard') renderDashboard();
+    }
+
+    function updateSaleDropdowns() {
+        const custSelect = document.getElementById('saleCustomer');
+        const itemSelect = document.getElementById('saleItem');
+        custSelect.innerHTML = '<option value="">کڕیارێک هەڵبژێرە</option>';
+        db.customers.forEach(c => custSelect.innerHTML += `<option value="${c.name}">${c.name}</option>`);
+        itemSelect.innerHTML = '<option value="">مەوادێک هەڵبژێرە</option>';
+        db.items.forEach(i => itemSelect.innerHTML += `<option value="${i.id}">${i.name} (${i.type || ''} - ${i.size || ''}) - کۆگا: ${i.qty}</option>`);
+    }
+
+    function autoFillSellPrice() {
+        const item = db.items.find(i => i.id == document.getElementById('saleItem').value);
+        if(item) document.getElementById('saleUnitPrice').value = item.sellPrice;
+    }
+
+    function addToCart() {
+        const itemId = parseInt(document.getElementById('saleItem').value);
+        const qty = parseInt(document.getElementById('saleQty').value);
+        const unitPrice = parseFloat(document.getElementById('saleUnitPrice').value);
+
+        if (!itemId) return alert('تکایە مەوادێک هەڵبژێرە!');
+        if (!qty || qty <= 0) return alert('تکایە بڕی ڕاست بنووسە!');
+        if (isNaN(unitPrice)) return alert('نرخ هەڵەیە!');
+
+        const item = db.items.find(i => i.id === itemId);
+        if (!item) return alert('مەواد نەدۆزرایەوە!');
+
+        const existingInCart = currentCart.find(c => c.itemId === itemId);
+        const currentQtyInCart = existingInCart ? existingInCart.qty : 0;
+
+        if (item.qty < (currentQtyInCart + qty)) {
+            return alert(`⚠️ بڕی ناو کۆگا بەس نییە! تەنها (${item.qty}) دانە لە کۆگادا هەەیە.`);
+        }
+
+        if (existingInCart) {
+            existingInCart.qty += qty;
+            existingInCart.total = existingInCart.qty * existingInCart.unitPrice;
+        } else {
+            currentCart.push({
+                itemId: item.id,
+                name: `${item.name} (${item.type || ''} - ${item.size || ''})`,
+                qty: qty,
+                unitPrice: unitPrice,
+                total: qty * unitPrice
+            });
+        }
+
+        renderCart();
+        document.getElementById('saleQty').value = 1;
+    }
+
+    function removeFromCart(index) {
+        currentCart.splice(index, 1);
+        renderCart();
+    }
+
+    function renderCart() {
+        const tbody = document.getElementById('cartTableBody');
+        tbody.innerHTML = '';
+        let grandTotal = 0;
+
+        if (currentCart.length === 0) {
+            tbody.innerHTML = `<tr><td colspan="5" class="t-center" style="color: var(--text-muted); padding: 20px;">سەبەتە بەتاڵە. مەواد هەڵبژێرە و زیادی بکە.</td></tr>`;
+            document.getElementById('cartGrandTotal').innerText = '$0.00';
+            return;
+        }
+
+        currentCart.forEach((item, idx) => {
+            grandTotal += item.total;
+            tbody.innerHTML += `<tr>
+                <td><strong>${item.name}</strong></td>
+                <td class="t-center">${item.qty}</td>
+                <td class="t-center">$${item.unitPrice.toFixed(2)}</td>
+                <td class="t-center"><strong>$${item.total.toFixed(2)}</strong></td>
+                <td class="t-center"><button type="button" class="btn btn-danger btn-sm" onclick="removeFromCart(${idx})"><i class="fa-solid fa-trash"></i></button></td>
+            </tr>`;
+        });
+
+        document.getElementById('cartGrandTotal').innerText = `$${grandTotal.toFixed(2)}`;
+    }
+
+    function checkoutSale() {
+        const customer = document.getElementById('saleCustomer').value;
+        const date = document.getElementById('saleDate').value || today;
+
+        if (!customer) return alert('تکایە ناوی کڕیار (پزیشک) دیاری بکە!');
+        if (currentCart.length === 0) return alert('سەبەتە بەتاڵە! هیچ مەوادێک نەخراوەتە ناو پسوولەکەوە.');
+
+        let grandTotal = currentCart.reduce((sum, i) => sum + i.total, 0);
+
+        currentCart.forEach(cartItem => {
+            const item = db.items.find(i => i.id === cartItem.itemId);
+            if (item) {
+                item.qty -= cartItem.qty;
+            }
+        });
+
+        const saleRecord = {
+            id: Date.now(),
+            date: date,
+            customer: customer,
+            items: [...currentCart],
+            total: grandTotal
+        };
+
+        db.sales.push(saleRecord);
+        saveData();
+        renderItems();
+        renderSales();
+
+        printMultiItemInvoice(saleRecord);
+
+        currentCart = [];
+        renderCart();
+        document.getElementById('saleForm').reset();
+        document.getElementById('saleDate').value = today;
+    }
+
+    function printMultiItemInvoice(sale) {
+        document.getElementById('invId').innerText = sale.id.toString().slice(-4);
+        document.getElementById('invDate').innerText = sale.date;
+        document.getElementById('invCustomer').innerText = sale.customer;
+        
+        const tbody = document.getElementById('printableInvoiceItems');
+        tbody.innerHTML = '';
+
+        sale.items.forEach(i => {
+            tbody.innerHTML += `<tr>
+                <td style="border:1px solid #cbd5e1; padding:8px;">${i.name}</td>
+                <td style="border:1px solid #cbd5e1; padding:8px; text-align:center;">${i.qty}</td>
+                <td style="border:1px solid #cbd5e1; padding:8px; text-align:center;">$${i.unitPrice.toFixed(2)}</td>
+                <td style="border:1px solid #cbd5e1; padding:8px; text-align:center; font-weight:bold;">$${i.total.toFixed(2)}</td>
+            </tr>`;
+        });
+
+        document.getElementById('invGrandTotal').innerText = sale.total.toFixed(2);
+
+        document.getElementById('printableInvoice').classList.add('print-active');
+        window.print();
+        document.getElementById('printableInvoice').classList.remove('print-active');
+    }
+
+    function renderSales() {
+        const tbody = document.getElementById('salesTable');
+        tbody.innerHTML = '';
+        db.sales.slice().reverse().forEach(s => {
+            let itemsSummary = '';
+            if (s.items && Array.isArray(s.items)) {
+                itemsSummary = s.items.map(i => `${i.name} (${i.qty} دانە)`).join('<br>');
+            } else {
+                itemsSummary = s.itemName || 'مەواد';
+            }
+
+            tbody.innerHTML += `<tr>
+                <td>#${s.id.toString().slice(-4)}</td>
+                <td>${s.date}</td>
+                <td><strong>${s.customer}</strong></td>
+                <td style="font-size: 13.5px; color: #475569; line-height: 1.5;">${itemsSummary}</td>
+                <td class="t-center"><strong style="color:var(--success);">$${s.total.toFixed(2)}</strong></td>
+                <td class="t-center"><button type="button" class="btn btn-warning btn-sm" onclick="printMultiItemInvoiceById(${s.id})"><i class="fa-solid fa-print"></i></button></td>
+            </tr>`;
+        });
+    }
+
+    function printMultiItemInvoiceById(id) {
+        const sale = db.sales.find(s => s.id === id);
+        if(!sale) return;
+        if (!sale.items) {
+            sale.items = [{ name: sale.itemName || 'مەواد', qty: sale.qty || 1, unitPrice: sale.unitPrice || sale.total, total: sale.total }];
+        }
+        printMultiItemInvoice(sale);
+    }
+
+    function filterImplantMatrix(filterType) {
+        currentMatrixFilter = filterType;
+        document.querySelectorAll('.filter-pill').forEach(btn => btn.classList.remove('active'));
+        if (event && event.target) event.target.classList.add('active');
+        renderImplantMatrix();
+    }
+
+    function renderImplantMatrix() {
+        const container = document.getElementById('implantGridContainer');
+        if (!container) return;
+        container.innerHTML = '';
+
+        const searchQuery = (document.getElementById('matrixSearchInput') ? document.getElementById('matrixSearchInput').value : '').toLowerCase().trim();
+
+        const implants = db.items.filter(item => {
+            const isImplantCat = item.category === 'implant' || 
+                                 (item.category && item.category.toLowerCase().includes('implant')) || 
+                                 (item.category && item.category.includes('ئیمپلانت')) ||
+                                 (item.name && item.name.toLowerCase().includes('implant')) ||
+                                 (item.name && item.name.includes('ئیمپلانت'));
+
+            const matchesSearch = !searchQuery || 
+                                  (item.size && item.size.toLowerCase().includes(searchQuery)) ||
+                                  (item.type && item.type.toLowerCase().includes(searchQuery)) ||
+                                  (item.name && item.name.toLowerCase().includes(searchQuery)) ||
+                                  (item.code && item.code.toLowerCase().includes(searchQuery));
+
+            return isImplantCat && matchesSearch;
+        });
+
+        let filteredImplants = implants.filter(item => {
+            if (currentMatrixFilter === 'out') return item.qty <= 0;
+            if (currentMatrixFilter === 'low') return item.qty > 0 && item.qty < 5;
+            if (currentMatrixFilter === 'available') return item.qty >= 5;
+            return true;
+        });
+
+        filteredImplants.sort((a, b) => a.qty - b.qty);
+
+        if (filteredImplants.length === 0) {
+            container.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 40px; color: var(--text-muted); background: #f8fafc; border-radius: var(--radius-lg); border: 1px dashed var(--border-color);">
+                <svg class="implant-svg-icon" style="width: 44px; height: 44px; margin-bottom: 10px; color: #cbd5e1;" viewBox="0 0 24 24">
+                    <path d="M7 2h10v3l-1.5 1.5v1.5l1.5 1V10l-1.5 1v1.5l1.5 1V15l-1.5 1v1.5l1.5 1V19l-3 3h-2l-3-3v-.5l1.5-1V16l-1.5-1v-1.5l1.5-1V11l-1.5-1V8.5l1.5-1V6L7 4.5V2zm3 2v1h4V4h-4zm-1 3.5l1.5 1v1L9 11v1.5l1.5 1v1L9 16v1.5l1.5 1v1L12 21l1.5-1.5v-1l1.5-1V16l-1.5-1.5v-1l1.5-1V11l-1.5-1.5v-1l1.5-1V6.5L13.5 5h-3L9 6.5v1z"/>
+                </svg>
+                <p style="font-size: 15px; font-weight: 600;">هیچ پێوانە و قیاسێکی ئیمپلانت نەدۆزرایەوە بەپێی ئەم فلتەرە!</p>
+            </div>`;
+            return;
+        }
+
+        filteredImplants.forEach(item => {
+            let statusClass = 'in-stock';
+            let qtyColor = 'var(--success)';
+
+            if (item.qty <= 0) {
+                statusClass = 'out-of-stock';
+                qtyColor = 'var(--danger)';
+            } else if (item.qty < 5) {
+                statusClass = 'low-stock';
+                qtyColor = 'var(--warning)';
+            }
+
+            container.innerHTML += `
+                <div class="implant-card ${statusClass}">
+                    <div>
+                        <span class="implant-size-badge">
+                            <svg class="implant-svg-icon" style="width: 22px; height: 22px; color: var(--primary);" viewBox="0 0 24 24">
+                                <path d="M7 2h10v3l-1.5 1.5v1.5l1.5 1V10l-1.5 1v1.5l1.5 1V15l-1.5 1v1.5l1.5 1V19l-3 3h-2l-3-3v-.5l1.5-1V16l-1.5-1v-1.5l1.5-1V11l-1.5-1V8.5l1.5-1V6L7 4.5V2zm3 2v1h4V4h-4zm-1 3.5l1.5 1v1L9 11v1.5l1.5 1v1L9 16v1.5l1.5 1v1L12 21l1.5-1.5v-1l1.5-1V16l-1.5-1.5v-1l1.5-1V11l-1.5-1.5v-1l1.5-1V6.5L13.5 5h-3L9 6.5v1z"/>
+                            </svg>
+                            ${item.size && item.size !== '-' ? item.size : 'قیاس دیارینەکراو'}
+                        </span>
+                        <div class="implant-name-lg" title="${item.name}">${item.name}</div>
+                        <div class="implant-type-sub"><i class="fa-solid fa-code-fork"></i> مۆدێل: <strong>${item.type || '-'}</strong> | کۆد: ${item.code}</div>
+                    </div>
+                    <div class="implant-qty-container">
+                        <span class="implant-qty-label">بڕی ناو کۆگا:</span>
+                        <span class="implant-qty-number" style="color: ${qtyColor};">${item.qty}</span>
+                    </div>
+                </div>
+            `;
+        });
+    }
+
+    function viewCustomerStatement(customerName) {
+        switchTab('statement');
+        document.getElementById('statementType').value = 'customer';
+        updateStatementDropdown();
+        document.getElementById('statementParty').value = customerName;
+        generateStatement();
+    }
+
+    function changeAdminPassword(e) {
+        e.preventDefault();
+        const currentPass = document.getElementById('currentAdminPass').value.trim();
+        const newPass = document.getElementById('newAdminPass').value.trim();
+        const confirmPass = document.getElementById('confirmAdminPass').value.trim();
+
+        const adminIndex = db.users.findIndex(u => u.username.toLowerCase() === 'admin');
+
+        if (adminIndex === -1) {
+            return alert('ئەژماری ئەدمین نەدۆزرایەوە!');
+        }
+
+        if (db.users[adminIndex].password.trim() !== currentPass) {
+            return alert('وشەی نهێنی ئێستات هەڵەیە!');
+        }
+
+        if (newPass !== confirmPass) {
+            return alert('وشەی نهێنی نوێ و دووبارەکردنەوەکەی وەک یەک نین!');
+        }
+
+        if (newPass.length < 4) {
+            return alert('وشەی نهێنی نوێ دەبێت لانیکەم ٤ پیت یان ژمارە بێت!');
+        }
+
+        db.users[adminIndex].password = newPass;
+
+        if (currentUser.username.toLowerCase() === 'admin') {
+            currentUser.password = newPass;
+            try { sessionStorage.setItem('active_user', JSON.stringify(currentUser)); } catch(e) {}
+        }
+
+        saveData();
+
+        document.getElementById('currentAdminPass').value = '';
+        document.getElementById('newAdminPass').value = '';
+        document.getElementById('confirmAdminPass').value = '';
+
+        alert('✅ وشەی نهێنی ئەدمین بە سەرکەوتوویی گۆڕدرا!');
+    }
+
+    function addUser(e) {
+        e.preventDefault();
+        const username = document.getElementById('newUsername').value.trim().toLowerCase();
+        const fullName = document.getElementById('newFullName').value.trim();
+        const password = document.getElementById('newPassword').value.trim();
+
+        if (db.users.find(u => u.username.toLowerCase() === username)) {
+            return alert('ئەم ناوی بەکارهێنەرە پێشتر بەکارهاتووە!');
+        }
+
+        const checkedPerms = [];
+        document.querySelectorAll('input[name="userPerms"]:checked').forEach(cb => {
+            if (cb.value !== 'dashboard') {
+                checkedPerms.push(cb.value);
+            }
+        });
+
+        const newUser = {
+            id: Date.now(),
+            username,
+            fullName,
+            password,
+            role: 'user',
+            permissions: checkedPerms
+        };
+
+        db.users.push(newUser);
+        saveData();
+        renderUsers();
+        document.getElementById('userForm').reset();
+        alert('بەکارهێنەری نوێ بە سەرکەوتوویی زیادکرا!');
+    }
+
+    function renderUsers() {
+        const tbody = document.getElementById('usersTable');
+        tbody.innerHTML = '';
+
+        const permNames = {
+            implantMatrix: 'چاودێری ئیمپلانتەکان',
+            sales: 'فرۆشتن',
+            payments: 'وەسڵ',
+            supPayments: 'پارەدان دابینکەر',
+            expenses: 'خەرجی',
+            items: 'کۆگا',
+            purchases: 'کڕین',
+            returns: 'گەڕاندنەوە',
+            statement: 'کەشف',
+            suppliers: 'دابینکەران',
+            customers: 'کڕیاران'
+        };
+
+        db.users.forEach(u => {
+            let permsText = '';
+            if (u.role === 'admin') {
+                permsText = '<span class="badge badge-sup">سەرجەم دەسەڵاتەکان + داشبۆرد</span>';
+            } else {
+                permsText = (u.permissions || []).map(p => `<span class="badge badge-cust">${permNames[p] || p}</span>`).join(' ');
+            }
+
+            let actionBtns = '';
+            if (u.role === 'admin') {
+                actionBtns = '<span style="color:#94a3b8; font-size:13px;">ئەدمینی سەرەکی</span>';
+            } else {
+                actionBtns = `
+                    <button type="button" class="btn btn-purple btn-sm" onclick="openEditUserModal(${u.id})"><i class="fa-solid fa-pen-to-square"></i> دەستکاری ڕۆڵ</button>
+                    <button type="button" class="btn btn-danger btn-sm" onclick="deleteUser(${u.id})"><i class="fa-solid fa-trash"></i></button>
+                `;
+            }
+
+            tbody.innerHTML += `<tr>
+                <td><strong>${u.username}</strong></td>
+                <td>${u.fullName}</td>
+                <td><span class="badge ${u.role === 'admin' ? 'badge-implant' : 'badge-access'}">${u.role === 'admin' ? 'ئەدمین' : 'یوزەر'}</span></td>
+                <td>${permsText}</td>
+                <td class="t-center">${actionBtns}</td>
+            </tr>`;
+        });
+    }
+
+    /* 🛠️ دەستکاریکردنی ڕۆڵ و دەسەڵاتی یوزەر بەبێ سڕینەوە */
+    function openEditUserModal(userId) {
+        const user = db.users.find(u => u.id === userId);
+        if (!user) return alert('بەکارهێنەر نەدۆزرایەوە!');
+
+        document.getElementById('editUserId').value = user.id;
+        document.getElementById('editFullName').value = user.fullName;
+        document.getElementById('editUserRole').value = user.role;
+        document.getElementById('editUserPassword').value = '';
+
+        const userPerms = user.permissions || [];
+        document.querySelectorAll('input[name="editPerms"]').forEach(cb => {
+            cb.checked = userPerms.includes(cb.value);
+        });
+
+        toggleEditPermissionsUI();
+        document.getElementById('editUserModal').style.display = 'flex';
+    }
+
+    function toggleEditPermissionsUI() {
+        const role = document.getElementById('editUserRole').value;
+        const permsWrap = document.getElementById('editPermissionsWrap');
+        if (role === 'admin') {
+            permsWrap.style.display = 'none';
+        } else {
+            permsWrap.style.display = 'block';
+        }
+    }
+
+    function closeEditUserModal() {
+        document.getElementById('editUserModal').style.display = 'none';
+    }
+
+    function saveUserChanges(e) {
+        e.preventDefault();
+        const userId = parseInt(document.getElementById('editUserId').value);
+        const user = db.users.find(u => u.id === userId);
+        if (!user) return alert('بەکارهێنەر نەدۆزرایەوە!');
+
+        const fullName = document.getElementById('editFullName').value.trim();
+        const role = document.getElementById('editUserRole').value;
+        const newPassword = document.getElementById('editUserPassword').value.trim();
+
+        user.fullName = fullName;
+        user.role = role;
+
+        if (newPassword) {
+            user.password = newPassword;
+        }
+
+        if (role === 'admin') {
+            user.permissions = ['all'];
+        } else {
+            const checkedPerms = [];
+            document.querySelectorAll('input[name="editPerms"]:checked').forEach(cb => {
+                checkedPerms.push(cb.value);
+            });
+            user.permissions = checkedPerms;
+        }
+
+        saveData();
+        renderUsers();
+        closeEditUserModal();
+        alert('✅ گۆڕانکارییەکانی بەکارهێنەر بە سەرکەوتوویی پاشەکەوت کران!');
+    }
+
+    function deleteUser(id) {
+        if (confirm('دڵنیایت لە سڕینەوەی ئەم بەکارهێنەرە؟')) {
+            db.users = db.users.filter(u => u.id !== id);
+            saveData();
+            renderUsers();
+        }
+    }
+
+    function clearTransactionsOnly() {
+        if (confirm("⚠️ ئایا دڵنیایت لە سڕینەوەی سەرجەم وەسڵەکان و مامەڵەکان؟")) {
+            db.sales = []; db.purchases = []; db.returns = []; db.payments = []; db.supplierPayments = []; db.expenses = [];
+            saveData();
+            renderSales(); renderPurchases(); renderReturns(); renderPayments(); renderSupPayments(); renderExpenses();
+            alert("✅ سەرجەم مامەڵە و وەسڵەکان سڕانەوە!");
+        }
+    }
+
+    function clearItemsOnly() {
+        if (confirm("⚠️ ئایا دڵنیایت لە سڕینەوەی سەرجەم مەوادەکانی ناو کۆگا؟")) {
+            db.items = [];
+            saveData();
+            renderItems();
+            renderImplantMatrix();
+            alert("✅ کۆگا خاوێنکرایەوە!");
+        }
+    }
+
+    function clearAllData() {
+        const confirmCode = prompt("⚠️ بۆ پشتڕاستکردنەوەی سڕینەوەی گشتی بنووسە: DELETE");
+        if (confirmCode === "DELETE") {
+            // سڕینەوە لە فایەربەیس
+            db = {
+                users: defaultUsers, itemCategories: [], items: [], suppliers: [], customers: [],
+                purchases: [], sales: [], returns: [], payments: [], supplierPayments: [],
+                expenseCategories: [], expenses: []
+            };
+            saveData();
+            location.reload();
+        } else if (confirmCode !== null) {
+            alert("❌ وشەی پشتڕاستکردنەوە هەڵە بوو.");
+        }
+    }
+
+    function filterByDateRange(items, startDate, endDate) {
+        if (!startDate && !endDate) return items;
+        return items.filter(item => {
+            const itemDate = item.date;
+            if (!itemDate) return true;
+            if (startDate && endDate) return itemDate >= startDate && itemDate <= endDate;
+            if (startDate) return itemDate >= startDate;
+            if (endDate) return itemDate <= endDate;
+            return true;
+        });
+    }
+
+    function resetDashFilter() {
+        document.getElementById('dashStartDate').value = '';
+        document.getElementById('dashEndDate').value = '';
+        renderDashboard();
+    }
+
+    function updateCharts(filteredSales, filteredExpenses, totalSales, totalExpenses, totalCustDue, totalSupDue) {
+        if (!document.getElementById('salesExpensesChart') || !document.getElementById('balanceDoughnutChart')) return;
+        
+        const dateMap = {};
+        filteredSales.forEach(s => {
+            if (!dateMap[s.date]) dateMap[s.date] = { sales: 0, expenses: 0 };
+            dateMap[s.date].sales += s.total;
+        });
+        filteredExpenses.forEach(e => {
+            if (!dateMap[e.date]) dateMap[e.date] = { sales: 0, expenses: 0 };
+            dateMap[e.date].expenses += e.amount;
+        });
+
+        const sortedDates = Object.keys(dateMap).sort().slice(-7);
+        const salesData = sortedDates.map(d => dateMap[d].sales);
+        const expensesData = sortedDates.map(d => dateMap[d].expenses);
+
+        const ctxLine = document.getElementById('salesExpensesChart').getContext('2d');
+        if (salesExpensesChartInstance) salesExpensesChartInstance.destroy();
+        
+        salesExpensesChartInstance = new Chart(ctxLine, {
+            type: 'line',
+            data: {
+                labels: sortedDates.length ? sortedDates : ['ئەمڕۆ'],
+                datasets: [
+                    {
+                        label: 'کۆی فرۆش ($)',
+                        data: salesData.length ? salesData : [0],
+                        borderColor: '#0d9488',
+                        backgroundColor: 'rgba(13, 148, 136, 0.15)',
+                        fill: true,
+                        tension: 0.35,
+                        borderWidth: 2.5,
+                        pointRadius: 4,
+                        pointBackgroundColor: '#0d9488'
+                    },
+                    {
+                        label: 'خەرجییەکان ($)',
+                        data: expensesData.length ? expensesData : [0],
+                        borderColor: '#ef4444',
+                        backgroundColor: 'rgba(239, 68, 68, 0.08)',
+                        fill: true,
+                        tension: 0.35,
+                        borderWidth: 2.5,
+                        pointRadius: 4,
+                        pointBackgroundColor: '#ef4444'
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'top', labels: { font: { family: 'Vazirmatn' } } }
+                },
+                scales: {
+                    y: { beginAtZero: true, grid: { color: '#f1f5f9' } },
+                    x: { grid: { display: false } }
+                }
+            }
+        });
+
+        const ctxDoughnut = document.getElementById('balanceDoughnutChart').getContext('2d');
+        if (balanceDoughnutChartInstance) balanceDoughnutChartInstance.destroy();
+
+        balanceDoughnutChartInstance = new Chart(ctxDoughnut, {
+            type: 'doughnut',
+            data: {
+                labels: ['فرۆش', 'خەرجی', 'قەرزی دکتۆرەکان', 'قەرزی دابینکەران'],
+                datasets: [{
+                    data: [totalSales || 0.01, totalExpenses || 0, totalCustDue || 0, totalSupDue || 0],
+                    backgroundColor: ['#0d9488', '#ef4444', '#10b981', '#f59e0b'],
+                    borderWidth: 2,
+                    borderColor: '#ffffff'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'bottom', labels: { font: { family: 'Vazirmatn', size: 11.5 } } }
+                },
+                cutout: '68%'
+            }
+        });
+    }
+
+    function getCustomerBalance(customerName) {
+        const totalSales = db.sales.filter(s => s.customer === customerName).reduce((sum, s) => sum + s.total, 0);
+        const totalPayments = db.payments.filter(p => p.customer === customerName && !p.isVoid).reduce((sum, p) => sum + p.amount, 0);
+        const totalReturns = db.returns.filter(r => r.type === 'from_customer' && r.party === customerName).reduce((sum, r) => sum + (r.total || 0), 0);
+        return {
+            totalSales: totalSales - totalReturns,
+            totalPaid: totalPayments,
+            due: (totalSales - totalReturns) - totalPayments
+        };
+    }
+
+    function renderCustomers() {
+        const tbody = document.getElementById('customersTable');
+        tbody.innerHTML = '';
+        db.customers.forEach(c => {
+            const bal = getCustomerBalance(c.name);
+            const balanceColor = bal.due > 0 ? 'var(--danger)' : 'var(--success)';
+            const balanceText = bal.due > 0 ? `قەرزار: $${bal.due.toFixed(2)}` : 'پاکتاوە';
+
+            tbody.innerHTML += `<tr>
+                <td><strong>${c.name}</strong></td>
+                <td>${c.phone}</td>
+                <td>${c.address}</td>
+                <td class="t-center"><strong style="color:${balanceColor};">${balanceText}</strong></td>
+                <td class="t-center">
+                    <button type="button" class="btn btn-purple btn-sm" onclick="viewCustomerStatement('${c.name}')"><i class="fa-solid fa-receipt"></i> کەشف</button>
+                    <button type="button" class="btn btn-danger btn-sm" onclick="deleteCustomer(${c.id})"><i class="fa-solid fa-trash"></i></button>
+                </td>
+            </tr>`;
+        });
+    }
+
+    function renderDashboard() {
+        if (currentUser && currentUser.role !== 'admin') return;
+
+        const startDate = document.getElementById('dashStartDate').value;
+        const endDate = document.getElementById('dashEndDate').value;
+
+        const filteredSales = filterByDateRange(db.sales, startDate, endDate);
+        const filteredPayments = filterByDateRange(db.payments.filter(p => !p.isVoid), startDate, endDate);
+        const filteredExpenses = filterByDateRange(db.expenses, startDate, endDate);
+        const filteredPurchases = filterByDateRange(db.purchases, startDate, endDate);
+        const filteredSupPayments = filterByDateRange(db.supplierPayments.filter(sp => !sp.isVoid), startDate, endDate);
+
+        const totalSales = filteredSales.reduce((sum, s) => sum + s.total, 0);
+        const totalCustPayments = filteredPayments.reduce((sum, p) => sum + p.amount, 0);
+        const totalCustDue = totalSales - totalCustPayments;
+
+        const totalPurchases = filteredPurchases.reduce((sum, p) => sum + p.total, 0);
+        const totalSupPayments = filteredSupPayments.reduce((sum, sp) => sum + sp.amount, 0);
+        const totalSupDue = totalPurchases - totalSupPayments;
+
+        const totalExpenses = filteredExpenses.reduce((sum, e) => sum + e.amount, 0);
+        const lowStock = db.items.filter(i => i.qty < 5).length;
+
+        document.getElementById('dashSales').innerText = `$${totalSales.toFixed(2)}`;
+        document.getElementById('dashExpenses').innerText = `$${totalExpenses.toFixed(2)}`;
+        document.getElementById('dashDue').innerText = `$${totalCustDue.toFixed(2)}`;
+        document.getElementById('dashSupDue').innerText = `$${totalSupDue.toFixed(2)}`;
+        document.getElementById('dashLowStock').innerText = lowStock;
+
+        updateCharts(filteredSales, filteredExpenses, totalSales, totalExpenses, totalCustDue, totalSupDue);
+
+        const debtorsTable = document.getElementById('debtorsTable');
+        debtorsTable.innerHTML = '';
+        
+        let debtorsList = [];
+        db.customers.forEach(cust => {
+            const bal = getCustomerBalance(cust.name);
+            if (bal.due > 0) {
+                debtorsList.push({ ...cust, ...bal });
+            }
+        });
+
+        debtorsList.sort((a, b) => b.due - a.due);
+        document.getElementById('debtorsCountBadge').innerText = `${debtorsList.length} پزیشکی قەرزدار`;
+
+        if (debtorsList.length === 0) {
+            debtorsTable.innerHTML = `<tr><td colspan="6" class="t-center" style="color: var(--success); padding: 25px;"><i class="fa-solid fa-circle-check"></i> هیچ پزیشکێک قەرزدار نییە!</td></tr>`;
+        } else {
+            debtorsList.forEach(d => {
+                debtorsTable.innerHTML += `<tr>
+                    <td><strong>${d.name}</strong></td>
+                    <td>${d.phone || '-'}</td>
+                    <td class="t-center">$${d.totalSales.toFixed(2)}</td>
+                    <td class="t-center" style="color:var(--success); font-weight:600;">$${d.totalPaid.toFixed(2)}</td>
+                    <td class="t-center"><strong style="color:var(--danger); font-size:15px;">$${d.due.toFixed(2)}</strong></td>
+                    <td class="t-center"><button type="button" class="btn btn-purple btn-sm" onclick="viewCustomerStatement('${d.name}')"><i class="fa-solid fa-receipt"></i> کەشف</button></td>
+                </tr>`;
+            });
+        }
+
+        const tbody = document.getElementById('recentSalesTable');
+        tbody.innerHTML = '';
+        const recent = filteredSales.slice().reverse().slice(0, 6);
+        
+        if (recent.length === 0) {
+            tbody.innerHTML = `<tr><td colspan="5" class="t-center" style="color: #94a3b8; padding: 25px;">هیچ تۆمارێکی فرۆشتن لەم ماوەیەدا نییە</td></tr>`;
+        } else {
+            recent.forEach(s => {
+                let itemsSummary = s.items ? s.items.map(i => `${i.name} (${i.qty})`).join(', ') : (s.itemName || 'مەواد');
+                tbody.innerHTML += `<tr>
+                    <td><strong>${s.date}</strong></td>
+                    <td><span class="badge badge-cust">${s.customer}</span></td>
+                    <td>${itemsSummary}</td>
+                    <td class="t-center"><strong style="color:var(--primary);">${s.items ? s.items.reduce((a,b)=>a+b.qty,0) : s.qty}</strong></td>
+                    <td class="t-center"><strong style="color:var(--success);">$${s.total.toFixed(2)}</strong></td>
+                </tr>`;
+            });
+        }
+    }
+
+    function openVoidModal(id, type) {
+        document.getElementById('voidTargetId').value = id;
+        document.getElementById('voidTargetType').value = type;
+        document.getElementById('voidReasonInput').value = '';
+        document.getElementById('voidModal').style.display = 'flex';
+    }
+
+    function closeVoidModal() {
+        document.getElementById('voidModal').style.display = 'none';
+    }
+
+    function confirmVoidPayment(e) {
+        e.preventDefault();
+        const id = parseInt(document.getElementById('voidTargetId').value);
+        const type = document.getElementById('voidTargetType').value;
+        const reason = document.getElementById('voidReasonInput').value.trim();
+
+        if (!reason) return alert('هۆکارەکە بنووسە');
+
+        if (type === 'customer') {
+            const pay = db.payments.find(p => p.id === id);
+            if (pay) { pay.isVoid = true; pay.voidReason = reason; pay.voidDate = today; }
+            renderPayments();
+        } else if (type === 'supplier') {
+            const supPay = db.supplierPayments.find(sp => sp.id === id);
+            if (supPay) { supPay.isVoid = true; supPay.voidReason = reason; supPay.voidDate = today; }
+            renderSupPayments();
+        }
+
+        saveData();
+        closeVoidModal();
+    }
+
+    function openSupplierModal(selectId) {
+        targetSelectId = selectId;
+        document.getElementById('quickSupplierModal').style.display = 'flex';
+    }
+
+    function closeSupplierModal() {
+        document.getElementById('quickSupplierModal').style.display = 'none';
+        document.getElementById('quickSupplierForm').reset();
+    }
+
+    function saveQuickSupplier(e) {
+        e.preventDefault();
+        const name = document.getElementById('quickSupName').value;
+        const phone = document.getElementById('quickSupPhone').value || '-';
+        const address = document.getElementById('quickSupAddress').value || '-';
+
+        const newSupplier = { id: Date.now(), name, phone, address };
+        db.suppliers.push(newSupplier);
+        saveData();
+        renderSuppliers();
+
+        if(targetSelectId === 'purchaseSupplier') updatePurchaseDropdowns();
+        if(targetSelectId === 'supPaySupplier') updateSupPaymentDropdowns();
+        if(targetSelectId) document.getElementById(targetSelectId).value = name;
+
+        closeSupplierModal();
+    }
+
+    function openCategoryModal() {
+        document.getElementById('categoryModal').style.display = 'flex';
+    }
+
+    function closeCategoryModal() {
+        document.getElementById('categoryModal').style.display = 'none';
+        document.getElementById('categoryForm').reset();
+    }
+
+    function saveCategory(e) {
+        e.preventDefault();
+        const catName = document.getElementById('catName').value.trim();
+        if(catName && !db.expenseCategories.includes(catName)) {
+            db.expenseCategories.push(catName);
+            saveData();
+            updateExpenseDropdowns();
+            document.getElementById('expenseCategory').value = catName;
+        }
+        closeCategoryModal();
+    }
+
+    function updateItemCategoryDropdowns() {
+        const catSelect = document.getElementById('itemCategory');
+        catSelect.innerHTML = '<option value="">کاتیگۆری هەڵبژێرە</option>';
+        db.itemCategories.forEach(cat => catSelect.innerHTML += `<option value="${cat}">${cat}</option>`);
+    }
+
+    function openItemCategoryModal() {
+        document.getElementById('itemCategoryModal').style.display = 'flex';
+    }
+
+    function closeItemCategoryModal() {
+        document.getElementById('itemCategoryModal').style.display = 'none';
+        document.getElementById('itemCategoryForm').reset();
+    }
+
+    function saveItemCategory(e) {
+        e.preventDefault();
+        const catName = document.getElementById('newItemCategoryName').value.trim();
+        if(catName && !db.itemCategories.includes(catName)) {
+            db.itemCategories.push(catName);
+            saveData();
+            updateItemCategoryDropdowns();
+            document.getElementById('itemCategory').value = catName;
+        }
+        closeItemCategoryModal();
+    }
+
+    function updateExpenseDropdowns() {
+        const catSelect = document.getElementById('expenseCategory');
+        catSelect.innerHTML = '<option value="">کاتیگۆری هەڵبژێرە</option>';
+        db.expenseCategories.forEach(cat => catSelect.innerHTML += `<option value="${cat}">${cat}</option>`);
+    }
+
+    function addExpense(e) {
+        e.preventDefault();
+        const expense = {
+            id: Date.now(),
+            date: document.getElementById('expenseDate').value || today,
+            category: document.getElementById('expenseCategory').value,
+            amount: parseFloat(document.getElementById('expenseAmount').value),
+            note: document.getElementById('expenseNote').value || '-'
+        };
+
+        db.expenses.push(expense);
+        saveData();
+        renderExpenses();
+        document.getElementById('expenseForm').reset();
+        document.getElementById('expenseDate').value = today;
+    }
+
+    function renderExpenses() {
+        const tbody = document.getElementById('expensesTable');
+        tbody.innerHTML = '';
+        db.expenses.slice().reverse().forEach((exp) => {
+            tbody.innerHTML += `<tr>
+                <td>#${exp.id.toString().slice(-4)}</td>
+                <td>${exp.date}</td>
+                <td><span class="badge badge-sup">${exp.category}</span></td>
+                <td class="t-center"><strong style="color:var(--danger);">$${exp.amount.toFixed(2)}</strong></td>
+                <td>${exp.note}</td>
+                <td class="t-center"><button type="button" class="btn btn-danger btn-sm" onclick="deleteExpense(${exp.id})"><i class="fa-solid fa-trash"></i></button></td>
+            </tr>`;
+        });
+    }
+
+    function deleteExpense(id) {
+        if(confirm('دڵنیایت؟')) {
+            db.expenses = db.expenses.filter(e => e.id !== id);
+            saveData();
+            renderExpenses();
+        }
+    }
+
+    function updatePaymentDropdowns() {
+        const custSelect = document.getElementById('payCustomer');
+        custSelect.innerHTML = '<option value="">پزیشکێک هەڵبژێرە</option>';
+        db.customers.forEach(c => custSelect.innerHTML += `<option value="${c.name}">${c.name}</option>`);
+    }
+
+    function addPayment(e) {
+        e.preventDefault();
+        const payment = {
+            id: Date.now(),
+            date: document.getElementById('payDate').value || today,
+            customer: document.getElementById('payCustomer').value,
+            amount: parseFloat(document.getElementById('payAmount').value),
+            note: document.getElementById('payNote').value || 'پارەدانی نەقد',
+            isVoid: false,
+            voidReason: ''
+        };
+
+        db.payments.push(payment);
+        saveData(); renderPayments();
+        document.getElementById('paymentForm').reset();
+        document.getElementById('payDate').value = today;
+        printReceipt(payment.id);
+    }
+
+    function renderPayments() {
+        const tbody = document.getElementById('paymentsTable');
+        tbody.innerHTML = '';
+        db.payments.slice().reverse().forEach(p => {
+            const isVoid = p.isVoid;
+            const rowClass = isVoid ? 'class="void-row"' : '';
+            const amountHtml = isVoid ? `<span class="strikethrough">$${p.amount.toFixed(2)}</span> <br><span class="badge badge-void">پووچەڵکراوە</span>` : `<strong style="color:var(--success);">$${p.amount.toFixed(2)}</strong>`;
+            const noteHtml = isVoid ? `<strong>هۆکار:</strong> ${p.voidReason}` : p.note;
+            const actionsHtml = isVoid ? `<span style="font-size:11px; color:#ef4444;">پووچەڵکراوە</span>` : `<button type="button" class="btn btn-purple btn-sm" onclick="printReceipt(${p.id})"><i class="fa-solid fa-print"></i></button> <button type="button" class="btn btn-danger btn-sm" onclick="openVoidModal(${p.id}, 'customer')"><i class="fa-solid fa-ban"></i></button>`;
+
+            tbody.innerHTML += `<tr ${rowClass}>
+                <td>#${p.id.toString().slice(-4)}</td>
+                <td>${p.date}</td>
+                <td>${p.customer}</td>
+                <td class="t-center">${amountHtml}</td>
+                <td>${noteHtml}</td>
+                <td class="t-center">${actionsHtml}</td>
+            </tr>`;
+        });
+    }
+
+    function printReceipt(id) {
+        const payment = db.payments.find(p => p.id === id);
+        if(!payment || payment.isVoid) return alert('وەسڵەکە پووچەڵکراوەتەوە!');
+
+        document.getElementById('recId').innerText = payment.id.toString().slice(-4);
+        document.getElementById('recDate').innerText = payment.date;
+        document.getElementById('recCustomer').innerText = payment.customer;
+        document.getElementById('recAmount').innerText = payment.amount.toFixed(2);
+        document.getElementById('recNote').innerText = payment.note;
+
+        document.getElementById('printableReceipt').classList.add('print-active');
+        window.print();
+        document.getElementById('printableReceipt').classList.remove('print-active');
+    }
+
+    function updateSupPaymentDropdowns() {
+        const supSelect = document.getElementById('supPaySupplier');
+        supSelect.innerHTML = '<option value="">دابینکەرێک هەڵبژێرە</option>';
+        db.suppliers.forEach(s => supSelect.innerHTML += `<option value="${s.name}">${s.name}</option>`);
+    }
+
+    function addSupPayment(e) {
+        e.preventDefault();
+        const supPayment = {
+            id: Date.now(),
+            date: document.getElementById('supPayDate').value || today,
+            supplier: document.getElementById('supPaySupplier').value,
+            amount: parseFloat(document.getElementById('supPayAmount').value),
+            note: document.getElementById('supPayNote').value || 'پارەدان بۆ دابینکەر',
+            isVoid: false,
+            voidReason: ''
+        };
+
+        db.supplierPayments.push(supPayment);
+        saveData(); renderSupPayments();
+        document.getElementById('supPaymentForm').reset();
+        document.getElementById('supPayDate').value = today;
+    }
+
+    function renderSupPayments() {
+        const tbody = document.getElementById('supPaymentsTable');
+        tbody.innerHTML = '';
+        db.supplierPayments.slice().reverse().forEach(sp => {
+            const isVoid = sp.isVoid;
+            const rowClass = isVoid ? 'class="void-row"' : '';
+            const amountHtml = isVoid ? `<span class="strikethrough">$${sp.amount.toFixed(2)}</span> <br><span class="badge badge-void">پووچەڵکراوە</span>` : `<strong style="color:var(--success);">$${sp.amount.toFixed(2)}</strong>`;
+            const noteHtml = isVoid ? `<strong>هۆکار:</strong> ${sp.voidReason}` : sp.note;
+            const actionsHtml = isVoid ? `<span style="font-size:11px; color:#ef4444;">پووچەڵکراوە</span>` : `<button type="button" class="btn btn-danger btn-sm" onclick="openVoidModal(${sp.id}, 'supplier')"><i class="fa-solid fa-ban"></i></button>`;
+
+            tbody.innerHTML += `<tr ${rowClass}>
+                <td>#${sp.id.toString().slice(-4)}</td>
+                <td>${sp.date}</td>
+                <td>${sp.supplier}</td>
+                <td class="t-center">${amountHtml}</td>
+                <td>${noteHtml}</td>
+                <td class="t-center">${actionsHtml}</td>
+            </tr>`;
+        });
+    }
+
+    function updateStatementDropdown() {
+        const type = document.getElementById('statementType').value;
+        const partySelect = document.getElementById('statementParty');
+        partySelect.innerHTML = '';
+
+        if(type === 'customer') {
+            document.getElementById('lblStat1').innerText = 'کۆی فرۆش';
+            document.getElementById('lblStat2').innerText = 'کۆی پارەی وەردراو';
+            document.getElementById('lblStat3').innerText = 'قەرزی ماوە (دکتۆر)';
+            db.customers.forEach(c => partySelect.innerHTML += `<option value="${c.name}">${c.name}</option>`);
+        } else {
+            document.getElementById('lblStat1').innerText = 'کۆی کڕین';
+            document.getElementById('lblStat2').innerText = 'کۆی پارەی دراو';
+            document.getElementById('lblStat3').innerText = 'قەرزی ماوە (دابینکەر)';
+            db.suppliers.forEach(s => partySelect.innerHTML += `<option value="${s.name}">${s.name}</option>`);
+        }
+        generateStatement();
+    }
+
+    function generateStatement() {
+        const type = document.getElementById('statementType').value;
+        const party = document.getElementById('statementParty').value;
+        const tbody = document.getElementById('statementTable');
+        tbody.innerHTML = '';
+
+        let records = [];
+        let totalSalesOrPurchases = 0;
+        let totalPaid = 0;
+
+        if(type === 'customer') {
+            const sales = db.sales.filter(s => s.customer === party).map(s => {
+                totalSalesOrPurchases += s.total;
+                let detailsStr = s.items ? s.items.map(i => `${i.name} (${i.qty})`).join(', ') : (s.itemName || '-');
+                return { ...s, typeName: '🛒 فرۆشتن', details: detailsStr };
+            });
+            const payments = db.payments.filter(p => p.customer === party).map(p => {
+                if(!p.isVoid) totalPaid += p.amount;
+                return { ...p, typeName: p.isVoid ? '💵 وەسڵ (پووچەڵکراوە)' : '💵 وەسڵی پارەدان', details: p.isVoid ? `پووچەڵ: ${p.voidReason}` : p.note, total: p.amount, qty: '-', unitPrice: '-' };
+            });
+            const returns = db.returns.filter(r => r.type === 'from_customer' && r.party === party).map(r => {
+                totalSalesOrPurchases -= r.total;
+                return { ...r, typeName: '↩️ گەڕاندنەوە لە کڕیار', details: `${r.itemName} (${r.reason})`, unitPrice: '-', total: r.total };
+            });
+            records = [...sales, ...payments, ...returns];
+        } else {
+            const purchases = db.purchases.filter(p => p.supplier === party).map(p => {
+                totalSalesOrPurchases += p.total;
+                return { ...p, typeName: '📦 کڕین', details: p.itemName };
+            });
+            const supPayments = db.supplierPayments.filter(sp => sp.supplier === party).map(sp => {
+                if(!sp.isVoid) totalPaid += sp.amount;
+                return { ...sp, typeName: sp.isVoid ? '📤 پارەدان (پووچەڵکراوە)' : '📤 پارەدان بۆ دابینکەر', details: sp.isVoid ? `پووچەڵ: ${sp.voidReason}` : sp.note, total: sp.amount, qty: '-', unitPrice: '-' };
+            });
+            const returns = db.returns.filter(r => r.type === 'to_supplier' && r.party === party).map(r => ({ ...r, unitPrice: '-', total: 0, typeName: '↩️ گەڕاندنەوە بۆ دابینکەر', details: r.itemName }));
+            records = [...purchases, ...supPayments, ...returns];
+        }
+
+        records.sort((a, b) => b.id - a.id);
+
+        document.getElementById('statTotalSales').innerText = `$${totalSalesOrPurchases.toFixed(2)}`;
+        document.getElementById('statTotalPaid').innerText = `$${totalPaid.toFixed(2)}`;
+        document.getElementById('statBalance').innerText = `$${(totalSalesOrPurchases - totalPaid).toFixed(2)}`;
+
+        records.forEach(r => {
+            const isVoidRow = r.isVoid;
+            const strikeClass = isVoidRow ? 'class="void-row"' : '';
+            const totalText = isVoidRow ? `<del>$${(r.total || 0).toFixed(2)}</del>` : (r.typeName.includes('گەڕاندنەوە') ? `<span style="color:var(--danger);">-$${(r.total || 0).toFixed(2)}</span>` : `$${(r.total || 0).toFixed(2)}`);
+
+            tbody.innerHTML += `<tr ${strikeClass}>
+                <td>${r.date}</td>
+                <td>${r.typeName}</td>
+                <td>${r.details || '-'}</td>
+                <td class="t-center">${r.qty || '-'}</td>
+                <td class="t-center">${r.unitPrice !== '-' && r.unitPrice !== undefined ? '$' + r.unitPrice : '-'}</td>
+                <td class="t-center"><strong>${totalText}</strong></td>
+            </tr>`;
+        });
+    }
+
+    function addItem(e) {
+        e.preventDefault();
+        db.items.push({
+            id: Date.now(),
+            category: document.getElementById('itemCategory').value,
+            name: document.getElementById('itemName').value,
+            type: document.getElementById('itemType').value || '-',
+            size: document.getElementById('itemSize').value || '-',
+            code: document.getElementById('itemCode').value,
+            qty: parseInt(document.getElementById('itemQty').value) || 0,
+            buyPrice: parseFloat(document.getElementById('itemBuyPrice').value) || 0,
+            sellPrice: parseFloat(document.getElementById('itemSellPrice').value) || 0
+        });
+        saveData(); renderItems();
+        document.getElementById('itemForm').reset();
+    }
+
+    function renderItems(data = db.items) {
+        const tbody = document.getElementById('itemsTable');
+        tbody.innerHTML = '';
+        data.forEach(item => {
+            const lowQtyBadge = item.qty < 5 ? '<span class="badge badge-low">کەمماوە</span>' : '';
+            const catDisplay = item.category === 'implant' ? 'ئیمپلانت' : (item.category === 'accessory' ? 'ئەکسەسۆری' : item.category);
+
+            tbody.innerHTML += `<tr>
+                <td class="t-center"><strong>${item.code}</strong></td>
+                <td>${item.name} ${lowQtyBadge}</td>
+                <td class="t-center"><span class="badge badge-cust">${catDisplay}</span></td>
+                <td class="t-center">${item.type || '-'}</td>
+                <td class="t-center"><strong style="color:var(--primary);">${item.size || '-'}</strong></td>
+                <td class="t-center"><strong>${item.qty}</strong></td>
+                <td class="t-center">$${item.buyPrice}</td>
+                <td class="t-center">$${item.sellPrice}</td>
+                <td class="t-center"><button type="button" class="btn btn-danger btn-sm" onclick="deleteItem(${item.id})"><i class="fa-solid fa-trash"></i></button></td>
+            </tr>`;
+        });
+    }
+
+    function deleteItem(id) {
+        if(confirm('دڵنیایت؟')) { db.items = db.items.filter(i => i.id !== id); saveData(); renderItems(); }
+    }
+
+    function filterItems() {
+        const query = document.getElementById('searchItem').value.toLowerCase();
+        renderItems(db.items.filter(i => 
+            i.name.toLowerCase().includes(query) || 
+            i.code.toLowerCase().includes(query) ||
+            (i.type && i.type.toLowerCase().includes(query)) ||
+            (i.size && i.size.toLowerCase().includes(query)) ||
+            (i.category && i.category.toLowerCase().includes(query))
+        ));
+    }
+
+    function updatePurchaseDropdowns() {
+        const supSelect = document.getElementById('purchaseSupplier');
+        const itemSelect = document.getElementById('purchaseItem');
+        supSelect.innerHTML = '<option value="">دابینکەرێک هەڵبژێرە</option>';
+        db.suppliers.forEach(s => supSelect.innerHTML += `<option value="${s.name}">${s.name}</option>`);
+        itemSelect.innerHTML = '<option value="">مەوادێک هەڵبژێرە</option>';
+        db.items.forEach(i => itemSelect.innerHTML += `<option value="${i.id}">[${i.category}] ${i.name} (${i.type || ''} - ${i.size || ''})</option>`);
+    }
+
+    function autoFillBuyPrice() {
+        const item = db.items.find(i => i.id == document.getElementById('purchaseItem').value);
+        if(item) document.getElementById('purchaseUnitPrice').value = item.buyPrice;
+    }
+
+    function addPurchase(e) {
+        e.preventDefault();
+        const itemId = parseInt(document.getElementById('purchaseItem').value);
+        const qty = parseInt(document.getElementById('purchaseQty').value) || 1;
+        const unitPrice = parseFloat(document.getElementById('purchaseUnitPrice').value) || 0;
+        const item = db.items.find(i => i.id === itemId);
+        if(!item) return alert('مەواد هەڵبژێرە');
+
+        item.qty += qty; item.buyPrice = unitPrice;
+        db.purchases.push({ 
+            id: Date.now(), 
+            date: document.getElementById('purchaseDate').value || today, 
+            supplier: document.getElementById('purchaseSupplier').value, 
+            itemName: `${item.name} (${item.type || ''} - ${item.size || ''})`, 
+            qty, unitPrice, 
+            total: qty * unitPrice 
+        });
+        saveData(); renderItems(); renderPurchases();
+        document.getElementById('purchaseForm').reset();
+        document.getElementById('purchaseDate').value = today;
+    }
+
+    function renderPurchases() {
+        const tbody = document.getElementById('purchasesTable');
+        tbody.innerHTML = '';
+        db.purchases.slice().reverse().forEach(p => {
+            tbody.innerHTML += `<tr><td>${p.date}</td><td>${p.supplier}</td><td>${p.itemName}</td><td class="t-center">${p.qty}</td><td class="t-center">$${p.unitPrice}</td><td class="t-center"><strong>$${p.total.toFixed(2)}</strong></td></tr>`;
+        });
+    }
+
+    function updateReturnDropdowns() {
+        toggleReturnPartyOptions();
+        const itemSelect = document.getElementById('returnItem');
+        itemSelect.innerHTML = '<option value="">مەوادێک هەڵبژێرە</option>';
+        db.items.forEach(i => itemSelect.innerHTML += `<option value="${i.id}">${i.name} (${i.type || ''} - ${i.size || ''}) - کۆگا: ${i.qty}</option>`);
+    }
+
+    function toggleReturnPartyOptions() {
+        const type = document.getElementById('returnType').value;
+        const partySelect = document.getElementById('returnParty');
+        partySelect.innerHTML = '';
+        if(type === 'to_supplier') {
+            document.getElementById('returnPartyLabel').innerText = 'دابینکەر';
+            db.suppliers.forEach(s => partySelect.innerHTML += `<option value="${s.name}">${s.name}</option>`);
+        } else {
+            document.getElementById('returnPartyLabel').innerText = 'کڕیار/پزیشک';
+            db.customers.forEach(c => partySelect.innerHTML += `<option value="${c.name}">${c.name}</option>`);
+        }
+    }
+
+    function processReturn(e) {
+        e.preventDefault();
+        const type = document.getElementById('returnType').value;
+        const itemId = parseInt(document.getElementById('returnItem').value);
+        const qty = parseInt(document.getElementById('returnQty').value) || 1;
+        const party = document.getElementById('returnParty').value;
+        const item = db.items.find(i => i.id === itemId);
+        if(!item) return alert('مەواد هەڵبژێرە');
+
+        let returnTotalAmount = 0;
+
+        if(type === 'to_supplier') {
+            if(item.qty < qty) return alert(`⚠️ بڕی کۆگا بەس نییە! (${item.qty} دانە هەیە).`);
+            item.qty -= qty;
+        } else { 
+            item.qty += qty; 
+            const lastSale = db.sales.slice().reverse().find(s => s.customer === party && (s.itemName ? s.itemName.includes(item.name) : (s.items && s.items.some(i => i.name.includes(item.name)))));
+            const unitSellPrice = lastSale ? (lastSale.unitPrice || item.sellPrice) : item.sellPrice;
+            returnTotalAmount = qty * unitSellPrice;
+        }
+
+        db.returns.push({ 
+            id: Date.now(), 
+            date: today, 
+            type, 
+            party: party, 
+            itemName: `${item.name} (${item.type || ''} - ${item.size || ''})`, 
+            qty, 
+            total: returnTotalAmount,
+            reason: document.getElementById('returnReason').value || 'دیاری نەکراوە' 
+        });
+        saveData(); renderItems(); renderReturns();
+        document.getElementById('returnForm').reset();
+        alert("✅ گەڕاندنەوەکە بە سەرکەوتوویی تۆمارکرا و کۆگا و حسابات نوێکرانەوە!");
+    }
+
+    function renderReturns() {
+        const tbody = document.getElementById('returnsTable');
+        tbody.innerHTML = '';
+        db.returns.slice().reverse().forEach(r => {
+            const badge = r.type === 'to_supplier' ? '<span class="badge badge-sup">↩️ بۆ دابینکەر</span>' : '<span class="badge badge-cust">↪️ لە کڕیارەوە</span>';
+            tbody.innerHTML += `<tr><td>${r.date}</td><td>${badge}</td><td>${r.party}</td><td>${r.itemName}</td><td class="t-center"><strong>${r.qty}</strong></td><td>${r.reason}</td></tr>`;
+        });
+    }
+
+    function addSupplier(e) {
+        e.preventDefault();
+        db.suppliers.push({ id: Date.now(), name: document.getElementById('supName').value, phone: document.getElementById('supPhone').value, address: document.getElementById('supAddress').value });
+        saveData(); renderSuppliers(); document.getElementById('supplierForm').reset();
+    }
+    function renderSuppliers() {
+        const tbody = document.getElementById('suppliersTable'); tbody.innerHTML = '';
+        db.suppliers.forEach(s => tbody.innerHTML += `<tr><td>${s.name}</td><td>${s.phone}</td><td>${s.address}</td><td class="t-center"><button type="button" class="btn btn-danger btn-sm" onclick="deleteSupplier(${s.id})"><i class="fa-solid fa-trash"></i></button></td></tr>`);
+    }
+    function deleteSupplier(id) { if(confirm('دڵنیایت؟')) { db.suppliers = db.suppliers.filter(s => s.id !== id); saveData(); renderSuppliers(); } }
+
+    function addCustomer(e) {
+        e.preventDefault();
+        db.customers.push({ id: Date.now(), name: document.getElementById('custName').value, phone: document.getElementById('custPhone').value, address: document.getElementById('custAddress').value });
+        saveData(); renderCustomers(); document.getElementById('customerForm').reset();
+    }
+
+    function deleteCustomer(id) { if(confirm('دڵنیایت؟')) { db.customers = db.customers.filter(c => c.id !== id); saveData(); renderCustomers(); } }
+
+    function exportBackup() {
+        const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(db, null, 2));
+        const a = document.createElement('a'); a.href = dataStr; a.download = `araguide_backup_${new Date().toISOString().slice(0,10)}.json`;
+        document.body.appendChild(a); a.click(); a.remove();
+    }
+
+    function importBackup(event) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            try {
+                db = JSON.parse(e.target.result);
+                if(!db.users) db.users = defaultUsers;
+                if(!db.itemCategories) db.itemCategories = ['ئیمپلانت (Implant)', 'ئەکسەسۆری (Accessory)'];
+                if(!db.sales) db.sales = [];
+                if(!db.returns) db.returns = [];
+                if(!db.payments) db.payments = [];
+                if(!db.supplierPayments) db.supplierPayments = [];
+                if(!db.expenseCategories) db.expenseCategories = ['کرێی شوێن', 'کارەبا و ئاو', 'مووچە', 'خەرجی گواستنەوە'];
+                if(!db.expenses) db.expenses = [];
+                saveData(); renderItems(); renderSuppliers(); renderCustomers(); renderPurchases(); renderSales(); renderReturns(); renderPayments(); renderSupPayments(); renderExpenses(); renderDashboard();
+                updateItemCategoryDropdowns();
+                renderImplantMatrix();
+                alert('زانیارییەکان گەڕێنرانەوە!');
+            } catch (err) { alert('فایلەکە هەڵەیە!'); }
+        };
+        reader.readAsText(event.target.files[0]);
+    }
+
+    // فانکشنی سەرەکی بۆ هێنان و دەستپێکردنی سیستەمەکە
+    async function loadDataFromFirebase() {
+        try {
+            const docRef = firestore.collection("SystemData").doc("MainDB");
+            const docSnap = await docRef.get();
+
+            if (docSnap.exists) {
+                db = docSnap.data();
+            } else {
+                db.users = defaultUsers;
+                db.itemCategories = ['ئیمپلانت (Implant)', 'ئەکسەسۆری (Accessory)'];
+                db.expenseCategories = ['کرێی شوێن', 'کارەبا و ئاو', 'مووچە', 'خەرجی گواستنەوە'];
+                db.customers = [{ id: 1, name: 'د. پشتیوان', phone: '07701234567', address: 'سلێمانی' }];
+                db.items = []; db.suppliers = []; db.purchases = []; db.sales = [];
+                db.returns = []; db.payments = []; db.supplierPayments = []; db.expenses = [];
+                await saveData(); 
+            }
+
+            checkAuth();
+            if(currentUser) {
+                renderDashboard(); 
+                updateItemCategoryDropdowns(); 
+                renderItems(); 
+                renderSuppliers(); 
+                renderCustomers(); 
+                renderPurchases(); 
+                renderSales(); 
+                renderReturns(); 
+                renderPayments(); 
+                renderSupPayments(); 
+                renderExpenses();
+                renderImplantMatrix();
+            }
+        } catch (error) {
+            console.error("هەڵەیەک ڕوویدا لە کاتی هێنانی داتاکان: ", error);
+            alert("نەتوانرا پەیوەندی بە داتابەیسەوە بکرێت. تکایە دڵنیابە لە هێڵی ئینتەرنێتەکەت و ڕێکخستنەکانی فایەربەیس.");
+        }
+    }
+
+    // دەستپێکردن
+    loadDataFromFirebase();
+</script>
+
+</body>
+</html>
