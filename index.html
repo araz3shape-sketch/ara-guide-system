@@ -968,6 +968,15 @@
                         </div>
                         <div class="dash-stat-icon icon-indigo"><i class="fa-solid fa-triangle-exclamation"></i></div>
                     </div>
+
+                    <!-- بۆکسی نوێ: سەرمایەی ئێستای ناو کۆگا -->
+                    <div class="dash-stat-card">
+                        <div class="dash-stat-info">
+                            <span class="dash-stat-label">سەرمایەی ئێستای کۆگا (بە کڕین)</span>
+                            <span class="dash-stat-value" id="dashInventoryValue" style="color: var(--primary);">$0.00</span>
+                        </div>
+                        <div class="dash-stat-icon icon-teal"><i class="fa-solid fa-vault"></i></div>
+                    </div>
                 </div>
 
                 <div class="debtors-panel">
@@ -1376,7 +1385,7 @@
                     <div class="form-grid">
                         <div class="form-group"><label>ناوی بەکارهێنەر (Username)</label><input type="text" id="newUsername" required autocapitalize="none" autocorrect="off"></div>
                         <div class="form-group"><label>ناوی تەواو</label><input type="text" id="newFullName" required></div>
-                        <div class="form-group"><label>وشەی نهێنی</label><input type="text" id="newPassword" required value="بە دڵی خۆیان دایبنێ لە Firebase"></div>
+                        <div class="form-group"><label>وشەی نهێنی</label><input type="text" id="newPassword" required value="لە Firebase دابنێ" disabled></div>
                     </div>
 
                     <div style="margin-bottom: 16px;">
@@ -1701,12 +1710,11 @@
         }
     }
 
-    // سیستەمی چوونەژوورەوەی سیکیوریتی فایەربەیس
     async function handleLogin(e) {
         e.preventDefault();
         const u = document.getElementById('loginUsername').value.trim().toLowerCase();
         const p = document.getElementById('loginPassword').value.trim();
-        const email = u + "@araguide.com"; // فایەربەیس پێویستی بە ئیمەیڵە، ئێمە ناوەکە دەکەین بە ئیمەیڵ
+        const email = u + "@araguide.com";
 
         try {
             await firebase.auth().signInWithEmailAndPassword(email, p);
@@ -1725,13 +1733,10 @@
         }
     }
 
-    // چاودێریکردنی دۆخی لۆگین لەلایەن فایەربەیسەوە
     firebase.auth().onAuthStateChanged(async (user) => {
         if (user) {
-            // بەکارهێنەر لۆگینی کردووە، با داتاکان بهێنین
             await loadDataFromFirebase();
             
-            // ناوی بەکارهێنەر دەردەهێنینەوە لە ئیمەیڵەکە
             const usernameStr = user.email.split('@')[0];
             const found = db.users.find(u => u.username.toLowerCase() === usernameStr);
             
@@ -1746,7 +1751,6 @@
                 firebase.auth().signOut();
             }
         } else {
-            // کەس لۆگینی نەکردووە
             currentUser = null;
             document.getElementById('loginScreen').style.display = 'flex';
         }
@@ -2085,7 +2089,6 @@
         generateStatement();
     }
 
-    // گۆڕینی پاسوۆرد لە ڕێگەی فایەربەیس
     async function changeAdminPassword(e) {
         e.preventDefault();
         const newPass = document.getElementById('newAdminPass').value.trim();
@@ -2107,7 +2110,7 @@
             document.getElementById('confirmAdminPass').value = '';
         } catch (error) {
             console.error(error);
-            alert('کێشەیەک ڕوویدا لە کاتی گۆڕینی پاسوۆرد. پێویستە سەرەتا لۆگاوت بکەیت و دووبارە لۆگین بکەیتەوە ئینجا پاسوۆرد بگۆڕیت بەهۆی سیکیوریتی فایەربەیسەوە.');
+            alert('کێشەیەک ڕوویدا لە کاتی گۆڕینی پاسوۆرد. پێویستە سەرەتا دەرچیت و دووبارە بێیتەوە ژوورەوە بەهۆی پاراستنی سیکیوریتی فایەربەیسەوە.');
         }
     }
 
@@ -2140,7 +2143,7 @@
         renderUsers();
         document.getElementById('userForm').reset();
         
-        alert(`بەکارهێنەری نوێ لە سیستەمەکە زیادکرا!\n\n⚠️ تێبینی زۆر گرنگ: بۆ ئەوەی ئەم کەسە بتوانێت بێتە ژوورەوە، تکایە بڕۆ بۆ بەشی Authentication لە سایتەکەی Firebase و ئەم ئیمەیڵە بە پاسوۆردێکەوە بۆی زیاد بکە:\n\nئیمەیڵ: ${username}@araguide.com`);
+        alert(`بەکارهێنەری نوێ زیادکرا!\n\n⚠️ تێبینی: بۆ ئەوەی بتوانێت بێتە ژوورەوە، لە بەشی Authentication ی Firebase ئەم ئیمەیڵەی بۆ دروست بکە بە پاسوۆردێکەوە:\n\nئیمەیڵ: ${username}@araguide.com`);
     }
 
     function renderUsers() {
@@ -2450,11 +2453,18 @@
         const totalExpenses = filteredExpenses.reduce((sum, e) => sum + e.amount, 0);
         const lowStock = db.items.filter(i => i.qty < 5).length;
 
+        // ئەژمارکردنی سەرمایەی ئێستای مەوادەکانی ناو کۆگا
+        const inventoryValue = (db.items || []).reduce((sum, i) => sum + ((Number(i.qty) || 0) * (Number(i.buyPrice) || 0)), 0);
+
         document.getElementById('dashSales').innerText = `$${totalSales.toFixed(2)}`;
         document.getElementById('dashExpenses').innerText = `$${totalExpenses.toFixed(2)}`;
         document.getElementById('dashDue').innerText = `$${totalCustDue.toFixed(2)}`;
         document.getElementById('dashSupDue').innerText = `$${totalSupDue.toFixed(2)}`;
         document.getElementById('dashLowStock').innerText = lowStock;
+
+        if (document.getElementById('dashInventoryValue')) {
+            document.getElementById('dashInventoryValue').innerText = `$${inventoryValue.toFixed(2)}`;
+        }
 
         updateCharts(filteredSales, filteredExpenses, totalSales, totalExpenses, totalCustDue, totalSupDue);
 
@@ -2818,8 +2828,8 @@
                 return { ...p, typeName: '📦 کڕین', details: p.itemName };
             });
             const supPayments = db.supplierPayments.filter(sp => sp.supplier === party).map(sp => {
-                if(!sp.isVoid) totalPaid += sp.amount;
-                return { ...sp, typeName: sp.isVoid ? '📤 پارەدان (پووچەڵکراوە)' : '📤 پارەدان بۆ دابینکەر', details: sp.isVoid ? `پووچەڵ: ${sp.voidReason}` : sp.note, total: sp.amount, qty: '-', unitPrice: '-' };
+                if(!sp.isVoid) totalPaid += p.amount;
+                return { ...sp, typeName: sp.isVoid ? '📤 پارەدان (پووچەڵکراوە)' : '📤 پارەدان بۆ دابینکەر', details: sp.isVoid ? `پووچەڵ: ${p.voidReason}` : p.note, total: p.amount, qty: '-', unitPrice: '-' };
             });
             const returns = db.returns.filter(r => r.type === 'to_supplier' && r.party === party).map(r => ({ ...r, unitPrice: '-', total: 0, typeName: '↩️ گەڕاندنەوە بۆ دابینکەر', details: r.itemName }));
             records = [...purchases, ...supPayments, ...returns];
@@ -3056,7 +3066,6 @@
         reader.readAsText(event.target.files[0]);
     }
 
-    // هێنانی داتاکان لە کاتی لۆگین بوون
     async function loadDataFromFirebase() {
         try {
             const docRef = firestore.collection("SystemData").doc("MainDB");
@@ -3083,7 +3092,7 @@
             renderReturns(); 
             renderPayments(); 
             renderSupPayments(); 
-            renderExpenses();
+            renderExpenses(); 
             renderImplantMatrix();
             if(currentUser && currentUser.role === 'admin') renderDashboard(); 
 
