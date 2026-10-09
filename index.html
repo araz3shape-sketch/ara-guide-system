@@ -1160,6 +1160,7 @@
                             <option value="all">هەموو</option>
                             <option value="debtor">قەرزدار</option>
                             <option value="settled">وەسڵکراو / قەرزی نییە</option>
+                            <option value="voided">پووچەڵکراوە</option>
                         </select>
                     </div>
                     <div class="form-group">
@@ -1169,7 +1170,7 @@
                 <h3>وەسڵەکانی فرۆشتن</h3>
                 <div class="table-responsive">
                     <table>
-                        <thead><tr><th>ژمارەی وەسڵ</th><th>بەروار</th><th>دکتۆر / کلینیک</th><th>مەوادەکان</th><th class="t-center">کۆی وەسڵ</th><th class="t-center">دۆخی حیسابی کڕیار</th><th class="t-center">پرێنت</th></tr></thead>
+                        <thead><tr><th>ژمارەی وەسڵ</th><th>بەروار</th><th>دکتۆر / کلینیک</th><th>مەوادەکان</th><th class="t-center">کۆی وەسڵ</th><th class="t-center">دۆخی حیسابی کڕیار</th><th class="t-center">کردارەکان</th></tr></thead>
                         <tbody id="salesHistoryRowsTable"></tbody>
                     </table>
                 </div>
@@ -1894,7 +1895,7 @@
 <div id="voidModal" class="modal">
     <div class="modal-content">
         <h3 style="color: var(--danger);"><i class="fa-solid fa-ban"></i> پووچەڵکردنەوەی وەسڵ</h3>
-        <p style="margin-top: 10px; font-size: 14px;">تکایە هۆکاری پووچەڵکردنەوەی ئەم وەسڵە بنووسە:</p>
+        <p id="voidModalDescription" style="margin-top: 10px; font-size: 14px;">تکایە هۆکاری پووچەڵکردنەوەی ئەم وەسڵە بنووسە:</p>
         <form onsubmit="confirmVoidPayment(event)" style="margin-top: 15px;">
             <input type="hidden" id="voidTargetId">
             <input type="hidden" id="voidTargetType">
@@ -1930,6 +1931,7 @@
         <div style="margin-bottom: 15px; font-size: 15px; color: #0f172a;">
             <strong>ناوی کڕیار:</strong> <span id="invCustomer" style="margin-right: 5px;"></span>
         </div>
+        <div id="invVoidNotice" style="display:none; margin-bottom:14px; padding:10px 14px; border:2px solid #dc2626; color:#b91c1c; font-weight:800; text-align:center;">ئەم وەسڵە پووچەڵ کراوەتەوە</div>
         
         <table class="print-table">
             <thead>
@@ -1976,7 +1978,7 @@
         </div>
 
         <div style="display: flex; justify-content: space-between; margin-top: 40px; padding: 0 10px; font-size: 14px;">
-            <div>ئیمزای وەرگر: _________________</div>
+            <div>ئیمزای دکتۆر: _________________</div>
             <div>ئیمزای بەخشەر: _________________</div>
         </div>
     </div>
@@ -2484,26 +2486,31 @@
 
     function autoFillSellPrice() {
         const item = (db.items || []).find(i => i.id == document.getElementById('saleItem').value);
-        if(item) document.getElementById('saleUnitPrice').value = item.sellPrice;
+        const priceInput = document.getElementById('saleUnitPrice');
+        priceInput.disabled = false;
+        if(item) priceInput.value = item.sellPrice;
     }
 
     function addToCart() {
         const category = document.getElementById('saleCategory').value;
         const itemId = document.getElementById('saleItem').value;
         const qty = Number(document.getElementById('saleQty').value);
-        const unitPrice = Number(document.getElementById('saleUnitPrice').value);
+        const priceText = document.getElementById('saleUnitPrice').value.trim();
+        const isFreeSale = priceText !== '' && Number(priceText) === 0;
+        const unitPrice = Number(priceText);
 
         if (!category) return alert('تکایە سەرەتا کاتیگۆری مەواد هەڵبژێرە!');
         if (!itemId) return alert('تکایە مەوادێک لەو کاتیگۆرییە هەڵبژێرە!');
         if (!Number.isInteger(qty) || qty <= 0) return alert('بڕ دەبێت ژمارەیەکی تەواو و زیاتر لە سفر بێت!');
+        if (priceText === '') return alert('تکایە نرخ بنووسە.');
         if (!Number.isFinite(unitPrice) || unitPrice < 0) return alert('نرخ دەبێت ژمارەیەکی دروست و سفر یان زیاتر بێت!');
 
         const item = (db.items || []).find(i => String(i.id) === String(itemId));
         if (!item) return alert('مەواد نەدۆزرایەوە!');
         if (String(item.category || '').trim() !== category) return alert('مەوادەکە لە کاتیگۆریی هەڵبژێردراودا نییە؛ تکایە دووبارە هەڵیبژێرە.');
 
-        const existingInCart = currentCart.find(c => String(c.itemId) === String(itemId));
-        const currentQtyInCart = existingInCart ? existingInCart.qty : 0;
+        const existingInCart = currentCart.find(c => String(c.itemId) === String(itemId) && safeNumber(c.unitPrice) === unitPrice);
+        const currentQtyInCart = currentCart.filter(c => String(c.itemId) === String(itemId)).reduce((sum, c) => sum + safeNumber(c.qty), 0);
 
         if (item.qty < (currentQtyInCart + qty)) {
             return alert(`⚠️ بڕی ناو کۆگا بەس نییە! تەنها (${item.qty}) دانە لە کۆگادا هەەیە.`);
@@ -2518,12 +2525,14 @@
                 name: `${item.name} (${item.type || ''} - ${item.size || ''})`,
                 qty: qty,
                 unitPrice: unitPrice,
-                total: qty * unitPrice
+                total: qty * unitPrice,
+                isFree: isFreeSale
             });
         }
 
         renderCart();
         document.getElementById('saleQty').value = 1;
+        autoFillSellPrice();
     }
 
     function removeFromCart(index) {
@@ -2565,21 +2574,28 @@
         const grandTotal = currentCart.reduce((sum, i) => sum + safeNumber(i.total), 0);
         const saleRecord = { id: newId(), date, customer, customerId: customerRecord.id, items: [...currentCart], total: grandTotal };
         const sys = firestore.collection('SystemData');
-        const itemRefs = currentCart.map(cartItem => sys.doc('InventoryData').collection('items').doc(String(cartItem.itemId)));
+        const stockRequirementsMap = new Map();
+        currentCart.forEach(cartItem => {
+            const key = String(cartItem.itemId);
+            const existing = stockRequirementsMap.get(key) || { itemId: cartItem.itemId, qty: 0, name: cartItem.name };
+            existing.qty += safeNumber(cartItem.qty);
+            stockRequirementsMap.set(key, existing);
+        });
+        const stockRequirements = Array.from(stockRequirementsMap.values());
+        const itemRefs = stockRequirements.map(required => sys.doc('InventoryData').collection('items').doc(String(required.itemId)));
         const saleRef = sys.doc('CommerceData').collection('sales').doc(String(saleRecord.id));
         try {
             await firestore.runTransaction(async transaction => {
                 const snapshots = [];
                 for (const ref of itemRefs) snapshots.push(await transaction.get(ref));
                 snapshots.forEach((snap, index) => {
-                    const cartItem = currentCart[index];
-                    if (!snap.exists || safeNumber(snap.data().qty) < safeNumber(cartItem.qty)) {
-                        throw new Error(`کۆگا بۆ ${cartItem.name} بەس نییە`);
+                    const required = stockRequirements[index];
+                    if (!snap.exists || safeNumber(snap.data().qty) < required.qty) {
+                        throw new Error(`کۆگا بۆ ${required.name} بەس نییە`);
                     }
                 });
                 snapshots.forEach((snap, index) => {
-                    const cartItem = currentCart[index];
-                    transaction.update(itemRefs[index], { qty: safeNumber(snap.data().qty) - safeNumber(cartItem.qty) });
+                    transaction.update(itemRefs[index], { qty: safeNumber(snap.data().qty) - stockRequirements[index].qty });
                 });
                 transaction.set(saleRef, saleRecord);
             });
@@ -2605,6 +2621,11 @@
         document.getElementById('invId').innerText = sale.id.toString().slice(-4);
         document.getElementById('invDate').innerText = sale.date;
         document.getElementById('invCustomer').innerText = sale.customer;
+        const voidNotice = document.getElementById('invVoidNotice');
+        if (voidNotice) {
+            voidNotice.style.display = sale.isVoid ? 'block' : 'none';
+            voidNotice.innerText = sale.isVoid ? `ئەم وەسڵە پووچەڵ کراوەتەوە — هۆکار: ${sale.voidReason || '-'} — بەرواری پووچەڵکردنەوە: ${sale.voidDate || '-'}` : '';
+        }
         
         const tbody = document.getElementById('printableInvoiceItems');
         tbody.innerHTML = '';
@@ -2613,7 +2634,7 @@
             tbody.innerHTML += `<tr>
                 <td style="border:1px solid #cbd5e1; padding:8px;">${escapeHtml(i.name)}</td>
                 <td style="border:1px solid #cbd5e1; padding:8px; text-align:center;">${i.qty}</td>
-                <td style="border:1px solid #cbd5e1; padding:8px; text-align:center;">$${i.unitPrice.toFixed(2)}</td>
+                <td style="border:1px solid #cbd5e1; padding:8px; text-align:center;">$${safeNumber(i.unitPrice).toFixed(2)}</td>
                 <td style="border:1px solid #cbd5e1; padding:8px; text-align:center; font-weight:bold;">$${i.total.toFixed(2)}</td>
             </tr>`;
         });
@@ -3104,7 +3125,7 @@
 
     function getCustomerBalance(customerName, startDate = '', endDate = '') {
         const customerId = (db.customers || []).find(c => c.name === customerName)?.id;
-        const totalSales = filterByDateRange((db.sales || []).filter(s => partyMatches(s, customerId, customerName, 'customerId', 'customer')), startDate, endDate).reduce((sum, s) => sum + (Number(s.total) || 0), 0);
+        const totalSales = filterByDateRange((db.sales || []).filter(s => !s.isVoid && partyMatches(s, customerId, customerName, 'customerId', 'customer')), startDate, endDate).reduce((sum, s) => sum + (Number(s.total) || 0), 0);
         const totalPayments = filterByDateRange((db.payments || []).filter(p => partyMatches(p, customerId, customerName, 'customerId', 'customer') && !p.isVoid), startDate, endDate).reduce((sum, p) => sum + (Number(p.amount) || 0), 0);
         const totalReturns = filterByDateRange((db.returns || []).filter(r => r.type === 'from_customer' && partyMatches(r, customerId, customerName, 'partyId', 'party')), startDate, endDate).reduce((sum, r) => sum + (Number(r.total) || 0), 0);
         return {
@@ -3131,7 +3152,7 @@
             const customer = sale.customerId ? customerById.get(String(sale.customerId)) : (db.customers || []).find(c => c.name === sale.customer);
             const customerName = customer?.name || sale.customer || '';
             const balance = customer ? getCustomerBalance(customer.name) : getCustomerBalance(customerName);
-            const statusMatches = statusFilter === 'all' || (statusFilter === 'debtor' ? balance.due > 0.005 : balance.due <= 0.005);
+            const statusMatches = statusFilter === 'all' || (statusFilter === 'voided' ? !!sale.isVoid : !sale.isVoid && (statusFilter === 'debtor' ? balance.due > 0.005 : balance.due <= 0.005));
             const itemsText = Array.isArray(sale.items) ? sale.items.map(i => i.name || '').join(' ') : (sale.itemName || '');
             const searchMatches = [customerName, customer?.phone || '', String(sale.id || ''), sale.date || '', itemsText].some(hasQuery);
             return statusMatches && searchMatches;
@@ -3147,16 +3168,20 @@
                 const balance = getCustomerBalance(customerName);
                 const due = Number(balance.due) || 0;
                 const isDebtor = due > 0.005;
-                const statusLabel = isDebtor ? 'قەرزدار' : 'وەسڵکراو / قەرزی نییە';
+                const statusLabel = sale.isVoid ? `پووچەڵکراوە${sale.voidReason ? `: ${sale.voidReason}` : ''}` : (isDebtor ? 'قەرزدار' : 'وەسڵکراو / قەرزی نییە');
                 const itemsText = Array.isArray(sale.items) ? sale.items.map(i => `${i.name || 'مەواد'} (${safeNumber(i.qty)} دانە)`).join('، ') : (sale.itemName || 'مەواد');
-                salesTbody.insertAdjacentHTML('beforeend', `<tr>
+                const canVoidInvoice = currentUser && currentUser.role === 'admin';
+                const actionButtons = `<button type="button" class="btn btn-warning btn-sm" onclick="printMultiItemInvoiceById(decodeURIComponent('${safeInlineArg(sale.id)}'))" title="چاپکردن"><i class="fa-solid fa-print"></i></button> ${canVoidInvoice && !sale.isVoid ? `<button type="button" class="btn btn-danger btn-sm" onclick="openVoidModal(decodeURIComponent('${safeInlineArg(sale.id)}'), 'sale')" title="پووچەڵکردنی وەسڵ"><i class="fa-solid fa-ban"></i></button>` : ''}`;
+                const statusClass = sale.isVoid ? 'badge-void' : (isDebtor ? 'badge-low' : 'badge-cust');
+                const totalHtml = sale.isVoid ? `<del>$${safeNumber(sale.total).toFixed(2)}</del>` : `$${safeNumber(sale.total).toFixed(2)}`;
+                salesTbody.insertAdjacentHTML('beforeend', `<tr ${sale.isVoid ? 'class="void-row"' : ''}>
                     <td>#${escapeHtml(String(sale.id || '').slice(-4))}</td>
                     <td>${escapeHtml(sale.date || '-')}</td>
                     <td><strong>${escapeHtml(customerName)}</strong></td>
                     <td>${escapeHtml(itemsText)}</td>
-                    <td class="t-center">$${safeNumber(sale.total).toFixed(2)}</td>
-                    <td class="t-center"><span class="badge ${isDebtor ? 'badge-low' : 'badge-cust'}">${statusLabel}</span></td>
-                    <td class="t-center"><button type="button" class="btn btn-warning btn-sm" onclick="printMultiItemInvoiceById(decodeURIComponent('${safeInlineArg(sale.id)}'))"><i class="fa-solid fa-print"></i></button></td>
+                    <td class="t-center">${totalHtml}</td>
+                    <td class="t-center"><span class="badge ${statusClass}">${escapeHtml(statusLabel)}</span></td>
+                    <td class="t-center">${actionButtons}</td>
                 </tr>`);
             });
         }
@@ -3174,8 +3199,8 @@
         const canRecordPayment = currentUser && (currentUser.role === 'admin' || (Array.isArray(currentUser.permissions) && currentUser.permissions.includes('payments')));
         customers.forEach(c => {
             const bal = getCustomerBalance(c.name);
-            const balanceColor = bal.due > 0 ? 'var(--danger)' : 'var(--success)';
-            const balanceText = bal.due > 0 ? `قەرزار: $${bal.due.toFixed(2)}` : 'پاکتاوە';
+            const balanceColor = bal.due > 0.005 ? 'var(--danger)' : (bal.due < -0.005 ? 'var(--primary)' : 'var(--success)');
+            const balanceText = bal.due > 0.005 ? `قەرزار: $${bal.due.toFixed(2)}` : (bal.due < -0.005 ? `بستانکار: $${Math.abs(bal.due).toFixed(2)}` : 'پاکتاوە');
 
             tbody.innerHTML += `<tr>
                 <td><strong>${escapeHtml(c.name)}</strong></td>
@@ -3264,7 +3289,7 @@
         const startDate = document.getElementById('dashStartDate').value;
         const endDate = document.getElementById('dashEndDate').value;
 
-        const filteredSales = filterByDateRange(db.sales, startDate, endDate);
+        const filteredSales = filterByDateRange((db.sales || []).filter(s => !s.isVoid), startDate, endDate);
         const filteredPayments = filterByDateRange((db.payments || []).filter(p => !p.isVoid), startDate, endDate);
         const filteredExpenses = filterByDateRange(db.expenses, startDate, endDate);
         const filteredPurchases = filterByDateRange(db.purchases, startDate, endDate);
@@ -3353,6 +3378,18 @@
     }
 
     function openVoidModal(id, type) {
+        const description = document.getElementById('voidModalDescription');
+        if (type === 'sale') {
+            if (!currentUser || currentUser.role !== 'admin') return alert('تەنها بەڕێوەبەر دەتوانێت وەسڵی فرۆشتن پووچەڵ بکاتەوە.');
+            const sale = (db.sales || []).find(s => String(s.id) === String(id));
+            if (!sale || sale.isVoid) return alert('وەسڵەکە نەدۆزرایەوە یان پێشتر پووچەڵکراوەتەوە.');
+            const customer = (db.customers || []).find(c => String(c.id) === String(sale.customerId)) || (db.customers || []).find(c => c.name === sale.customer);
+            const customerId = customer?.id || sale.customerId, customerName = customer?.name || sale.customer;
+            const postedPayments = (db.payments || []).filter(p => !p.isVoid && partyMatches(p, customerId, customerName, 'customerId', 'customer')).reduce((sum, p) => sum + safeNumber(p.amount), 0);
+            description.innerText = `ئەم کردارە بڕی مەوادەکان دەگەڕێنێتەوە بۆ کۆگا و کۆی وەسڵەکە لە قەرزی ${customerName || 'کڕیار'} لادەبات. ئەم کردارە ناگەڕێتەوە. هۆکار بنووسە.${postedPayments > 0 ? ` پارەدانی پێشوو ($${postedPayments.toFixed(2)}) لە مامەڵەی فرۆشتن جیاوازە و ناسڕدرێتەوە؛ دوای پووچەڵکردنەوە لەوانەیە باڵانسی کڕیار بستانکار ببێت.` : ''}`;
+        } else {
+            description.innerText = 'تکایە هۆکاری پووچەڵکردنەوەی ئەم وەسڵە بنووسە:';
+        }
         document.getElementById('voidTargetId').value = id;
         document.getElementById('voidTargetType').value = type;
         document.getElementById('voidReasonInput').value = '';
@@ -3370,6 +3407,7 @@
         const reason = document.getElementById('voidReasonInput').value.trim();
 
         if (!reason) return alert('هۆکارەکە بنووسە');
+        if (type === 'sale') return voidSaleTransaction(id, reason);
         const previousDb = cloneDb(db);
         let found = false;
 
@@ -3387,6 +3425,69 @@
         updateAllViews();
         if (type === 'customer') renderPayments();
         if (type === 'supplier') renderSupPayments();
+    }
+
+    async function voidSaleTransaction(id, reason) {
+        if (!currentUser || currentUser.role !== 'admin') return alert('تەنها بەڕێوەبەر دەتوانێت وەسڵی فرۆشتن پووچەڵ بکاتەوە.');
+        const localSale = (db.sales || []).find(s => String(s.id) === String(id));
+        if (!localSale || localSale.isVoid) return alert('وەسڵەکە نەدۆزرایەوە یان پێشتر پووچەڵکراوەتەوە.');
+        const customer = (db.customers || []).find(c => String(c.id) === String(localSale.customerId)) || (db.customers || []).find(c => c.name === localSale.customer);
+        const customerId = customer?.id || localSale.customerId, customerName = customer?.name || localSale.customer;
+        const localLines = Array.isArray(localSale.items) && localSale.items.length ? localSale.items : (localSale.itemId ? [{ itemId: localSale.itemId, qty: localSale.qty || 1, name: localSale.itemName || 'مەواد' }] : []);
+        if (!localLines.length || localLines.some(line => !line.itemId || !Number.isInteger(safeNumber(line.qty)) || safeNumber(line.qty) <= 0)) return alert('وردەکاریی مەوادەکانی ئەم وەسڵە تەواو نییە؛ بۆ پاراستنی کۆگا ناتوانرێت پووچەڵ بکرێتەوە.');
+        const itemIds = new Set(localLines.map(line => String(line.itemId)));
+        const relatedReturn = (db.returns || []).find(r => r.type === 'from_customer' && partyMatches(r, customerId, customerName, 'partyId', 'party') && itemIds.has(String(r.itemId)));
+        if (relatedReturn) return alert('بۆ ئەم کڕیارە گەڕاندنەوەی هەمان مەواد تۆمارکراوە و بە وەسڵێکی دیاریکراو نەبەستراوەتەوە؛ بۆ ڕێگریکردن لە زیادبوونی دووبارەی کۆگا، ئەم وەسڵە پووچەڵ ناکرێتەوە.');
+
+        const voidMetadata = {
+            isVoid: true,
+            voidReason: reason,
+            voidDate: localToday(),
+            voidedAt: new Date().toISOString(),
+            voidedBy: currentUser.username || currentUser.name || currentUser.email || 'admin'
+        };
+        const sys = firestore.collection('SystemData');
+        const saleRef = sys.doc('CommerceData').collection('sales').doc(String(id));
+        let committedRequirements = [];
+        let transactionCommitted = false;
+        try {
+            await firestore.runTransaction(async transaction => {
+                const saleSnap = await transaction.get(saleRef);
+                if (!saleSnap.exists) throw new Error('وەسڵەکە لە Firestore نەدۆزرایەوە');
+                const serverSale = saleSnap.data();
+                if (serverSale.isVoid) throw new Error('وەسڵەکە لە ئامێرێکی تر پێشتر پووچەڵکراوەتەوە');
+                const lines = Array.isArray(serverSale.items) && serverSale.items.length ? serverSale.items : (serverSale.itemId ? [{ itemId: serverSale.itemId, qty: serverSale.qty || 1, name: serverSale.itemName || 'مەواد' }] : []);
+                if (!lines.length || lines.some(line => !line.itemId || !Number.isInteger(safeNumber(line.qty)) || safeNumber(line.qty) <= 0)) throw new Error('وردەکاریی مەوادەکانی وەسڵەکە نادروستە');
+                const requirementsMap = new Map();
+                lines.forEach(line => {
+                    const key = String(line.itemId);
+                    const current = requirementsMap.get(key) || { itemId: line.itemId, qty: 0, name: line.name || serverSale.itemName || 'مەواد' };
+                    current.qty += safeNumber(line.qty);
+                    requirementsMap.set(key, current);
+                });
+                const requirements = Array.from(requirementsMap.values());
+                const itemRefs = requirements.map(entry => sys.doc('InventoryData').collection('items').doc(String(entry.itemId)));
+                const itemSnapshots = [];
+                for (const ref of itemRefs) itemSnapshots.push(await transaction.get(ref));
+                itemSnapshots.forEach((snap, index) => { if (!snap.exists) throw new Error(`مەوادی ${requirements[index].name} لە کۆگادا نییە؛ هیچ گۆڕانکارییەک نەکرا.`); });
+                itemSnapshots.forEach((snap, index) => transaction.update(itemRefs[index], { qty: safeNumber(snap.data().qty) + requirements[index].qty }));
+                transaction.update(saleRef, voidMetadata);
+                committedRequirements = requirements;
+            });
+            transactionCommitted = true;
+            committedRequirements.forEach(entry => {
+                const item = (db.items || []).find(i => String(i.id) === String(entry.itemId));
+                if (item) item.qty = safeNumber(item.qty) + entry.qty;
+            });
+            Object.assign(localSale, voidMetadata);
+            lastSyncedDb = cloneDb(db);
+            closeVoidModal();
+            updateAllViews();
+            alert('وەسڵەکە پووچەڵکرایەوە؛ کۆگا و باڵانسی کڕیار نوێ کرانەوە.');
+        } catch (error) {
+            console.error('هەڵە لە پووچەڵکردنی وەسڵی فرۆشتن:', error);
+            alert(transactionCommitted ? `وەسڵەکە لە Firestore پووچەڵ کراوەتەوە، بەڵام نوێکردنەوەی ڕووکاری هەڵەی تێدا بوو. پەڕەکە نوێ بکەرەوە. (${error.message || 'هەڵە'})` : `وەسڵەکە پووچەڵ نەکرایەوە و هیچ گۆڕانکارییەک نەکرا: ${error.message || 'هەڵەی Firestore'}`);
+        }
     }
 
     function openSupplierModal(selectId) {
@@ -3913,9 +4014,9 @@
             returns = filterByDateRange(returns, startDate, endDate);
 
             const salesRecords = sales.map(s => {
-                totalSalesOrPurchases += s.total;
+                if (!s.isVoid) totalSalesOrPurchases += safeNumber(s.total);
                 let detailsStr = s.items ? s.items.map(i => `${i.name} (${i.qty})`).join(', ') : (s.itemName || '-');
-                return { ...s, typeName: '🛒 فرۆشتن', details: detailsStr };
+                return { ...s, typeName: s.isVoid ? '🛒 فرۆشتن (پووچەڵکراوە)' : '🛒 فرۆشتن', details: s.isVoid ? `${detailsStr} — هۆکار: ${s.voidReason || '-'}` : detailsStr };
             });
             const payRecords = payments.map(p => {
                 if(!p.isVoid) totalPaid += p.amount;
@@ -4188,7 +4289,9 @@
 
     function autoFillBuyPrice() {
         const item = (db.items || []).find(i => i.id == document.getElementById('purchaseItem').value);
-        if(item) document.getElementById('purchaseUnitPrice').value = item.buyPrice;
+        const priceInput = document.getElementById('purchaseUnitPrice');
+        priceInput.disabled = false;
+        if(item) priceInput.value = item.buyPrice;
     }
 
     function safeNumber(value, fallback = 0) {
@@ -4449,7 +4552,7 @@
             const returned = (db.returns || []).filter(r => r.type === 'to_supplier' && partyMatches(r, partyId, party, 'partyId', 'party') && String(r.itemId) === String(itemId)).reduce((n, r) => n + safeNumber(r.qty), 0);
             if (qty > purchased - returned) return alert(`ناتوانیت زیاتر لە بڕی کڕراو بگەڕێنیتەوە. بڕی بەردەست: ${Math.max(0, purchased - returned)}`);
         } else {
-            const sold = (db.sales || []).filter(s => partyMatches(s, partyId, party, 'customerId', 'customer')).reduce((n, sale) => {
+            const sold = (db.sales || []).filter(s => !s.isVoid && partyMatches(s, partyId, party, 'customerId', 'customer')).reduce((n, sale) => {
                 if (Array.isArray(sale.items)) return n + sale.items.filter(i => String(i.itemId) === String(itemId)).reduce((m, i) => m + safeNumber(i.qty), 0);
                 return n + (String(sale.itemId) === String(itemId) ? safeNumber(sale.qty) : 0);
             }, 0);
@@ -4463,7 +4566,7 @@
             const purchasedQty = purchases.reduce((n, p) => n + safeNumber(p.qty), 0);
             historicalUnitPrice = purchasedQty > 0 ? purchasedValue / purchasedQty : safeNumber(item.buyPrice);
         } else {
-            const sales = (db.sales || []).flatMap(s => {
+            const sales = (db.sales || []).filter(s => !s.isVoid).flatMap(s => {
                 if (!partyMatches(s, partyId, party, 'customerId', 'customer')) return [];
                 if (Array.isArray(s.items)) return s.items.filter(i => String(i.itemId) === String(itemId));
                 if (String(s.itemId) !== String(itemId)) return [];
@@ -4515,8 +4618,10 @@
         const supplier = document.getElementById('purchaseSupplier').value;
         const supplierRecord = (db.suppliers || []).find(s => s.name === supplier);
         const qty = Number(document.getElementById('purchaseQty').value);
-        const unitPrice = Number(document.getElementById('purchaseUnitPrice').value);
-        if (!supplier || !supplierRecord || !Number.isInteger(qty) || qty <= 0 || !Number.isFinite(unitPrice) || unitPrice < 0) return alert('تکایە دابینکەر، بڕ و نرخ بە دروستی بنووسە.');
+        const priceText = document.getElementById('purchaseUnitPrice').value.trim();
+        const isFreePurchase = priceText !== '' && Number(priceText) === 0;
+        const unitPrice = Number(priceText);
+        if (!supplier || !supplierRecord || !Number.isInteger(qty) || qty <= 0 || priceText === '' || !Number.isFinite(unitPrice) || unitPrice < 0) return alert('تکایە دابینکەر، بڕ و نرخ بە دروستی بنووسە.');
         let item;
         let isNewItem = mode === 'new';
         if (isNewItem) {
@@ -4538,7 +4643,7 @@
             item = db.items.find(x => String(x.id) === String(document.getElementById('purchaseItem').value));
             if (!item) return alert('مەوادێک هەڵبژێرە.');
         }
-        const purchase = { id: newId(), date: document.getElementById('purchaseDate').value || localToday(), supplier, supplierId: supplierRecord.id, itemId: item.id, itemName: item.name, qty, unitPrice, total: qty * unitPrice };
+        const purchase = { id: newId(), date: document.getElementById('purchaseDate').value || localToday(), supplier, supplierId: supplierRecord.id, itemId: item.id, itemName: item.name, qty, unitPrice, total: qty * unitPrice, isFree: isFreePurchase };
         const sys = firestore.collection('SystemData');
         const itemRef = sys.doc('InventoryData').collection('items').doc(String(item.id));
         const purchaseRef = sys.doc('CommerceData').collection('purchases').doc(String(purchase.id));
@@ -4550,12 +4655,14 @@
                     const itemSnap = await transaction.get(itemRef);
                     if (!itemSnap.exists) throw new Error('کاڵا لە Firestore نەدۆزرایەوە');
                     const serverItem = itemSnap.data();
-                    transaction.update(itemRef, { qty: safeNumber(serverItem.qty) + qty, buyPrice: unitPrice });
+                    const itemUpdate = { qty: safeNumber(serverItem.qty) + qty };
+                    if (!isFreePurchase) itemUpdate.buyPrice = unitPrice;
+                    transaction.update(itemRef, itemUpdate);
                 }
                 transaction.set(purchaseRef, purchase);
             });
             if (isNewItem) db.items.push({ ...item, qty });
-            else { item.qty = safeNumber(item.qty) + qty; item.buyPrice = unitPrice; }
+            else { item.qty = safeNumber(item.qty) + qty; if (!isFreePurchase) item.buyPrice = unitPrice; }
             db.purchases.push(purchase);
             lastSyncedDb = cloneDb(db);
             document.getElementById('purchaseForm').reset();
@@ -4576,7 +4683,7 @@
             const lines = Array.isArray(sale.items) && sale.items.length ? sale.items : [{ name: sale.itemName || 'مەواد', qty: sale.qty || 1, unitPrice: sale.unitPrice || sale.total, total: sale.total }];
             lines.forEach(line => salesLines.push({
                 receipt: String(sale.id || '').slice(-4), date: sale.date || reportDate, customer: sale.customer || '-',
-                item: line.name || 'مەواد', qty: safeNumber(line.qty), unitPrice: safeNumber(line.unitPrice), total: safeNumber(line.total)
+                item: line.name || 'مەواد', qty: safeNumber(line.qty), unitPrice: safeNumber(line.unitPrice), total: safeNumber(line.total), isFree: !!line.isFree || safeNumber(line.unitPrice) === 0
             }));
         });
         const inventory = (db.items || []).map(item => {
