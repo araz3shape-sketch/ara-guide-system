@@ -1459,6 +1459,7 @@
                         <div class="form-group"><label id="returnPartyLabel">دابینکەر</label><select id="returnParty" required></select></div>
                         <div class="form-group"><label>مەواد</label><select id="returnItem" required></select></div>
                         <div class="form-group"><label>بڕی گەڕێنراوە</label><input type="text" inputmode="numeric" id="returnQty" value="1" oninput="fixNumbers(this)" required></div>
+                        <div class="form-group" id="returnSettlementWrap" style="display:none;"><label>چارەسەری باڵانسی گەڕاندنەوە</label><select id="returnSettlement"><option value="credit">وەک بستانکاری بۆ کڕیار (لە قەرز کەمبکرێتەوە)</option><option value="refund">پارە بە کڕیار بگەڕێندرێتەوە</option></select><small style="color:var(--text-muted);">گەڕاندنەوەی نەقد لە کەشفدا وەک دەرچوونی پارە نیشان دەدرێت.</small></div>
                         <div class="form-group"><label>هۆکاری گەڕاندنەوە</label><input type="text" id="returnReason" placeholder="ئێکسپایەر، تێکچوو..."></div>
                     </div>
                     <button type="submit" class="btn btn-warning"><i class="fa-solid fa-rotate-left"></i> تۆمارکردنی گەڕاندنەوە</button>
@@ -2488,7 +2489,7 @@
         const item = (db.items || []).find(i => i.id == document.getElementById('saleItem').value);
         const priceInput = document.getElementById('saleUnitPrice');
         priceInput.disabled = false;
-        if(item) priceInput.value = item.sellPrice;
+        priceInput.value = item ? String(safeNumber(item.sellPrice)) : '';
     }
 
     function addToCart() {
@@ -3127,7 +3128,7 @@
         const customerId = (db.customers || []).find(c => c.name === customerName)?.id;
         const totalSales = filterByDateRange((db.sales || []).filter(s => !s.isVoid && partyMatches(s, customerId, customerName, 'customerId', 'customer')), startDate, endDate).reduce((sum, s) => sum + (Number(s.total) || 0), 0);
         const totalPayments = filterByDateRange((db.payments || []).filter(p => partyMatches(p, customerId, customerName, 'customerId', 'customer') && !p.isVoid), startDate, endDate).reduce((sum, p) => sum + (Number(p.amount) || 0), 0);
-        const totalReturns = filterByDateRange((db.returns || []).filter(r => r.type === 'from_customer' && partyMatches(r, customerId, customerName, 'partyId', 'party')), startDate, endDate).reduce((sum, r) => sum + (Number(r.total) || 0), 0);
+        const totalReturns = filterByDateRange((db.returns || []).filter(r => r.type === 'from_customer' && partyMatches(r, customerId, customerName, 'partyId', 'party')), startDate, endDate).reduce((sum, r) => sum + Math.max(0, (Number(r.total) || 0) - (Number(r.refundAmount) || 0)), 0);
         return {
             totalSales: totalSales - totalReturns,
             totalPaid: totalPayments,
@@ -3907,14 +3908,8 @@
         if (!Number.isFinite(amount) || amount <= 0) return alert('بڕی پارە دەبێت زیاتر لە سفر بێت.');
 
         const bal = getSupplierBalance(supplierName);
-
-        if (bal.due <= 0) {
-            return alert('ئەم دابینکەرە هیچ قەرزێکی لای تۆ نییە و باڵانسی پاکتاوە!');
-        }
-
-        if (amount > bal.due) {
-            return alert(`⚠️ بڕی پارەی دیاریکراو ($${amount.toFixed(2)}) لە کۆی قەرزی ماوە ($${bal.due.toFixed(2)}) زیاترە! ناتوانیت زیاتر لە قەرز بدەیت.`);
-        }
+        if (bal.due <= 0) return alert('ئەم دابینکەرە هیچ قەرزێکی لای تۆ نییە و باڵانسی پاکتاوە!');
+        if (amount > bal.due) return alert(`⚠️ بڕی پارەی دیاریکراو ($${amount.toFixed(2)}) لە کۆی قەرزی ماوە ($${bal.due.toFixed(2)}) زیاترە! ناتوانیت زیاتر لە قەرز بدەیت.`);
 
         const supPayment = {
             id: newId(),
@@ -4023,10 +4018,11 @@
                 return { ...p, typeName: p.isVoid ? '💵 وەسڵ (پووچەڵکراوە)' : '💵 وەسڵی پارەدان', details: p.isVoid ? `پووچەڵ: ${p.voidReason}` : p.note, total: p.amount, qty: '-', unitPrice: '-' };
             });
             const retRecords = returns.map(r => {
-                totalSalesOrPurchases -= (r.total || 0);
+                totalSalesOrPurchases -= (Number(r.total) || 0) - (Number(r.refundAmount) || 0);
                 return { ...r, typeName: '↩️ گەڕاندنەوە لە کڕیار', details: `${r.itemName} (${r.reason})`, unitPrice: '-', total: r.total || 0 };
             });
-            records = [...salesRecords, ...payRecords, ...retRecords];
+            const refundRecords = returns.filter(r => safeNumber(r.refundAmount) > 0).map(r => ({ ...r, id: `${r.id}-refund`, typeName: '💸 پارەی گەڕێندراوە بۆ کڕیار', details: `${r.itemName} — refund`, unitPrice: '-', total: safeNumber(r.refundAmount) }));
+            records = [...salesRecords, ...payRecords, ...retRecords, ...refundRecords];
         } else {
             let purchases = (db.purchases || []).filter(p => partyMatches(p, partyId, party, 'supplierId', 'supplier'));
             let supPayments = (db.supplierPayments || []).filter(sp => partyMatches(sp, partyId, party, 'supplierId', 'supplier'));
@@ -4064,7 +4060,14 @@
 
         document.getElementById('statTotalSales').innerText = `$${totalSalesOrPurchases.toFixed(2)}`;
         document.getElementById('statTotalPaid').innerText = `$${totalPaid.toFixed(2)}`;
-        document.getElementById('statBalance').innerText = `$${(totalSalesOrPurchases - totalPaid).toFixed(2)}`;
+        const balance = totalSalesOrPurchases - totalPaid;
+        document.getElementById('lblStat3').innerText = type === 'customer'
+            ? (balance < -0.005 ? 'بستانکاری کڕیار (پارەی لای ئێمە)' : 'قەرزی ماوە (کڕیار)')
+            : (balance < -0.005 ? 'بستانکاری دابینکەر (پارەی لای دابینکەر)' : 'قەرزی ماوە (دابینکەر)');
+        const balancePrefix = balance < -0.005
+            ? (type === 'customer' ? 'بستانکاری کڕیار: ' : 'بستانکاری دابینکەر: ')
+            : balance > 0.005 ? (type === 'customer' ? 'قەرزی کڕیار: ' : 'قەرزی دابینکەر: ') : '';
+        document.getElementById('statBalance').innerText = `${balancePrefix}$${balance.toFixed(2)}`;
 
         if (records.length === 0) {
             tbody.innerHTML = `<tr><td colspan="6" class="t-center" style="color: #94a3b8; padding: 25px;">هیچ تۆمارێک لەم ماوەیەدا بۆ ئەم لایەنە نییە.</td></tr>`;
@@ -4291,7 +4294,7 @@
         const item = (db.items || []).find(i => i.id == document.getElementById('purchaseItem').value);
         const priceInput = document.getElementById('purchaseUnitPrice');
         priceInput.disabled = false;
-        if(item) priceInput.value = item.buyPrice;
+        priceInput.value = item ? String(safeNumber(item.buyPrice)) : '';
     }
 
     function safeNumber(value, fallback = 0) {
@@ -4391,7 +4394,7 @@
         result.expenses = result.expenses.map(raw => { const x = obj(raw); return { ...x, id: idValue(x.id), date: text(x.date), category: text(x.category), note: text(x.note, '-'), amount: num(x.amount) }; });
         result.payments = result.payments.map(raw => { const x = obj(raw); return { ...x, id: idValue(x.id), date: text(x.date), customer: text(x.customer), note: text(x.note), amount: num(x.amount), isVoid: Boolean(x.isVoid), voidReason: text(x.voidReason) }; });
         result.supplierPayments = result.supplierPayments.map(raw => { const x = obj(raw); return { ...x, id: idValue(x.id), date: text(x.date), supplier: text(x.supplier), note: text(x.note), amount: num(x.amount), isVoid: Boolean(x.isVoid), voidReason: text(x.voidReason) }; });
-        result.returns = result.returns.map(raw => { const x = obj(raw); return { ...x, id: idValue(x.id), date: text(x.date), type: text(x.type), party: text(x.party), itemId: refId(x.itemId), itemName: text(x.itemName), reason: text(x.reason, '-'), qty: num(x.qty), total: num(x.total) }; });
+        result.returns = result.returns.map(raw => { const x = obj(raw), total = Math.max(0, num(x.total)); return { ...x, id: idValue(x.id), date: text(x.date), type: text(x.type), party: text(x.party), itemId: refId(x.itemId), itemName: text(x.itemName), reason: text(x.reason, '-'), qty: num(x.qty), total, refundAmount: Math.min(total, Math.max(0, num(x.refundAmount))) }; });
         result.sales = result.sales.map(raw => {
             const x = obj(raw), saleItems = Array.isArray(x.items) ? x.items : null;
             return { ...x, id: idValue(x.id), date: text(x.date), customer: text(x.customer), total: num(x.total),
@@ -4527,6 +4530,8 @@
 
     function updateReturnDropdowns() {
         const type = document.getElementById('returnType')?.value || 'to_supplier';
+        const settlementWrap = document.getElementById('returnSettlementWrap');
+        if (settlementWrap) settlementWrap.style.display = type === 'from_customer' ? '' : 'none';
         const party = document.getElementById('returnParty'); const item = document.getElementById('returnItem');
         if (!party || !item) return;
         document.getElementById('returnPartyLabel').innerText = type === 'to_supplier' ? 'دابینکەر' : 'کڕیار';
@@ -4578,7 +4583,8 @@
             historicalUnitPrice = soldQty > 0 ? soldValue / soldQty : safeNumber(item.sellPrice);
         }
         const total = qty * historicalUnitPrice;
-        const returnRecord = { id: newId(), date: localToday(), type, party, partyId: partyRecord.id, itemId, itemName: item.name, qty, total, reason: document.getElementById('returnReason').value.trim() || '-' };
+        const refundAmount = type === 'from_customer' && document.getElementById('returnSettlement').value === 'refund' ? total : 0;
+        const returnRecord = { id: newId(), date: localToday(), type, party, partyId: partyRecord.id, itemId, itemName: item.name, qty, total, refundAmount, reason: document.getElementById('returnReason').value.trim() || '-' };
         const sys = firestore.collection('SystemData');
         const itemRef = sys.doc('InventoryData').collection('items').doc(String(item.id));
         const returnRef = sys.doc('FinancialData').collection('returns').doc(String(returnRecord.id));
@@ -4604,7 +4610,10 @@
 
     function renderReturns() {
         const tbody = document.getElementById('returnsTable'); if (!tbody) return; tbody.innerHTML = '';
-        (db.returns || []).slice().reverse().forEach(r => tbody.insertAdjacentHTML('beforeend', `<tr><td>${escapeHtml(r.date)}</td><td>${r.type === 'to_supplier' ? 'بۆ دابینکەر' : 'لە کڕیار'}</td><td>${escapeHtml(r.party)}</td><td>${escapeHtml(r.itemName)}</td><td class="t-center">${safeNumber(r.qty)}</td><td>${escapeHtml(r.reason)}</td></tr>`));
+        (db.returns || []).slice().reverse().forEach(r => {
+            const settlement = r.type === 'from_customer' ? (safeNumber(r.refundAmount) > 0 ? ` — پارەی گەڕێندراوە: $${safeNumber(r.refundAmount).toFixed(2)}` : ' — بستانکاری کڕیار') : '';
+            tbody.insertAdjacentHTML('beforeend', `<tr><td>${escapeHtml(r.date)}</td><td>${r.type === 'to_supplier' ? 'بۆ دابینکەر' : 'لە کڕیار'}</td><td>${escapeHtml(r.party)}</td><td>${escapeHtml(r.itemName)}</td><td class="t-center">${safeNumber(r.qty)}</td><td>${escapeHtml(r.reason + settlement)}</td></tr>`);
+        });
     }
 
     function renderPurchases() {
