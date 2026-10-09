@@ -10,7 +10,7 @@
     <link rel="apple-touch-icon" href="logo.png">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -113,10 +113,10 @@
 
         .container { 
             max-width: 100%; 
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            padding: 14px 18px;
+            height: 100vh; 
+            display: flex; 
+            flex-direction: column; 
+            padding: 14px 18px; 
         }
         
         header {
@@ -214,17 +214,17 @@
 
         .tabs-sidebar { 
             display: flex; 
-            flex-direction: column;
-            width: 290px;
-            min-width: 290px;
+            flex-direction: column; 
+            width: 290px; 
+            min-width: 290px; 
             gap: 6px; 
-            background: var(--card-bg);
-            padding: 14px;
-            border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-sm);
-            border: 1px solid var(--border-color);
-            overflow-y: auto;
-            -webkit-overflow-scrolling: touch;
+            background: var(--card-bg); 
+            padding: 14px; 
+            border-radius: var(--radius-lg); 
+            box-shadow: var(--shadow-sm); 
+            border: 1px solid var(--border-color); 
+            overflow-y: auto; 
+            -webkit-overflow-scrolling: touch; 
         }
 
         .tab-btn { 
@@ -237,14 +237,14 @@
             cursor: pointer; 
             transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); 
             font-size: 15px; 
-            text-align: right;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            flex-shrink: 0;
-            user-select: none;
-            -webkit-user-select: none;
-            touch-action: manipulation;
+            text-align: right; 
+            display: flex; 
+            align-items: center; 
+            gap: 12px; 
+            flex-shrink: 0; 
+            user-select: none; 
+            -webkit-user-select: none; 
+            touch-action: manipulation; 
         }
 
         .tab-btn i, .tab-btn svg { width: 22px; text-align: center; color: var(--text-muted); }
@@ -252,7 +252,7 @@
         .tab-btn.active { 
             background-color: var(--primary) !important; 
             color: white !important; 
-            box-shadow: 0 4px 12px rgba(13, 148, 136, 0.35);
+            box-shadow: 0 4px 12px rgba(13, 148, 136, 0.35); 
         }
         .tab-btn.active i, .tab-btn.active svg { color: white !important; fill: white !important; }
 
@@ -283,11 +283,11 @@
             background: var(--card-bg); 
             padding: 24px; 
             border-radius: var(--radius-lg); 
-            box-shadow: var(--shadow-sm);
-            flex: 1;
-            overflow-y: auto;
-            border: 1px solid var(--border-color);
-            -webkit-overflow-scrolling: touch;
+            box-shadow: var(--shadow-sm); 
+            flex: 1; 
+            overflow-y: auto; 
+            border: 1px solid var(--border-color); 
+            -webkit-overflow-scrolling: touch; 
         }
         .tab-content.active { 
             display: flex; 
@@ -608,9 +608,9 @@
             border-radius: 8px; 
             outline: none; 
             font-size: 14.5px; 
-            background-color: #fff;
-            width: 100%;
-            transition: all 0.2s;
+            background-color: #fff; 
+            width: 100%; 
+            transition: all 0.2s; 
         }
         .form-group input:focus, .form-group select:focus {
             border-color: var(--primary);
@@ -631,10 +631,10 @@
             font-size: 14px; 
             touch-action: manipulation; 
             transition: all 0.2s; 
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
+            display: inline-flex; 
+            align-items: center; 
+            justify-content: center; 
+            gap: 8px; 
         }
         .btn:hover { background-color: var(--primary-hover); transform: translateY(-1px); }
         .btn-success { background-color: var(--success); }
@@ -655,21 +655,21 @@
             border-radius: var(--radius-md); 
             font-size: 14.5px; 
             background: #fff; 
-            outline: none;
-            transition: all 0.2s;
+            outline: none; 
+            transition: all 0.2s; 
         }
         .search-box:focus {
             border-color: var(--primary);
             box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.15);
         }
         
-        .table-responsive {
-            flex: 1;
-            overflow-y: auto;
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius-md);
-            background: #fff;
-            -webkit-overflow-scrolling: touch;
+        .table-responsive { 
+            flex: 1; 
+            overflow-y: auto; 
+            border: 1px solid var(--border-color); 
+            border-radius: var(--radius-md); 
+            background: #fff; 
+            -webkit-overflow-scrolling: touch; 
         }
 
         table { width: 100%; border-collapse: collapse; }
@@ -704,9 +704,9 @@
         }
 
         .modal { display: none; position: fixed; z-index: 100; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); align-items: center; justify-content: center; backdrop-filter: blur(4px); }
-        .modal-content { background: white; padding: 26px; border-radius: var(--radius-lg); width: 90%; max-width: 450px; box-shadow: var(--shadow-lg); max-height: 90vh; overflow-y: auto; }
+        .modal-content { background: white; padding: 26px; border-radius: var(--radius-lg); width: 90%; max-width: 480px; box-shadow: var(--shadow-lg); max-height: 90vh; overflow-y: auto; }
 
-        #printableInvoice, #printableReceipt { display: none; }
+        #printableInvoice, #printableReceipt, #printableStatement, #printableExpenses { display: none; }
 
         .invoice-box { 
             border: 1px solid #cbd5e1; 
@@ -720,17 +720,17 @@
         .invoice-header { 
             display: flex; 
             justify-content: space-between; 
-            align-items: center;
+            align-items: center; 
             border-bottom: 2px solid var(--secondary); 
             padding-bottom: 15px; 
             margin-bottom: 20px; 
         }
-        .print-logo {
-            width: 70px;
-            height: 70px;
-            border-radius: 50%;
-            object-fit: contain;
-            background: #fff;
+        .print-logo { 
+            width: 70px; 
+            height: 70px; 
+            border-radius: 50%; 
+            object-fit: contain; 
+            background: #fff; 
         }
         
         .print-table { 
@@ -755,11 +755,29 @@
         }
 
         @media print {
-            html, body { height: auto !important; overflow: visible !important; }
-            .container, .modal, .no-print, #loginScreen { display: none !important; }
-            body * { visibility: hidden; }
-            .print-active, .print-active * { visibility: visible !important; }
-            .print-active { display: block !important; position: absolute; right: 0; left: 0; top: 0; width: 100%; padding: 15px; margin: 0; }
+            html, body { 
+                height: auto !important; 
+                overflow: visible !important; 
+                background: #fff !important; 
+                color: #000 !important; 
+            }
+            body > *:not(.print-active) { 
+                display: none !important; 
+            }
+            .print-active { 
+                display: block !important; 
+                position: static !important; 
+                width: 100% !important; 
+                margin: 0 !important; 
+                padding: 10px !important; 
+                visibility: visible !important; 
+            }
+            .print-active * { 
+                visibility: visible !important; 
+            }
+            .container, .modal, .no-print, #loginScreen { 
+                display: none !important; 
+            }
         }
 
         .statement-summary { display: flex; gap: 15px; margin-bottom: 16px; background: #f8fafc; padding: 16px; border: 1px solid var(--border-color); border-radius: var(--radius-md); flex-wrap: wrap; }
@@ -793,6 +811,14 @@
             padding: 20px;
             border-radius: var(--radius-md);
             margin-bottom: 24px;
+        }
+
+        .filter-panel-box {
+            background: #f8fafc;
+            padding: 16px;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
+            margin-bottom: 16px;
         }
 
         @media (max-width: 900px) {
@@ -969,7 +995,6 @@
                         <div class="dash-stat-icon icon-indigo"><i class="fa-solid fa-triangle-exclamation"></i></div>
                     </div>
 
-                    <!-- بۆکسی نوێ: سەرمایەی ئێستای ناو کۆگا -->
                     <div class="dash-stat-card">
                         <div class="dash-stat-info">
                             <span class="dash-stat-label">سەرمایەی ئێستای کۆگا (بە کڕین)</span>
@@ -1046,10 +1071,10 @@
                 
                 <div class="implant-matrix-header">
                     <div class="filter-pill-group">
-                        <button type="button" class="filter-pill active" onclick="filterImplantMatrix('all')">هەموو قیاسەکان</button>
-                        <button type="button" class="filter-pill" onclick="filterImplantMatrix('out')">❌ نەماوە (تەواوبوو)</button>
-                        <button type="button" class="filter-pill" onclick="filterImplantMatrix('low')">⚠️ کەمماوە (&lt; 5)</button>
-                        <button type="button" class="filter-pill" onclick="filterImplantMatrix('available')">✅ بەردەستەکان</button>
+                        <button type="button" class="filter-pill active" onclick="filterImplantMatrix('all', event)">هەموو قیاسەکان</button>
+                        <button type="button" class="filter-pill" onclick="filterImplantMatrix('out', event)">❌ نەماوە (تەواوبوو)</button>
+                        <button type="button" class="filter-pill" onclick="filterImplantMatrix('low', event)">⚠️ کەمماوە (&lt; 5)</button>
+                        <button type="button" class="filter-pill" onclick="filterImplantMatrix('available', event)">✅ بەردەستەکان</button>
                     </div>
                     <input type="text" id="matrixSearchInput" onkeyup="renderImplantMatrix()" placeholder="🔍 گەڕان بەپێی قیاس یان مۆدێل..." style="padding: 8px 14px; border: 1px solid var(--border-color); border-radius: 8px; font-size: 13.5px; outline: none; width: 220px;">
                 </div>
@@ -1141,11 +1166,17 @@
                         <div class="form-group">
                             <label>ناوی دابینکەر</label>
                             <div class="input-with-btn">
-                                <select id="supPaySupplier" required></select>
+                                <select id="supPaySupplier" required onchange="handleSupplierSelectChange()"></select>
                                 <button type="button" class="btn btn-sm" onclick="openSupplierModal('supPaySupplier')"><i class="fa-solid fa-plus"></i> نوێ</button>
                             </div>
                         </div>
-                        <div class="form-group"><label>بڕی پارەی دراو ($)</label><input type="text" inputmode="decimal" id="supPayAmount" oninput="fixNumbers(this)" required placeholder="0.00"></div>
+                        <div class="form-group">
+                            <label style="display: flex; justify-content: space-between;">
+                                <span>بڕی پارەی دراو ($)</span>
+                                <span id="supDueNotice" style="font-size: 12px; color: var(--danger); font-weight: bold;"></span>
+                            </label>
+                            <input type="text" inputmode="decimal" id="supPayAmount" oninput="validateSupPayInput(this)" required placeholder="0.00">
+                        </div>
                         <div class="form-group"><label>بەرواری پارەدان</label><input type="date" id="supPayDate" required></div>
                         <div class="form-group"><label>تێبینی / شێوازی پارەدان</label><input type="text" id="supPayNote" placeholder="حەواڵە، کاش..."></div>
                     </div>
@@ -1163,7 +1194,11 @@
 
             <!-- 1.7 خەرجییەکان -->
             <div id="expenses" class="tab-content">
-                <h2><i class="fa-solid fa-wallet"></i> تۆمارکردنی خەرجی نوێ</h2>
+                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 14px;">
+                    <h2><i class="fa-solid fa-wallet"></i> تۆمارکردنی خەرجی نوێ</h2>
+                    <button type="button" class="btn btn-purple" onclick="printExpensesReport()"><i class="fa-solid fa-print"></i> پرێنتکردنی ئەم خەرجییانە</button>
+                </div>
+
                 <form id="expenseForm" onsubmit="addExpense(event)">
                     <div class="form-grid">
                         <div class="form-group">
@@ -1180,8 +1215,42 @@
                     <button type="submit" class="btn btn-danger"><i class="fa-solid fa-minus"></i> تۆمارکردنی خەرجی</button>
                 </form>
 
-                <h3 style="margin-top: 24px; font-size: 16px; font-weight: 700;">مێژووی خەرجییەکان</h3>
-                <div class="table-responsive" style="margin-top: 10px;">
+                <h3 style="margin-top: 30px; font-size: 16px; font-weight: 700; margin-bottom: 12px;"><i class="fa-solid fa-filter"></i> فلتەری خەرجییەکان</h3>
+                
+                <div class="filter-panel-box" style="margin-bottom: 14px;">
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; align-items: end;">
+                        <div class="form-group">
+                            <label>کاتیگۆریی خەرجی</label>
+                            <select id="filterExpenseCat" onchange="renderExpenses()">
+                                <option value="">هەموو کاتیگۆرییەکان</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>لە بەرواری</label>
+                            <input type="date" id="expenseStartDate" onchange="renderExpenses()">
+                        </div>
+                        <div class="form-group">
+                            <label>بۆ بەرواری</label>
+                            <input type="date" id="expenseEndDate" onchange="renderExpenses()">
+                        </div>
+                        <div>
+                            <button type="button" class="btn btn-warning btn-sm" onclick="resetExpenseFilters()" style="width: 100%; height: 42px;"><i class="fa-solid fa-arrows-rotate"></i> هەمووی</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="statement-summary" style="margin-bottom: 14px; background: #fff5f5; border-color: #fecaca;">
+                    <div class="summary-item">
+                        <label>ژمارەی خەرجییە فلتەرکراوەکان</label>
+                        <span id="filteredExpCount" style="color: var(--secondary);">0 تۆمار</span>
+                    </div>
+                    <div class="summary-item">
+                        <label>کۆی گشتی خەرجکراو لەم ماوەیەدا</label>
+                        <span id="filteredExpTotal" style="color: var(--danger);">$0.00</span>
+                    </div>
+                </div>
+
+                <div class="table-responsive">
                     <table>
                         <thead><tr><th>#</th><th>بەروار</th><th>جۆری خەرجی</th><th class="t-center">بڕی پارە ($)</th><th>تێبینی</th><th class="t-center">کردارەکان</th></tr></thead>
                         <tbody id="expensesTable"></tbody>
@@ -1189,37 +1258,52 @@
                 </div>
             </div>
 
-            <!-- 2. بەشی مەوادەکان -->
+            <!-- 2. بەشی کۆگا -->
             <div id="items" class="tab-content">
-                <h2><i class="fa-solid fa-boxes-stacked"></i> زیادکردنی مەواد و پێداویستییەکان بۆ کۆگا</h2>
-                <form id="itemForm" onsubmit="addItem(event)">
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label>کاتیگۆری (جۆری مەواد)</label>
-                            <div class="input-with-btn">
-                                <select id="itemCategory" required></select>
-                                <button type="button" class="btn btn-sm" onclick="openItemCategoryModal()"><i class="fa-solid fa-plus"></i> نوێ</button>
-                            </div>
-                        </div>
-                        <div class="form-group"><label>ناوی مەواد / براند</label><input type="text" id="itemName" required placeholder="Ara Guide"></div>
-                        <div class="form-group"><label>جۆر / مۆدێل (Platform)</label><input type="text" id="itemType" required placeholder="Bone Level / Regular"></div>
-                        <div class="form-group"><label>قیاس (Diameter x Length)</label><input type="text" id="itemSize" required placeholder="4.0 x 10 mm"></div>
-                        <div class="form-group"><label>کۆد / بارکۆد</label><input type="text" id="itemCode" required placeholder="AG-001"></div>
-                        <div class="form-group"><label>بڕی سەرەتایی کۆگا</label><input type="text" inputmode="numeric" id="itemQty" value="0" oninput="fixNumbers(this)" required></div>
-                        <div class="form-group"><label>نرخی کڕین ($)</label><input type="text" inputmode="decimal" id="itemBuyPrice" oninput="fixNumbers(this)" required></div>
-                        <div class="form-group"><label>نرخی فرۆشتن ($)</label><input type="text" inputmode="decimal" id="itemSellPrice" oninput="fixNumbers(this)" required></div>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 10px;">
+                    <h2><i class="fa-solid fa-boxes-stacked"></i> مەواد و پێداویستییەکانی کۆگا</h2>
+                    <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                        <button type="button" class="btn btn-purple btn-sm" onclick="openManageCategoryModal()"><i class="fa-solid fa-layer-group"></i> بەڕێوەبردنی کاتیگۆرییەکان</button>
+                        <button type="button" class="btn btn-purple btn-sm" onclick="openManageTypesModal()"><i class="fa-solid fa-tags"></i> بەڕێوەبردنی مۆدێلەکان</button>
                     </div>
-                    <button type="submit" class="btn"><i class="fa-solid fa-plus"></i> زیادکردن بۆ کۆگا</button>
-                </form>
-                <hr style="margin: 18px 0; border: none; border-top: 1px solid var(--border-color);">
-                <input type="text" class="search-box" id="searchItem" onkeyup="filterItems()" placeholder="🔍 گەڕان بەپێی ناو، کۆد، قیاس یان جۆری مەواد...">
+                </div>
+                
+                <div class="filter-panel-box">
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; align-items: end;">
+                        <div class="form-group">
+                            <label>🔍 گەڕان (ناو، کۆد)</label>
+                            <input type="text" id="filterItemText" onkeyup="filterItemsAdvanced()" placeholder="کۆد یان براند بنووسە...">
+                        </div>
+                        <div class="form-group">
+                            <label>کاتیگۆری</label>
+                            <select id="filterItemCat" onchange="filterItemsAdvanced()">
+                                <option value="">هەموو کاتیگۆرییەکان</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>جۆر / مۆدێل</label>
+                            <select id="filterItemType" onchange="filterItemsAdvanced()">
+                                <option value="">هەموو جۆرەکان</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>قیاس</label>
+                            <select id="filterItemSize" onchange="filterItemsAdvanced()">
+                                <option value="">هەموو قیاسەکان</option>
+                            </select>
+                        </div>
+                        <div>
+                            <button type="button" class="btn btn-warning btn-sm" onclick="resetItemFilters()" style="width: 100%; height: 42px;"><i class="fa-solid fa-arrows-rotate"></i> هەمووی</button>
+                        </div>
+                    </div>
+                </div>
                 
                 <div class="table-responsive">
                     <table>
                         <thead>
                             <tr>
                                 <th class="t-center">کۆد</th>
-                                <th>ناوی مەواد</th>
+                                <th>ناوی مەواد (براند)</th>
                                 <th class="t-center">کاتیگۆری</th>
                                 <th class="t-center">جۆر/مۆدێل</th>
                                 <th class="t-center">قیاس</th>
@@ -1236,8 +1320,20 @@
 
             <!-- 3. کڕین لە دابینکەر -->
             <div id="purchases" class="tab-content">
-                <h2><i class="fa-solid fa-truck-ramp-box"></i> تۆمارکردنی کڕینی نوێ لە دابینکەر</h2>
+                <h2><i class="fa-solid fa-truck-ramp-box"></i> تۆمارکردنی کڕینی نوێ لە دابینکەر (+ زیادکردن بۆ کۆگا)</h2>
                 <form id="purchaseForm" onsubmit="addPurchase(event)">
+                    <div style="background: #f8fafc; padding: 14px 18px; border-radius: var(--radius-md); border: 1px solid var(--border-color); margin-bottom: 16px;">
+                        <label style="font-weight: 700; color: var(--secondary); margin-bottom: 8px; display: block;">جۆری کڕین:</label>
+                        <div style="display: flex; gap: 20px;">
+                            <label style="display: flex; align-items: center; gap: 6px; cursor: pointer;">
+                                <input type="radio" name="purchaseMode" value="existing" checked onchange="togglePurchaseMode()"> مەوادێکی هەبووی ناو کۆگا
+                            </label>
+                            <label style="display: flex; align-items: center; gap: 6px; cursor: pointer;">
+                                <input type="radio" name="purchaseMode" value="new" onchange="togglePurchaseMode()"> ➕ مەوادێکی نوێ (پێشتر لە کۆگا نەبووە)
+                            </label>
+                        </div>
+                    </div>
+
                     <div class="form-grid">
                         <div class="form-group">
                             <label>دابینکەر</label>
@@ -1246,13 +1342,59 @@
                                 <button type="button" class="btn btn-sm" onclick="openSupplierModal('purchaseSupplier')"><i class="fa-solid fa-plus"></i> نوێ</button>
                             </div>
                         </div>
-                        <div class="form-group"><label>مەواد</label><select id="purchaseItem" required onchange="autoFillBuyPrice()"></select></div>
-                        <div class="form-group"><label>بڕی کڕدراو</label><input type="text" inputmode="numeric" id="purchaseQty" value="1" oninput="fixNumbers(this)" required></div>
-                        <div class="form-group"><label>نرخی یەک دانە ($)</label><input type="text" inputmode="decimal" id="purchaseUnitPrice" oninput="fixNumbers(this)" required></div>
-                        <div class="form-group"><label>بەروار</label><input type="date" id="purchaseDate" required></div>
+
+                        <div class="form-group" id="grpExistingItem">
+                            <label>مەواد (کۆگا)</label>
+                            <select id="purchaseItem" onchange="autoFillBuyPrice()"></select>
+                        </div>
+
+                        <div class="form-group new-item-field" style="display: none;">
+                            <label>کاتیگۆری</label>
+                            <div class="input-with-btn">
+                                <select id="newPurchCat"></select>
+                                <button type="button" class="btn btn-sm" onclick="openItemCategoryModal()"><i class="fa-solid fa-plus"></i> نوێ</button>
+                            </div>
+                        </div>
+                        <div class="form-group new-item-field" style="display: none;">
+                            <label>ناوی مەواد / براند</label>
+                            <input type="text" id="newPurchName" placeholder="نموونە: Ara Guide">
+                        </div>
+                        <div class="form-group new-item-field" style="display: none;">
+                            <label>جۆر / مۆدێل</label>
+                            <div class="input-with-btn">
+                                <select id="newPurchType"></select>
+                                <button type="button" class="btn btn-sm" onclick="openQuickTypeModal()"><i class="fa-solid fa-plus"></i> نوێ</button>
+                            </div>
+                        </div>
+                        <div class="form-group new-item-field" style="display: none;">
+                            <label>قیاس</label>
+                            <input type="text" id="newPurchSize" placeholder="4.0 x 10 mm">
+                        </div>
+                        <div class="form-group new-item-field" style="display: none;">
+                            <label>کۆد / بارکۆد</label>
+                            <input type="text" id="newPurchCode" placeholder="AG-001">
+                        </div>
+                        <div class="form-group new-item-field" style="display: none;">
+                            <label>نرخی فرۆشتن ($)</label>
+                            <input type="text" inputmode="decimal" id="newPurchSellPrice" oninput="fixNumbers(this)" placeholder="0.00">
+                        </div>
+
+                        <div class="form-group">
+                            <label>بڕی کڕدراو</label>
+                            <input type="text" inputmode="numeric" id="purchaseQty" value="1" oninput="fixNumbers(this)" required>
+                        </div>
+                        <div class="form-group">
+                            <label>نرخی کڕینی یەک دانە ($)</label>
+                            <input type="text" inputmode="decimal" id="purchaseUnitPrice" oninput="fixNumbers(this)" required placeholder="0.00">
+                        </div>
+                        <div class="form-group">
+                            <label>بەروار</label>
+                            <input type="date" id="purchaseDate" required>
+                        </div>
                     </div>
-                    <button type="submit" class="btn btn-success"><i class="fa-solid fa-check"></i> تۆمارکردنی کڕین (+ کۆگا زیاد دەکات)</button>
+                    <button type="submit" class="btn btn-success"><i class="fa-solid fa-check"></i> تۆمارکردنی کڕین و خستنە ناو کۆگا</button>
                 </form>
+
                 <h3 style="margin-top: 24px; font-size: 16px; font-weight: 700;">مێژووی کڕینەکان</h3>
                 <div class="table-responsive" style="margin-top: 10px;">
                     <table>
@@ -1292,8 +1434,12 @@
 
             <!-- 5. کەشفی حساب -->
             <div id="statement" class="tab-content">
-                <h2><i class="fa-solid fa-file-invoice-dollar"></i> کەشفی حسابی گشتی</h2>
-                <div class="form-grid" style="margin-top: 10px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 12px;">
+                    <h2><i class="fa-solid fa-file-invoice-dollar"></i> کەشفی حسابی گشتی</h2>
+                    <button type="button" class="btn btn-purple" onclick="printStatementReport()"><i class="fa-solid fa-print"></i> پرێنتکردنی ئەم کەشفە</button>
+                </div>
+                
+                <div class="form-grid" style="margin-top: 10px; align-items: end;">
                     <div class="form-group">
                         <label>جۆری کەشف</label>
                         <select id="statementType" onchange="updateStatementDropdown()">
@@ -1304,6 +1450,18 @@
                     <div class="form-group">
                         <label>ناوی لایەن</label>
                         <select id="statementParty" onchange="generateStatement()"></select>
+                    </div>
+                    <div class="form-group">
+                        <label>لە بەرواری</label>
+                        <input type="date" id="statStartDate">
+                    </div>
+                    <div class="form-group">
+                        <label>بۆ بەرواری</label>
+                        <input type="date" id="statEndDate">
+                    </div>
+                    <div style="display: flex; gap: 8px;">
+                        <button type="button" class="btn btn-purple btn-sm" onclick="generateStatement()" style="height: 42px; flex: 1;"><i class="fa-solid fa-filter"></i> فلتەر</button>
+                        <button type="button" class="btn btn-warning btn-sm" onclick="resetStatementDateFilter()" style="height: 42px; flex: 1;"><i class="fa-solid fa-arrows-rotate"></i> هەمووی</button>
                     </div>
                 </div>
 
@@ -1359,7 +1517,7 @@
                 </div>
             </div>
 
-            <!-- بەشی بەکارهێنەران و ڕۆڵەکان -->
+            <!-- 8. بەشی بەکارهێنەران -->
             <div id="users" class="tab-content">
                 <h2><i class="fa-solid fa-users-gear"></i> بەڕێوەبردنی بەکارهێنەران و دەسەڵاتەکان</h2>
 
@@ -1424,7 +1582,7 @@
                 </div>
             </div>
 
-            <!-- 8. پاککردنەوەی داتا -->
+            <!-- 9. پاککردنەوەی داتا -->
             <div id="dataCleaning" class="tab-content">
                 <h2 style="color: var(--danger);"><i class="fa-solid fa-triangle-exclamation"></i> پاککردنەوە و خاوێنکردنی داتاکان</h2>
                 <p style="margin-top: 4px; color: var(--text-muted); font-size: 14px;">تکایە ئاگاداربە، پێش سڕینەوەی داتاکان، هەڵگرتنی یەدەگ (Backup) بکە!</p>
@@ -1440,18 +1598,26 @@
 
                     <div class="clean-card">
                         <div>
-                            <h3 style="font-size: 15.5px; font-weight: 700;">سڕینەوەی تەواوی کۆگا (Clear Inventory)</h3>
-                            <p style="font-size: 13.5px; color: var(--text-muted); margin-top: 2px;">تەنها سەرجەم مەوادەکانی ناو کۆگا و بڕەکانیان دەسڕێتەوە.</p>
+                            <h3 style="font-size: 15.5px; font-weight: 700;">سڕینەوەی کاڵای بێ‌مامەڵە</h3>
+                            <p style="font-size: 13.5px; color: var(--text-muted); margin-top: 2px;">تەنها کاڵاکانی بێ‌مێژووی فرۆشتن، کڕین و گەڕاندنەوە دەسڕێتەوە؛ کاڵای بەکارهاتوو دەپارێزرێت.</p>
                         </div>
-                        <button type="button" class="btn btn-warning" onclick="clearItemsOnly()"><i class="fa-solid fa-boxes-packing"></i> سڕینەوەی کۆگا</button>
+                        <button type="button" class="btn btn-warning" onclick="clearUnusedItems()"><i class="fa-solid fa-boxes-packing"></i> سڕینەوەی کاڵای بێ‌مامەڵە</button>
                     </div>
 
-                    <div class="clean-card" style="border-right-color: #b91c1c; background-color: #fef2f2;">
+                    <div class="clean-card">
                         <div>
-                            <h3 style="font-size: 15.5px; color: #991b1b; font-weight: 700;">سڕینەوەی گشتی داتاکان (Full System Reset)</h3>
-                            <p style="font-size: 13.5px; color: #991b1b; margin-top: 2px;">سەرجەم داتاکان دەسڕێنەوە و دەبێتەوە وەکو ڕۆژی یەکەم.</p>
+                            <h3 style="font-size: 15.5px; font-weight: 700;">سڕینەوەی کڕیارانی بێ‌مامەڵە</h3>
+                            <p style="font-size: 13.5px; color: var(--text-muted); margin-top: 2px;">کڕیارانی هیچ فرۆشتن، پارەدان یان گەڕاندنەوەیەکیان نییە دەسڕێتەوە؛ تۆمارە بەکارهاتووەکان دەپارێزرێن.</p>
                         </div>
-                        <button type="button" class="btn btn-danger" onclick="clearAllData()"><i class="fa-solid fa-trash-can"></i> سڕینەوەی گشتی</button>
+                        <button type="button" class="btn btn-warning" onclick="clearUnusedCustomers()"><i class="fa-solid fa-user-minus"></i> پاککردنەوەی کڕیارانی بێ‌مامەڵە</button>
+                    </div>
+
+                    <div class="clean-card">
+                        <div>
+                            <h3 style="font-size: 15.5px; font-weight: 700;">سڕینەوەی دابینکەرانی بێ‌مامەڵە</h3>
+                            <p style="font-size: 13.5px; color: var(--text-muted); margin-top: 2px;">دابینکەرانی هیچ کڕین، پارەدان یان گەڕاندنەوەیەکیان نییە دەسڕێتەوە.</p>
+                        </div>
+                        <button type="button" class="btn btn-warning" onclick="clearUnusedSuppliers()"><i class="fa-solid fa-truck-fast"></i> پاککردنەوەی دابینکەرانی بێ‌مامەڵە</button>
                     </div>
                 </div>
             </div>
@@ -1459,7 +1625,77 @@
     </div>
 </div>
 
-<!-- مۆدێلی دەستکاریکردنی ڕۆڵ و دەسەڵاتی یوزەر بەبێ سڕینەوە -->
+<!-- مۆدێلەکان -->
+<div id="manageCategoryModal" class="modal">
+    <div class="modal-content">
+        <h3><i class="fa-solid fa-layer-group"></i> بەڕێوەبردنی کاتیگۆرییەکان</h3>
+        <form onsubmit="saveNewItemCategoryDirect(event)" style="margin-top: 15px; margin-bottom: 20px;">
+            <div class="form-group" style="margin-bottom: 10px;">
+                <label>ناوی کاتیگۆری نوێ</label>
+                <input type="text" id="inputNewCatManage" placeholder="نموونە: بۆر، مەوادی سپیکردنەوە..." required>
+            </div>
+            <button type="submit" class="btn btn-success" style="width: 100%;"><i class="fa-solid fa-plus"></i> زیادکردنی کاتیگۆری</button>
+        </form>
+
+        <h4 style="font-size: 14px; font-weight: 700; margin-bottom: 10px;">لیستی کاتیگۆرییە بەردەستەکان:</h4>
+        <div class="table-responsive" style="max-height: 200px;">
+            <table>
+                <thead>
+                    <tr><th>ناوی کاتیگۆری</th><th class="t-center">سڕینەوە</th></tr>
+                </thead>
+                <tbody id="categoryManageList"></tbody>
+            </table>
+        </div>
+
+        <div style="display: flex; justify-content: flex-end; margin-top: 15px;">
+            <button type="button" class="btn btn-purple btn-sm" onclick="closeManageCategoryModal()">داخستن</button>
+        </div>
+    </div>
+</div>
+
+<div id="manageTypesModal" class="modal">
+    <div class="modal-content">
+        <h3><i class="fa-solid fa-tags"></i> بەڕێوەبردنی جۆر و مۆدێلەکان</h3>
+        <form onsubmit="saveNewItemTypeDirect(event)" style="margin-top: 15px; margin-bottom: 20px;">
+            <div class="form-group" style="margin-bottom: 10px;">
+                <label>ناوی مۆدێلی نوێ</label>
+                <input type="text" id="inputNewTypeManage" placeholder="نموونە: Bone Level, Regular..." required>
+            </div>
+            <button type="submit" class="btn btn-success" style="width: 100%;"><i class="fa-solid fa-plus"></i> زیادکردنی مۆدێل</button>
+        </form>
+
+        <h4 style="font-size: 14px; font-weight: 700; margin-bottom: 10px;">لیستی مۆدێلە بەردەستەکان:</h4>
+        <div class="table-responsive" style="max-height: 200px;">
+            <table>
+                <thead>
+                    <tr><th>ناوی جۆر/مۆدێل</th><th class="t-center">سڕینەوە</th></tr>
+                </thead>
+                <tbody id="typesManageList"></tbody>
+            </table>
+        </div>
+
+        <div style="display: flex; justify-content: flex-end; margin-top: 15px;">
+            <button type="button" class="btn btn-purple btn-sm" onclick="closeManageTypesModal()">داخستن</button>
+        </div>
+    </div>
+</div>
+
+<div id="quickTypeModal" class="modal">
+    <div class="modal-content">
+        <h3>زیادکردنی مۆدێلی نوێ</h3>
+        <form onsubmit="saveQuickType(event)" style="margin-top: 15px;">
+            <div class="form-group" style="margin-bottom: 15px;">
+                <label>ناوی جۆر / مۆدێل</label>
+                <input type="text" id="newQuickTypeName" placeholder="نموونە: Tapered, Internal..." required>
+            </div>
+            <div style="display: flex; gap: 10px; justify-content: flex-end;">
+                <button type="button" class="btn btn-danger" onclick="closeQuickTypeModal()">پاشگەزبوونەوە</button>
+                <button type="submit" class="btn btn-success">خەزنکردن</button>
+            </div>
+        </form>
+    </div>
+</div>
+
 <div id="editUserModal" class="modal">
     <div class="modal-content">
         <h3><i class="fa-solid fa-user-pen"></i> دەستکاریکردنی بەکارهێنەر و ڕۆڵ</h3>
@@ -1502,11 +1738,10 @@
     </div>
 </div>
 
-<!-- مۆدێلەکان -->
 <div id="itemCategoryModal" class="modal">
     <div class="modal-content">
-        <h3>زیادکردنی کاتیگۆری مەوادی نوێ</h3>
-        <form id="itemCategoryForm" onsubmit="saveItemCategory(event)" style="margin-top: 15px;">
+        <h3>زیادکردنی کاتیگۆری نوێ</h3>
+        <form onsubmit="saveItemCategory(event)" style="margin-top: 15px;">
             <div class="form-group" style="margin-bottom: 15px;">
                 <label>ناوی کاتیگۆری</label>
                 <input type="text" id="newItemCategoryName" placeholder="نموونە: ئیمپلانت، ئامێرەکان..." required>
@@ -1650,13 +1885,101 @@
     </div>
 </div>
 
+<!-- پرێنتکردنی کەشفی حساب -->
+<div id="printableStatement">
+    <div class="invoice-box" style="max-width: 900px;">
+        <div class="invoice-header">
+            <div style="display: flex; align-items: center; gap: 15px;">
+                <img src="logo.png" alt="Ara Guide" class="print-logo" onerror="this.style.display='none'">
+                <div>
+                    <h2 style="font-size: 22px; color: #0f172a; margin-bottom: 4px;">Ara Guide</h2>
+                    <p style="color: #64748b; font-size: 13px;" id="printStatHeaderType">کەشفی حسابی دارایی</p>
+                </div>
+            </div>
+            <div style="text-align: left; font-size: 13px; color: #334155; line-height: 1.6;">
+                <p><strong>ڕێکەوتی چاپکردن:</strong> <span id="printStatDate"></span></p>
+                <p id="printStatDateRangeWrap" style="display: none;"><strong>ماوەی بەروار:</strong> <span id="printStatDateRange"></span></p>
+            </div>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; background: #f8fafc; padding: 12px 16px; border: 1px solid #cbd5e1; border-radius: 6px;">
+            <span style="font-size: 15px;">لایەنی پەیوەندیدار: <strong id="printStatPartyName" style="color: #0f172a;"></strong></span>
+            <span style="font-size: 15px;">باڵانسی ماوە (قەرز): <strong id="printStatBalance" style="color: #b91c1c;"></strong></span>
+        </div>
+
+        <div style="display: flex; gap: 15px; margin-bottom: 15px; font-size: 13.5px;">
+            <div style="flex: 1; padding: 8px 12px; background: #f1f5f9; border-radius: 6px;"><span id="printStatLbl1">کۆی مامەڵە:</span> <strong id="printStatTotal1">$0.00</strong></div>
+            <div style="flex: 1; padding: 8px 12px; background: #f1f5f9; border-radius: 6px;"><span id="printStatLbl2">کۆی پارەی دراو:</span> <strong id="printStatTotal2" style="color: #059669;">$0.00</strong></div>
+        </div>
+        
+        <table class="print-table">
+            <thead>
+                <tr>
+                    <th style="width: 15%;">بەروار</th>
+                    <th style="width: 20%;">جۆری مامەڵە</th>
+                    <th style="width: 35%;">وردەکاری / مەواد</th>
+                    <th class="t-center" style="width: 10%;">بڕ</th>
+                    <th class="t-center" style="width: 20%;">بڕی پارە ($)</th>
+                </tr>
+            </thead>
+            <tbody id="printableStatementItems"></tbody>
+        </table>
+
+        <div style="display: flex; justify-content: space-between; margin-top: 45px; padding: 0 10px; font-size: 13px; color: #64748b;">
+            <div>مۆر و ئیمزای کۆمپانیا</div>
+            <div>ئیمزای لایەنی پەیوەندیدار</div>
+        </div>
+    </div>
+</div>
+
+<!-- پرێنتکردنی خەرجییەکان -->
+<div id="printableExpenses">
+    <div class="invoice-box" style="max-width: 900px;">
+        <div class="invoice-header">
+            <div style="display: flex; align-items: center; gap: 15px;">
+                <img src="logo.png" alt="Ara Guide" class="print-logo" onerror="this.style.display='none'">
+                <div>
+                    <h2 style="font-size: 22px; color: #0f172a; margin-bottom: 4px;">Ara Guide</h2>
+                    <p style="color: #64748b; font-size: 13px;">ڕاپۆرتی خەرجییە گشتییەکان</p>
+                </div>
+            </div>
+            <div style="text-align: left; font-size: 13px; color: #334155; line-height: 1.6;">
+                <p><strong>ڕێکەوتی چاپکردن:</strong> <span id="printExpDate"></span></p>
+                <p id="printExpDateRangeWrap" style="display: none;"><strong>ماوەی بەروار:</strong> <span id="printExpDateRange"></span></p>
+            </div>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; background: #fef2f2; padding: 12px 16px; border: 1px solid #fecaca; border-radius: 6px;">
+            <span style="font-size: 15px;">کاتیگۆری: <strong id="printExpCatName" style="color: #0f172a;">هەموو کاتیگۆرییەکان</strong></span>
+            <span style="font-size: 15px;">کۆی خەرجکراو: <strong id="printExpGrandTotal" style="color: #b91c1c;">$0.00</strong></span>
+        </div>
+        
+        <table class="print-table">
+            <thead>
+                <tr>
+                    <th style="width: 15%;">#</th>
+                    <th style="width: 20%;">بەروار</th>
+                    <th style="width: 25%;">جۆری خەرجی</th>
+                    <th class="t-center" style="width: 20%;">بڕی پارە ($)</th>
+                    <th style="width: 20%;">تێبینی</th>
+                </tr>
+            </thead>
+            <tbody id="printableExpensesItems"></tbody>
+        </table>
+
+        <div style="display: flex; justify-content: space-between; margin-top: 45px; padding: 0 10px; font-size: 13px; color: #64748b;">
+            <div>ئامادەکاری دارایی</div>
+            <div>مۆر و پەسەندکردنی بەڕێوەبەر</div>
+        </div>
+    </div>
+</div>
+
 <!-- Firebase SDK -->
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
 
 <script>
-    // ڕێکخستنی فایەربەیس
     const firebaseConfig = {
       apiKey: "AIzaSyDNxVtqbYiY4JWTfID8nSoEpZgoW1gDCAo",
       authDomain: "ara-guide22.firebaseapp.com",
@@ -1670,6 +1993,9 @@
     firebase.initializeApp(firebaseConfig);
     const firestore = firebase.firestore();
 
+    // Firestore SDK ـەکە Auto ID ـێکی collision-resistant دروست دەکات؛ بۆ array ـەکانیش بەکاردێت.
+    function newId() { return firestore.collection("SystemData").doc().id; }
+
     const defaultUsers = [
         {
             id: 1,
@@ -1681,9 +2007,19 @@
     ];
 
     let db = {
-        users: [], itemCategories: [], items: [], suppliers: [], customers: [],
-        purchases: [], sales: [], returns: [], payments: [], supplierPayments: [],
-        expenseCategories: [], expenses: []
+        users: defaultUsers, 
+        itemCategories: ['ئیمپلانت (Implant)', 'ئەکسەسۆری (Accessory)'], 
+        itemTypes: ['Regular', 'Bone Level', 'Tapered'],
+        items: [], 
+        suppliers: [], 
+        customers: [],
+        purchases: [], 
+        sales: [], 
+        returns: [], 
+        payments: [], 
+        supplierPayments: [],
+        expenseCategories: ['کرێی شوێن', 'کارەبا و ئاو', 'مووچە', 'خەرجی گواستنەوە'], 
+        expenses: []
     };
 
     let currentUser = null;
@@ -1692,21 +2028,210 @@
     let currentCart = [];
     let salesExpensesChartInstance = null;
     let balanceDoughnutChartInstance = null;
+    let unsubscribeSnapshots = [];
+    // ڕیزکردنی نووسینەکان بۆ ڕێگریکردن لە overwrite بوونی گۆڕانکارییەکان
+    let saveQueue = Promise.resolve();
+    let lastSyncedDb = null;
 
-    const today = new Date().toISOString().split('T')[0];
-    document.getElementById('saleDate').value = today;
-    document.getElementById('payDate').value = today;
-    document.getElementById('supPayDate').value = today;
-    document.getElementById('expenseDate').value = today;
-    document.getElementById('purchaseDate').value = today;
+    // بەرواری ناوخۆیی بەکاربهێنە؛ toISOString لە ناوچەی کاتی +/−دا
+    // دەتوانێت بەرواری هەڵە (ڕۆژی پێشوو/دواتر) دروست بکات.
+    const today = localToday();
+    ['saleDate','payDate','supPayDate','expenseDate','purchaseDate'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.value = today;
+    });
 
-    async function saveData() {
-        try {
-            await firestore.collection("SystemData").doc("MainDB").set(db);
-            renderDashboard();
-            renderImplantMatrix();
-        } catch (error) {
-            console.error("هەڵە لە خەزنکردنی داتاکان: ", error);
+    function partyMatches(record, id, name, idField, nameField) {
+        return (id && record[idField] && String(record[idField]) === String(id)) || (!record[idField] && record[nameField] === name);
+    }
+
+    function getSupplierBalance(supplierName) {
+        if (!supplierName) return { totalPurchases: 0, totalPaid: 0, due: 0 };
+        const supplierId = (db.suppliers || []).find(s => s.name === supplierName)?.id;
+        const totalPurchases = (db.purchases || [])
+            .filter(p => partyMatches(p, supplierId, supplierName, 'supplierId', 'supplier'))
+            .reduce((sum, p) => sum + (Number(p.total) || 0), 0);
+        const totalReturns = (db.returns || [])
+            .filter(r => r.type === 'to_supplier' && partyMatches(r, supplierId, supplierName, 'partyId', 'party'))
+            .reduce((sum, r) => sum + (Number(r.total) || 0), 0);
+        const totalPaid = (db.supplierPayments || [])
+            .filter(sp => partyMatches(sp, supplierId, supplierName, 'supplierId', 'supplier') && !sp.isVoid)
+            .reduce((sum, sp) => sum + (Number(sp.amount) || 0), 0);
+        const due = totalPurchases - totalReturns - totalPaid;
+        return {
+            totalPurchases,
+            totalPaid,
+            due: Math.max(0, due)
+        };
+    }
+
+    function handleSupplierSelectChange() {
+        const supName = document.getElementById('supPaySupplier').value;
+        const noticeEl = document.getElementById('supDueNotice');
+        const amountInput = document.getElementById('supPayAmount');
+
+        if (!supName) {
+            noticeEl.innerText = '';
+            amountInput.max = '';
+            return;
+        }
+
+        const bal = getSupplierBalance(supName);
+        noticeEl.innerText = `(قەرزی ماوە: $${bal.due.toFixed(2)})`;
+        amountInput.max = bal.due;
+
+        validateSupPayInput(amountInput);
+    }
+
+    function validateSupPayInput(input) {
+        fixNumbers(input);
+        const supName = document.getElementById('supPaySupplier').value;
+        if (!supName) return;
+
+        const bal = getSupplierBalance(supName);
+        const enteredVal = parseFloat(input.value) || 0;
+
+        if (enteredVal > bal.due) {
+            input.value = bal.due > 0 ? bal.due.toFixed(2) : '0';
+            input.style.borderColor = 'var(--danger)';
+            alert(`⚠️ ناتوانیت لە قەرزی ماوە زیاتر بنووسیت! بڕی قەرزی ئەم دابینکەرە تەنها ($${bal.due.toFixed(2)})ە.`);
+        } else {
+            input.style.borderColor = 'var(--border-color)';
+        }
+    }
+
+    function executeMobileSafePrint(elementId) {
+        const el = document.getElementById(elementId);
+        if (!el) return;
+
+        el.classList.add('print-active');
+
+        setTimeout(() => {
+            window.print();
+            setTimeout(() => {
+                el.classList.remove('print-active');
+            }, 1000);
+        }, 250);
+    }
+
+    // Schema v2: هەر تۆمارێک document ـی خۆیەتی؛ هیچ Array ـی گەورە لە document ـێکدا ناهێڵین.
+    const recordCollections = {
+        users: ['CoreData', 'users'], suppliers: ['CoreData', 'suppliers'], customers: ['CoreData', 'customers'],
+        items: ['InventoryData', 'items'], sales: ['CommerceData', 'sales'], purchases: ['CommerceData', 'purchases'],
+        returns: ['FinancialData', 'returns'], payments: ['FinancialData', 'payments'],
+        supplierPayments: ['FinancialData', 'supplierPayments'], expenses: ['FinancialData', 'expenses']
+    };
+
+    async function readRecordCollection(parent, name) {
+        const snap = await parent.collection(name).get();
+        return snap.docs.map(doc => ({ ...doc.data(), id: doc.data().id ?? doc.id }));
+    }
+
+    async function collectSyncOperations(parent, name, records, operations) {
+        const collection = parent.collection(name);
+        const existingSnap = await collection.get();
+        const keep = new Set();
+        (records || []).forEach(record => {
+            const id = String(record.id || newId());
+            if (!record.id) record.id = id;
+            keep.add(id);
+            operations.push({ type: 'set', ref: collection.doc(id), data: record });
+        });
+        existingSnap.docs.forEach(doc => {
+            if (!keep.has(doc.id)) operations.push({ type: 'delete', ref: doc.ref });
+        });
+    }
+
+    async function commitChunked(operations) {
+        const chunkSize = 450; // کەمتر لە سنووری 500 ـی Firestore
+        for (let i = 0; i < operations.length; i += chunkSize) {
+            const batch = firestore.batch();
+            operations.slice(i, i + chunkSize).forEach(op => {
+                if (op.type === 'delete') batch.delete(op.ref);
+                else batch.set(op.ref, op.data);
+            });
+            await batch.commit();
+        }
+    }
+
+    function cloneDb(value) {
+        return JSON.parse(JSON.stringify(value));
+    }
+
+    function saveData() {
+        saveQueue = saveQueue.then(async () => {
+            const sys = firestore.collection('SystemData');
+            const operations = [];
+            const previous = lastSyncedDb;
+            const forceFullSync = !previous;
+            const currentCore = { schemaVersion: 2, itemCategories: db.itemCategories || [], itemTypes: db.itemTypes || [], expenseCategories: db.expenseCategories || [] };
+            const previousCore = previous && { schemaVersion: 2, itemCategories: previous.itemCategories || [], itemTypes: previous.itemTypes || [], expenseCategories: previous.expenseCategories || [] };
+            if (forceFullSync || JSON.stringify(currentCore) !== JSON.stringify(previousCore)) {
+                operations.push({ type: 'set', ref: sys.doc('CoreData'), data: currentCore });
+            }
+            if (forceFullSync) {
+                operations.push({ type: 'set', ref: sys.doc('InventoryData'), data: { schemaVersion: 2 } });
+                operations.push({ type: 'set', ref: sys.doc('CommerceData'), data: { schemaVersion: 2 } });
+                operations.push({ type: 'set', ref: sys.doc('FinancialData'), data: { schemaVersion: 2 } });
+            }
+
+            for (const [field, [parentDoc, collectionName]] of Object.entries(recordCollections)) {
+                const collection = sys.doc(parentDoc).collection(collectionName);
+                const currentMap = new Map((db[field] || []).map(record => [String(record.id), record]));
+                const previousMap = new Map(((previous && previous[field]) || []).map(record => [String(record.id), record]));
+                currentMap.forEach((record, id) => {
+                    if (forceFullSync || !previousMap.has(id) || JSON.stringify(previousMap.get(id)) !== JSON.stringify(record)) {
+                        operations.push({ type: 'set', ref: collection.doc(id), data: record });
+                    }
+                });
+                if (!forceFullSync) previousMap.forEach((record, id) => {
+                    if (!currentMap.has(id)) operations.push({ type: 'delete', ref: collection.doc(id) });
+                });
+                if (forceFullSync) {
+                    // لە restore/migration ـی full sync دا collection ـەکەی remote بخوێنەوە
+                    // و تۆمارەکان لاببە کە لە داتای ئێستادا نەماون؛ ئەمە backup ـەکە بە تەواوی جێگۆڕکێ دەکات.
+                    const existingSnap = await collection.get();
+                    existingSnap.docs.forEach(doc => {
+                        if (!currentMap.has(doc.id)) operations.push({ type: 'delete', ref: doc.ref });
+                    });
+                }
+            }
+            await commitChunked(operations);
+            lastSyncedDb = cloneDb(db);
+            return true;
+        }).catch(error => {
+            console.error('هەڵە لە خەزنکردنی داتاکان:', error);
+            alert('هەڵەیەک ڕوویدا لە خەزنکردنی داتاکان؛ گۆڕانکارییەکە دووبارە هەوڵ دەدرێتەوە.');
+            return false;
+        });
+        return saveQueue;
+    }
+
+    function startRealtimeListeners() {
+        unsubscribeSnapshots.forEach(unsub => unsub && unsub());
+        unsubscribeSnapshots = [];
+        const sys = firestore.collection('SystemData');
+        for (const [field, [parentDoc, collectionName]] of Object.entries(recordCollections)) {
+            const unsub = sys.doc(parentDoc).collection(collectionName).onSnapshot(snapshot => {
+                if (!db || !lastSyncedDb) return;
+                const remoteRecords = snapshot.docs.map(doc => ({ ...doc.data(), id: doc.data().id ?? doc.id }));
+                const previousRecords = lastSyncedDb[field] || [];
+                const currentRecords = db[field] || [];
+                const previousMap = new Map(previousRecords.map(record => [String(record.id), record]));
+                const currentMap = new Map(currentRecords.map(record => [String(record.id), record]));
+                const remoteMap = new Map(remoteRecords.map(record => [String(record.id), record]));
+                // تەنها گۆڕانکارییە ناوخۆییە خەزننەکراوەکان لەسەر remote overlay دەکرێن.
+                currentMap.forEach((record, id) => {
+                    if (!previousMap.has(id) || JSON.stringify(previousMap.get(id)) !== JSON.stringify(record)) remoteMap.set(id, record);
+                });
+                previousMap.forEach((record, id) => {
+                    if (!currentMap.has(id)) remoteMap.delete(id); // سڕینەوەی ناوخۆیی تا خەزنکردن پارێزراو بمێنێتەوە.
+                });
+                db[field] = Array.from(remoteMap.values());
+                lastSyncedDb[field] = remoteRecords;
+                updateAllViews();
+            }, error => console.error(`هەڵە لە realtime ـی ${field}:`, error));
+            unsubscribeSnapshots.push(unsub);
         }
     }
 
@@ -1726,6 +2251,9 @@
 
     function logout() {
         if (confirm('دڵنیایت لە دەرچوون؟')) {
+            unsubscribeSnapshots.forEach(unsub => unsub && unsub());
+            unsubscribeSnapshots = [];
+            
             firebase.auth().signOut().then(() => {
                 currentUser = null;
                 document.getElementById('loginScreen').style.display = 'flex';
@@ -1735,20 +2263,21 @@
 
     firebase.auth().onAuthStateChanged(async (user) => {
         if (user) {
-            await loadDataFromFirebase();
-            
-            const usernameStr = user.email.split('@')[0];
-            const found = db.users.find(u => u.username.toLowerCase() === usernameStr);
-            
+            // چاوەڕوانی خوێندنەوەی داتا بکە؛ پشکنینی db ـی سەرەتایی
+            // دەبوو هۆی ڕەتکردنەوەی هەژمارەکانی non-admin بێت.
+            const loaded = await loadDataFromFirebase();
+            if (!loaded) return;
+            const usernameStr = (user.email || '').split('@')[0].toLowerCase();
+            const found = (db.users || []).find(u => String(u.username || '').toLowerCase() === usernameStr);
             if (found) {
                 currentUser = found;
                 document.getElementById('loginScreen').style.display = 'none';
-                document.getElementById('currentUserName').innerText = currentUser.fullName;
+                document.getElementById('currentUserName').innerText = currentUser.fullName || currentUser.username;
                 document.getElementById('currentUserRole').innerText = currentUser.role === 'admin' ? 'ئەدمین' : 'یوزەر';
                 applyPermissions();
             } else {
                 alert('هەژمارەکەت لە داتابەیسی سیستەمەکەدا نەدۆزرایەوە!');
-                firebase.auth().signOut();
+                await firebase.auth().signOut();
             }
         } else {
             currentUser = null;
@@ -1787,8 +2316,9 @@
     }
 
     function switchTab(tabId) {
-        if (currentUser && currentUser.role !== 'admin' && (tabId === 'dashboard' || tabId === 'users' || tabId === 'dataCleaning')) {
-            return;
+        if (currentUser && currentUser.role !== 'admin') {
+            const permittedTabs = Array.isArray(currentUser.permissions) ? currentUser.permissions : [];
+            if (tabId === 'dashboard' || tabId === 'users' || tabId === 'dataCleaning' || !permittedTabs.includes(tabId)) return;
         }
 
         const contents = document.querySelectorAll('.tab-content');
@@ -1815,9 +2345,9 @@
         
         if (tabId === 'sales') { updateSaleDropdowns(); renderCart(); renderSales(); }
         if (tabId === 'payments') updatePaymentDropdowns();
-        if (tabId === 'supPayments') updateSupPaymentDropdowns();
-        if (tabId === 'expenses') updateExpenseDropdowns();
-        if (tabId === 'items') updateItemCategoryDropdowns();
+        if (tabId === 'supPayments') { updateSupPaymentDropdowns(); handleSupplierSelectChange(); }
+        if (tabId === 'expenses') { updateExpenseDropdowns(); renderExpenses(); }
+        if (tabId === 'items') { updateFilterDropdowns(); renderItems(); }
         if (tabId === 'purchases') updatePurchaseDropdowns();
         if (tabId === 'returns') updateReturnDropdowns();
         if (tabId === 'statement') updateStatementDropdown();
@@ -1831,29 +2361,29 @@
         const custSelect = document.getElementById('saleCustomer');
         const itemSelect = document.getElementById('saleItem');
         custSelect.innerHTML = '<option value="">کڕیارێک هەڵبژێرە</option>';
-        db.customers.forEach(c => custSelect.innerHTML += `<option value="${c.name}">${c.name}</option>`);
+        (db.customers || []).forEach(c => custSelect.innerHTML += `<option value="${escapeHtml(c.name)}">${escapeHtml(c.name)}</option>`);
         itemSelect.innerHTML = '<option value="">مەوادێک هەڵبژێرە</option>';
-        db.items.forEach(i => itemSelect.innerHTML += `<option value="${i.id}">${i.name} (${i.type || ''} - ${i.size || ''}) - کۆگا: ${i.qty}</option>`);
+        (db.items || []).forEach(i => itemSelect.innerHTML += `<option value="${escapeHtml(i.id)}">${escapeHtml(i.name)} (${escapeHtml(i.type || '')} - ${escapeHtml(i.size || '')}) - کۆگا: ${safeNumber(i.qty)}</option>`);
     }
 
     function autoFillSellPrice() {
-        const item = db.items.find(i => i.id == document.getElementById('saleItem').value);
+        const item = (db.items || []).find(i => i.id == document.getElementById('saleItem').value);
         if(item) document.getElementById('saleUnitPrice').value = item.sellPrice;
     }
 
     function addToCart() {
-        const itemId = parseInt(document.getElementById('saleItem').value);
-        const qty = parseInt(document.getElementById('saleQty').value);
-        const unitPrice = parseFloat(document.getElementById('saleUnitPrice').value);
+        const itemId = document.getElementById('saleItem').value;
+        const qty = Number(document.getElementById('saleQty').value);
+        const unitPrice = Number(document.getElementById('saleUnitPrice').value);
 
         if (!itemId) return alert('تکایە مەوادێک هەڵبژێرە!');
-        if (!qty || qty <= 0) return alert('تکایە بڕی ڕاست بنووسە!');
-        if (isNaN(unitPrice)) return alert('نرخ هەڵەیە!');
+        if (!Number.isInteger(qty) || qty <= 0) return alert('بڕ دەبێت ژمارەیەکی تەواو و زیاتر لە سفر بێت!');
+        if (!Number.isFinite(unitPrice) || unitPrice < 0) return alert('نرخ دەبێت ژمارەیەکی دروست و سفر یان زیاتر بێت!');
 
-        const item = db.items.find(i => i.id === itemId);
+        const item = (db.items || []).find(i => String(i.id) === String(itemId));
         if (!item) return alert('مەواد نەدۆزرایەوە!');
 
-        const existingInCart = currentCart.find(c => c.itemId === itemId);
+        const existingInCart = currentCart.find(c => String(c.itemId) === String(itemId));
         const currentQtyInCart = existingInCart ? existingInCart.qty : 0;
 
         if (item.qty < (currentQtyInCart + qty)) {
@@ -1896,7 +2426,7 @@
         currentCart.forEach((item, idx) => {
             grandTotal += item.total;
             tbody.innerHTML += `<tr>
-                <td><strong>${item.name}</strong></td>
+                <td><strong>${escapeHtml(item.name)}</strong></td>
                 <td class="t-center">${item.qty}</td>
                 <td class="t-center">$${item.unitPrice.toFixed(2)}</td>
                 <td class="t-center"><strong>$${item.total.toFixed(2)}</strong></td>
@@ -1907,41 +2437,49 @@
         document.getElementById('cartGrandTotal').innerText = `$${grandTotal.toFixed(2)}`;
     }
 
-    function checkoutSale() {
+    async function checkoutSale() {
         const customer = document.getElementById('saleCustomer').value;
+        const customerRecord = (db.customers || []).find(c => c.name === customer);
         const date = document.getElementById('saleDate').value || today;
-
-        if (!customer) return alert('تکایە ناوی کڕیار (پزیشک) دیاری بکە!');
+        if (!customer || !customerRecord) return alert('تکایە ناوی کڕیار (پزیشک) دیاری بکە!');
         if (currentCart.length === 0) return alert('سەبەتە بەتاڵە! هیچ مەوادێک نەخراوەتە ناو پسوولەکەوە.');
-
-        let grandTotal = currentCart.reduce((sum, i) => sum + i.total, 0);
-
-        currentCart.forEach(cartItem => {
-            const item = db.items.find(i => i.id === cartItem.itemId);
-            if (item) {
-                item.qty -= cartItem.qty;
-            }
-        });
-
-        const saleRecord = {
-            id: Date.now(),
-            date: date,
-            customer: customer,
-            items: [...currentCart],
-            total: grandTotal
-        };
-
-        db.sales.push(saleRecord);
-        saveData();
-        renderItems();
-        renderSales();
-
-        printMultiItemInvoice(saleRecord);
-
-        currentCart = [];
-        renderCart();
-        document.getElementById('saleForm').reset();
-        document.getElementById('saleDate').value = today;
+        const grandTotal = currentCart.reduce((sum, i) => sum + safeNumber(i.total), 0);
+        const saleRecord = { id: newId(), date, customer, customerId: customerRecord.id, items: [...currentCart], total: grandTotal };
+        const sys = firestore.collection('SystemData');
+        const itemRefs = currentCart.map(cartItem => sys.doc('InventoryData').collection('items').doc(String(cartItem.itemId)));
+        const saleRef = sys.doc('CommerceData').collection('sales').doc(String(saleRecord.id));
+        try {
+            await firestore.runTransaction(async transaction => {
+                const snapshots = [];
+                for (const ref of itemRefs) snapshots.push(await transaction.get(ref));
+                snapshots.forEach((snap, index) => {
+                    const cartItem = currentCart[index];
+                    if (!snap.exists || safeNumber(snap.data().qty) < safeNumber(cartItem.qty)) {
+                        throw new Error(`کۆگا بۆ ${cartItem.name} بەس نییە`);
+                    }
+                });
+                snapshots.forEach((snap, index) => {
+                    const cartItem = currentCart[index];
+                    transaction.update(itemRefs[index], { qty: safeNumber(snap.data().qty) - safeNumber(cartItem.qty) });
+                });
+                transaction.set(saleRef, saleRecord);
+            });
+            currentCart.forEach(cartItem => {
+                const item = (db.items || []).find(i => String(i.id) === String(cartItem.itemId));
+                if (item) item.qty = safeNumber(item.qty) - safeNumber(cartItem.qty);
+            });
+            if (!db.sales) db.sales = [];
+            db.sales.push(saleRecord);
+            lastSyncedDb = cloneDb(db);
+            updateAllViews();
+            printMultiItemInvoice(saleRecord);
+            currentCart = [];
+            renderCart();
+            document.getElementById('saleDate').value = today;
+        } catch (error) {
+            console.error('هەڵە لە transaction ـی فرۆشتن:', error);
+            alert('فرۆشتن نەکرا؛ کۆگا لەوانەیە لە ئامێرێکی تر گۆڕابێت. تکایە سەبەتە نوێ بکەرەوە.');
+        }
     }
 
     function printMultiItemInvoice(sale) {
@@ -1954,7 +2492,7 @@
 
         sale.items.forEach(i => {
             tbody.innerHTML += `<tr>
-                <td style="border:1px solid #cbd5e1; padding:8px;">${i.name}</td>
+                <td style="border:1px solid #cbd5e1; padding:8px;">${escapeHtml(i.name)}</td>
                 <td style="border:1px solid #cbd5e1; padding:8px; text-align:center;">${i.qty}</td>
                 <td style="border:1px solid #cbd5e1; padding:8px; text-align:center;">$${i.unitPrice.toFixed(2)}</td>
                 <td style="border:1px solid #cbd5e1; padding:8px; text-align:center; font-weight:bold;">$${i.total.toFixed(2)}</td>
@@ -1962,36 +2500,33 @@
         });
 
         document.getElementById('invGrandTotal').innerText = sale.total.toFixed(2);
-
-        document.getElementById('printableInvoice').classList.add('print-active');
-        window.print();
-        document.getElementById('printableInvoice').classList.remove('print-active');
+        executeMobileSafePrint('printableInvoice');
     }
 
     function renderSales() {
         const tbody = document.getElementById('salesTable');
         tbody.innerHTML = '';
-        db.sales.slice().reverse().forEach(s => {
+        (db.sales || []).slice().reverse().forEach(s => {
             let itemsSummary = '';
             if (s.items && Array.isArray(s.items)) {
-                itemsSummary = s.items.map(i => `${i.name} (${i.qty} دانە)`).join('<br>');
+                itemsSummary = s.items.map(i => `${escapeHtml(i.name)} (${safeNumber(i.qty)} دانە)`).join('<br>');
             } else {
-                itemsSummary = s.itemName || 'مەواد';
+                itemsSummary = escapeHtml(s.itemName || 'مەواد');
             }
 
             tbody.innerHTML += `<tr>
-                <td>#${s.id.toString().slice(-4)}</td>
-                <td>${s.date}</td>
-                <td><strong>${s.customer}</strong></td>
+                <td>#${escapeHtml(String(s.id).slice(-4))}</td>
+                <td>${escapeHtml(s.date)}</td>
+                <td><strong>${escapeHtml(s.customer)}</strong></td>
                 <td style="font-size: 13.5px; color: #475569; line-height: 1.5;">${itemsSummary}</td>
                 <td class="t-center"><strong style="color:var(--success);">$${s.total.toFixed(2)}</strong></td>
-                <td class="t-center"><button type="button" class="btn btn-warning btn-sm" onclick="printMultiItemInvoiceById(${s.id})"><i class="fa-solid fa-print"></i></button></td>
+                <td class="t-center"><button type="button" class="btn btn-warning btn-sm" onclick="printMultiItemInvoiceById(decodeURIComponent('${safeInlineArg(s.id)}'))"><i class="fa-solid fa-print"></i></button></td>
             </tr>`;
         });
     }
 
     function printMultiItemInvoiceById(id) {
-        const sale = db.sales.find(s => s.id === id);
+        const sale = (db.sales || []).find(s => s.id === id);
         if(!sale) return;
         if (!sale.items) {
             sale.items = [{ name: sale.itemName || 'مەواد', qty: sale.qty || 1, unitPrice: sale.unitPrice || sale.total, total: sale.total }];
@@ -1999,10 +2534,10 @@
         printMultiItemInvoice(sale);
     }
 
-    function filterImplantMatrix(filterType) {
+    function filterImplantMatrix(filterType, evt) {
         currentMatrixFilter = filterType;
         document.querySelectorAll('.filter-pill').forEach(btn => btn.classList.remove('active'));
-        if (event && event.target) event.target.classList.add('active');
+        if (evt && evt.target) evt.target.classList.add('active');
         renderImplantMatrix();
     }
 
@@ -2013,7 +2548,7 @@
 
         const searchQuery = (document.getElementById('matrixSearchInput') ? document.getElementById('matrixSearchInput').value : '').toLowerCase().trim();
 
-        const implants = db.items.filter(item => {
+        const implants = (db.items || []).filter(item => {
             const isImplantCat = item.category === 'implant' || 
                                  (item.category && item.category.toLowerCase().includes('implant')) || 
                                  (item.category && item.category.includes('ئیمپلانت')) ||
@@ -2067,10 +2602,10 @@
                             <svg class="implant-svg-icon" style="width: 22px; height: 22px; color: var(--primary);" viewBox="0 0 24 24">
                                 <path d="M7 2h10v3l-1.5 1.5v1.5l1.5 1V10l-1.5 1v1.5l1.5 1V15l-1.5 1v1.5l1.5 1V19l-3 3h-2l-3-3v-.5l1.5-1V16l-1.5-1v-1.5l1.5-1V11l-1.5-1V8.5l1.5-1V6L7 4.5V2zm3 2v1h4V4h-4zm-1 3.5l1.5 1v1L9 11v1.5l1.5 1v1L9 16v1.5l1.5 1v1L12 21l1.5-1.5v-1l1.5-1V16l-1.5-1.5v-1l1.5-1V11l-1.5-1.5v-1l1.5-1V6.5L13.5 5h-3L9 6.5v1z"/>
                             </svg>
-                            ${item.size && item.size !== '-' ? item.size : 'قیاس دیارینەکراو'}
+                            ${item.size && item.size !== '-' ? escapeHtml(item.size) : 'قیاس دیارینەکراو'}
                         </span>
-                        <div class="implant-name-lg" title="${item.name}">${item.name}</div>
-                        <div class="implant-type-sub"><i class="fa-solid fa-code-fork"></i> مۆدێل: <strong>${item.type || '-'}</strong> | کۆد: ${item.code}</div>
+                        <div class="implant-name-lg" title="${escapeHtml(item.name)}">${escapeHtml(item.name)}</div>
+                        <div class="implant-type-sub"><i class="fa-solid fa-code-fork"></i> مۆدێل: <strong>${escapeHtml(item.type || '-')}</strong> | کۆد: ${escapeHtml(item.code)}</div>
                     </div>
                     <div class="implant-qty-container">
                         <span class="implant-qty-label">بڕی ناو کۆگا:</span>
@@ -2086,7 +2621,7 @@
         document.getElementById('statementType').value = 'customer';
         updateStatementDropdown();
         document.getElementById('statementParty').value = customerName;
-        generateStatement();
+        resetStatementDateFilter();
     }
 
     async function changeAdminPassword(e) {
@@ -2110,16 +2645,16 @@
             document.getElementById('confirmAdminPass').value = '';
         } catch (error) {
             console.error(error);
-            alert('کێشەیەک ڕوویدا لە کاتی گۆڕینی پاسوۆرد. پێویستە سەرەتا دەرچیت و دووبارە بێیتەوە ژوورەوە بەهۆی پاراستنی سیکیوریتی فایەربەیسەوە.');
+            alert('کێشەیەک ڕوویدا لە کاتی گۆڕینی پاسوۆرد.');
         }
     }
 
-    function addUser(e) {
+    async function addUser(e) {
         e.preventDefault();
         const username = document.getElementById('newUsername').value.trim().toLowerCase();
         const fullName = document.getElementById('newFullName').value.trim();
 
-        if (db.users.find(u => u.username.toLowerCase() === username)) {
+        if ((db.users || []).find(u => String(u.username || '').toLowerCase() === username)) {
             return alert('ئەم ناوی بەکارهێنەرە پێشتر لە داتابەیسەکەدا تۆمار کراوە!');
         }
 
@@ -2131,19 +2666,20 @@
         });
 
         const newUser = {
-            id: Date.now(),
+            id: newId(),
             username,
             fullName,
             role: 'user',
             permissions: checkedPerms
         };
 
+        const previousDb = cloneDb(db);
+        if (!db.users) db.users = [];
         db.users.push(newUser);
-        saveData();
-        renderUsers();
+        if (!await saveData()) { await restoreAfterFailedSave(previousDb); return; }
+        updateAllViews();
         document.getElementById('userForm').reset();
-        
-        alert(`بەکارهێنەری نوێ زیادکرا!\n\n⚠️ تێبینی: بۆ ئەوەی بتوانێت بێتە ژوورەوە، لە بەشی Authentication ی Firebase ئەم ئیمەیڵەی بۆ دروست بکە بە پاسوۆردێکەوە:\n\nئیمەیڵ: ${username}@araguide.com`);
+        alert(`بەکارهێنەری نوێ زیادکرا!\n\n⚠️ لە Authentication ی Firebase ئەم ئیمەیڵە تۆمار بکە:\n\n${username}@araguide.com`);
     }
 
     function renderUsers() {
@@ -2164,12 +2700,12 @@
             customers: 'کڕیاران'
         };
 
-        db.users.forEach(u => {
+        (db.users || []).forEach(u => {
             let permsText = '';
             if (u.role === 'admin') {
                 permsText = '<span class="badge badge-sup">سەرجەم دەسەڵاتەکان + داشبۆرد</span>';
             } else {
-                permsText = (u.permissions || []).map(p => `<span class="badge badge-cust">${permNames[p] || p}</span>`).join(' ');
+                permsText = (u.permissions || []).map(p => `<span class="badge badge-cust">${escapeHtml(permNames[p] || p)}</span>`).join(' ');
             }
 
             let actionBtns = '';
@@ -2177,14 +2713,14 @@
                 actionBtns = '<span style="color:#94a3b8; font-size:13px;">ئەدمینی سەرەکی</span>';
             } else {
                 actionBtns = `
-                    <button type="button" class="btn btn-purple btn-sm" onclick="openEditUserModal(${u.id})"><i class="fa-solid fa-pen-to-square"></i> دەستکاری ڕۆڵ</button>
-                    <button type="button" class="btn btn-danger btn-sm" onclick="deleteUser(${u.id})"><i class="fa-solid fa-trash"></i></button>
+                    <button type="button" class="btn btn-purple btn-sm" onclick="openEditUserModal(decodeURIComponent('${safeInlineArg(u.id)}'))"><i class="fa-solid fa-pen-to-square"></i> دەستکاری ڕۆڵ</button>
+                    <button type="button" class="btn btn-danger btn-sm" onclick="deleteUser(decodeURIComponent('${safeInlineArg(u.id)}'))"><i class="fa-solid fa-trash"></i></button>
                 `;
             }
 
             tbody.innerHTML += `<tr>
-                <td><strong>${u.username}</strong></td>
-                <td>${u.fullName}</td>
+                <td><strong>${escapeHtml(u.username)}</strong></td>
+                <td>${escapeHtml(u.fullName)}</td>
                 <td><span class="badge ${u.role === 'admin' ? 'badge-implant' : 'badge-access'}">${u.role === 'admin' ? 'ئەدمین' : 'یوزەر'}</span></td>
                 <td>${permsText}</td>
                 <td class="t-center">${actionBtns}</td>
@@ -2193,7 +2729,7 @@
     }
 
     function openEditUserModal(userId) {
-        const user = db.users.find(u => u.id === userId);
+        const user = (db.users || []).find(u => u.id === userId);
         if (!user) return alert('بەکارهێنەر نەدۆزرایەوە!');
 
         document.getElementById('editUserId').value = user.id;
@@ -2223,15 +2759,16 @@
         document.getElementById('editUserModal').style.display = 'none';
     }
 
-    function saveUserChanges(e) {
+    async function saveUserChanges(e) {
         e.preventDefault();
-        const userId = parseInt(document.getElementById('editUserId').value);
-        const user = db.users.find(u => u.id === userId);
+        const userId = document.getElementById('editUserId').value;
+        const user = (db.users || []).find(u => u.id === userId);
         if (!user) return alert('بەکارهێنەر نەدۆزرایەوە!');
 
         const fullName = document.getElementById('editFullName').value.trim();
         const role = document.getElementById('editUserRole').value;
 
+        const previousDb = cloneDb(db);
         user.fullName = fullName;
         user.role = role;
 
@@ -2245,55 +2782,125 @@
             user.permissions = checkedPerms;
         }
 
-        saveData();
-        renderUsers();
+        if (!await saveData()) { await restoreAfterFailedSave(previousDb); return; }
+        updateAllViews();
         closeEditUserModal();
-        alert('✅ گۆڕانکارییەکانی بەکارهێنەر بە سەرکەوتوویی پاشەکەوت کران!');
+        alert('✅ گۆڕانکارییەکان پاشەکەوت کران!');
     }
 
-    function deleteUser(id) {
-        if (confirm('دڵنیایت لە سڕینەوەی ئەم بەکارهێنەرە لە داتابەیس؟ پێویستە لە فایەربەیسیش ئیمەیڵەکەی بسڕیتەوە.')) {
-            db.users = db.users.filter(u => u.id !== id);
-            saveData();
-            renderUsers();
+    async function deleteUser(id) {
+        const target = (db.users || []).find(u => String(u.id) === String(id));
+        if (!target) return;
+        if (target.role === 'admin') return alert('ئەدمینی سەرەکی لەم بەشەوە ناتوانرێت بسڕدرێتەوە.');
+        if (!confirm('دڵنیایت لە لابردنی ئەم بەکارهێنەرە لە لیستی ئەپ؟ ئاگاداربە: ئەمە هەژماری Firebase Authentication ناسڕێتەوە؛ دەبێت لە Firebase بە ڕێگای بەڕێوەبردنی سێرڤەر/کۆنسۆڵ ناچالاک بکرێت.')) return;
+        const previousDb = cloneDb(db);
+        db.users = (db.users || []).filter(u => String(u.id) !== String(id));
+        if (!await saveData()) { await restoreAfterFailedSave(previousDb); return; }
+        updateAllViews();
+    }
+
+    async function clearTransactionsOnly() {
+        if (!confirm("⚠️ ئایا دڵنیایت لە سڕینەوەی سەرجەم وەسڵەکان و مامەڵەکان؟")) return;
+        const previousDb = cloneDb(db);
+        db.sales = []; db.purchases = []; db.returns = []; db.payments = []; db.supplierPayments = []; db.expenses = [];
+        // بڕی کۆگا لە کڕین و فرۆشتنی سڕاوەوەوە هاتووە؛ دوای reset نابێت بڕی کۆن بمێنێت.
+        (db.items || []).forEach(item => { item.qty = 0; });
+        await persistCleaningChange(previousDb, '✅ سەرجەم مامەڵە و وەسڵەکان سڕانەوە و بڕی کۆگا سفر کرا.');
+    }
+
+    function customerHasHistory(customer) {
+        const id = customer.id, name = customer.name;
+        return (db.sales || []).some(x => partyMatches(x, id, name, 'customerId', 'customer')) ||
+            (db.payments || []).some(x => partyMatches(x, id, name, 'customerId', 'customer')) ||
+            (db.returns || []).some(x => x.type === 'from_customer' && partyMatches(x, id, name, 'partyId', 'party'));
+    }
+
+    function supplierHasHistory(supplier) {
+        const id = supplier.id, name = supplier.name;
+        return (db.purchases || []).some(x => partyMatches(x, id, name, 'supplierId', 'supplier')) ||
+            (db.supplierPayments || []).some(x => partyMatches(x, id, name, 'supplierId', 'supplier')) ||
+            (db.returns || []).some(x => x.type === 'to_supplier' && partyMatches(x, id, name, 'partyId', 'party'));
+    }
+
+    function itemHasHistory(item) {
+        const id = String(item.id);
+        return (db.sales || []).some(s => String(s.itemId) === id || (s.items || []).some(i => String(i.itemId) === id)) ||
+            (db.purchases || []).some(p => String(p.itemId) === id) ||
+            (db.returns || []).some(r => String(r.itemId) === id);
+    }
+
+    async function restoreAfterFailedSave(previousDb) {
+        db = previousDb;
+        const sys = firestore.collection('SystemData');
+        const operations = [
+            { type: 'set', ref: sys.doc('CoreData'), data: { schemaVersion: 2, itemCategories: db.itemCategories || [], itemTypes: db.itemTypes || [], expenseCategories: db.expenseCategories || [] } },
+            { type: 'set', ref: sys.doc('InventoryData'), data: { schemaVersion: 2 } },
+            { type: 'set', ref: sys.doc('CommerceData'), data: { schemaVersion: 2 } },
+            { type: 'set', ref: sys.doc('FinancialData'), data: { schemaVersion: 2 } }
+        ];
+        for (const [field, [parentDoc, collectionName]] of Object.entries(recordCollections)) {
+            const collection = sys.doc(parentDoc).collection(collectionName);
+            (db[field] || []).forEach(record => operations.push({ type: 'set', ref: collection.doc(String(record.id)), data: record }));
+        }
+        try {
+            // Restore missing/overwritten prior records, but never delete unknown remote records
+            // that may have been created by another device while this client was stale.
+            await commitChunked(operations);
+            lastSyncedDb = cloneDb(db);
+            updateAllViews();
+            return true;
+        } catch (error) {
+            console.error('هەڵە لە گەڕاندنەوەی داتای پێشوو:', error);
+            // Avoid triggering another destructive full sync on the next ordinary save.
+            lastSyncedDb = cloneDb(db);
+            updateAllViews();
+            alert('گەڕاندنەوەی داتای پێشوو لە Firestore تەواو نەبوو؛ داتای remote لەوانەیە بەشێکی لێ ون بێت. پێش هەر هەوڵێکی تر Backup و پەیوەندیی Firestore بپشکنە.');
+            return false;
         }
     }
 
-    function clearTransactionsOnly() {
-        if (confirm("⚠️ ئایا دڵنیایت لە سڕینەوەی سەرجەم وەسڵەکان و مامەڵەکان؟")) {
-            db.sales = []; db.purchases = []; db.returns = []; db.payments = []; db.supplierPayments = []; db.expenses = [];
-            saveData();
-            renderSales(); renderPurchases(); renderReturns(); renderPayments(); renderSupPayments(); renderExpenses();
-            alert("✅ سەرجەم مامەڵە و وەسڵەکان سڕانەوە!");
+    async function persistCleaningChange(previousDb, successMessage) {
+        if (await saveData()) {
+            updateAllViews();
+            alert(successMessage);
+            return true;
         }
+        await restoreAfterFailedSave(previousDb);
+        return false;
     }
 
-    function clearItemsOnly() {
-        if (confirm("⚠️ ئایا دڵنیایت لە سڕینەوەی سەرجەم مەوادەکانی ناو کۆگا؟")) {
-            db.items = [];
-            saveData();
-            renderItems();
-            renderImplantMatrix();
-            alert("✅ کۆگا خاوێنکرایەوە!");
-        }
+    async function clearUnusedCustomers() {
+        const unused = (db.customers || []).filter(customer => !customerHasHistory(customer));
+        if (!unused.length) return alert('هیچ کڕیارێکی بێ‌مامەڵە بۆ سڕینەوە نییە.');
+        if (!confirm(`دڵنیایت لە سڕینەوەی ${unused.length} کڕیاری بێ‌مامەڵە؟ هەموو کڕیارانی مێژوودار دەپارێزرێن.`)) return;
+        const previousDb = cloneDb(db);
+        const removeIds = new Set(unused.map(x => String(x.id)));
+        db.customers = (db.customers || []).filter(x => !removeIds.has(String(x.id)));
+        await persistCleaningChange(previousDb, `✅ ${unused.length} کڕیاری بێ‌مامەڵە سڕانەوە.`);
     }
 
-    function clearAllData() {
-        const confirmCode = prompt("⚠️ بۆ پشتڕاستکردنەوەی سڕینەوەی گشتی بنووسە: DELETE");
-        if (confirmCode === "DELETE") {
-            db = {
-                users: defaultUsers, itemCategories: [], items: [], suppliers: [], customers: [],
-                purchases: [], sales: [], returns: [], payments: [], supplierPayments: [],
-                expenseCategories: [], expenses: []
-            };
-            saveData();
-            location.reload();
-        } else if (confirmCode !== null) {
-            alert("❌ وشەی پشتڕاستکردنەوە هەڵە بوو.");
-        }
+    async function clearUnusedSuppliers() {
+        const unused = (db.suppliers || []).filter(supplier => !supplierHasHistory(supplier));
+        if (!unused.length) return alert('هیچ دابینکەرێکی بێ‌مامەڵە بۆ سڕینەوە نییە.');
+        if (!confirm(`دڵنیایت لە سڕینەوەی ${unused.length} دابینکەری بێ‌مامەڵە؟ هەموو دابینکەرانی مێژوودار دەپارێزرێن.`)) return;
+        const previousDb = cloneDb(db);
+        const removeIds = new Set(unused.map(x => String(x.id)));
+        db.suppliers = (db.suppliers || []).filter(x => !removeIds.has(String(x.id)));
+        await persistCleaningChange(previousDb, `✅ ${unused.length} دابینکەری بێ‌مامەڵە سڕانەوە.`);
+    }
+
+    async function clearUnusedItems() {
+        const unused = (db.items || []).filter(item => !itemHasHistory(item));
+        if (!unused.length) return alert('هیچ کاڵایەکی بێ‌مامەڵە بۆ سڕینەوە نییە.');
+        if (!confirm(`دڵنیایت لە سڕینەوەی ${unused.length} کاڵای بێ‌مامەڵە؟ کاڵاکانی مێژوودار دەپارێزرێن.`)) return;
+        const previousDb = cloneDb(db);
+        const removeIds = new Set(unused.map(x => String(x.id)));
+        db.items = (db.items || []).filter(x => !removeIds.has(String(x.id)));
+        await persistCleaningChange(previousDb, `✅ ${unused.length} کاڵای بێ‌مامەڵە سڕانەوە.`);
     }
 
     function filterByDateRange(items, startDate, endDate) {
+        if (!items) return [];
         if (!startDate && !endDate) return items;
         return items.filter(item => {
             const itemDate = item.date;
@@ -2315,11 +2922,11 @@
         if (!document.getElementById('salesExpensesChart') || !document.getElementById('balanceDoughnutChart')) return;
         
         const dateMap = {};
-        filteredSales.forEach(s => {
+        (filteredSales || []).forEach(s => {
             if (!dateMap[s.date]) dateMap[s.date] = { sales: 0, expenses: 0 };
             dateMap[s.date].sales += s.total;
         });
-        filteredExpenses.forEach(e => {
+        (filteredExpenses || []).forEach(e => {
             if (!dateMap[e.date]) dateMap[e.date] = { sales: 0, expenses: 0 };
             dateMap[e.date].expenses += e.amount;
         });
@@ -2398,10 +3005,11 @@
         });
     }
 
-    function getCustomerBalance(customerName) {
-        const totalSales = db.sales.filter(s => s.customer === customerName).reduce((sum, s) => sum + s.total, 0);
-        const totalPayments = db.payments.filter(p => p.customer === customerName && !p.isVoid).reduce((sum, p) => sum + p.amount, 0);
-        const totalReturns = db.returns.filter(r => r.type === 'from_customer' && r.party === customerName).reduce((sum, r) => sum + (r.total || 0), 0);
+    function getCustomerBalance(customerName, startDate = '', endDate = '') {
+        const customerId = (db.customers || []).find(c => c.name === customerName)?.id;
+        const totalSales = filterByDateRange((db.sales || []).filter(s => partyMatches(s, customerId, customerName, 'customerId', 'customer')), startDate, endDate).reduce((sum, s) => sum + (Number(s.total) || 0), 0);
+        const totalPayments = filterByDateRange((db.payments || []).filter(p => partyMatches(p, customerId, customerName, 'customerId', 'customer') && !p.isVoid), startDate, endDate).reduce((sum, p) => sum + (Number(p.amount) || 0), 0);
+        const totalReturns = filterByDateRange((db.returns || []).filter(r => r.type === 'from_customer' && partyMatches(r, customerId, customerName, 'partyId', 'party')), startDate, endDate).reduce((sum, r) => sum + (Number(r.total) || 0), 0);
         return {
             totalSales: totalSales - totalReturns,
             totalPaid: totalPayments,
@@ -2412,19 +3020,19 @@
     function renderCustomers() {
         const tbody = document.getElementById('customersTable');
         tbody.innerHTML = '';
-        db.customers.forEach(c => {
+        (db.customers || []).forEach(c => {
             const bal = getCustomerBalance(c.name);
             const balanceColor = bal.due > 0 ? 'var(--danger)' : 'var(--success)';
             const balanceText = bal.due > 0 ? `قەرزار: $${bal.due.toFixed(2)}` : 'پاکتاوە';
 
             tbody.innerHTML += `<tr>
-                <td><strong>${c.name}</strong></td>
-                <td>${c.phone}</td>
-                <td>${c.address}</td>
+                <td><strong>${escapeHtml(c.name)}</strong></td>
+                <td>${escapeHtml(c.phone)}</td>
+                <td>${escapeHtml(c.address)}</td>
                 <td class="t-center"><strong style="color:${balanceColor};">${balanceText}</strong></td>
                 <td class="t-center">
-                    <button type="button" class="btn btn-purple btn-sm" onclick="viewCustomerStatement('${c.name}')"><i class="fa-solid fa-receipt"></i> کەشف</button>
-                    <button type="button" class="btn btn-danger btn-sm" onclick="deleteCustomer(${c.id})"><i class="fa-solid fa-trash"></i></button>
+                    <button type="button" class="btn btn-purple btn-sm" onclick="viewCustomerStatement(decodeURIComponent('${safeInlineArg(c.name)}'))"><i class="fa-solid fa-receipt"></i> کەشف</button>
+                    <button type="button" class="btn btn-danger btn-sm" onclick="deleteCustomer(decodeURIComponent('${safeInlineArg(c.id)}'))"><i class="fa-solid fa-trash"></i></button>
                 </td>
             </tr>`;
         });
@@ -2437,29 +3045,36 @@
         const endDate = document.getElementById('dashEndDate').value;
 
         const filteredSales = filterByDateRange(db.sales, startDate, endDate);
-        const filteredPayments = filterByDateRange(db.payments.filter(p => !p.isVoid), startDate, endDate);
+        const filteredPayments = filterByDateRange((db.payments || []).filter(p => !p.isVoid), startDate, endDate);
         const filteredExpenses = filterByDateRange(db.expenses, startDate, endDate);
         const filteredPurchases = filterByDateRange(db.purchases, startDate, endDate);
-        const filteredSupPayments = filterByDateRange(db.supplierPayments.filter(sp => !sp.isVoid), startDate, endDate);
+        const filteredSupPayments = filterByDateRange((db.supplierPayments || []).filter(sp => !sp.isVoid), startDate, endDate);
+        const filteredReturns = filterByDateRange(db.returns || [], startDate, endDate);
 
         const totalSales = filteredSales.reduce((sum, s) => sum + s.total, 0);
         const totalCustPayments = filteredPayments.reduce((sum, p) => sum + p.amount, 0);
-        const totalCustDue = totalSales - totalCustPayments;
+        const totalCustReturns = filteredReturns
+            .filter(r => r.type === 'from_customer')
+            .reduce((sum, r) => sum + (Number(r.total) || 0), 0);
+        const totalCustDue = totalSales - totalCustReturns - totalCustPayments;
 
-        const totalPurchases = filteredPurchases.reduce((sum, p) => sum + p.total, 0);
-        const totalSupPayments = filteredSupPayments.reduce((sum, sp) => sum + sp.amount, 0);
-        const totalSupDue = totalPurchases - totalSupPayments;
+        const totalPurchases = filteredPurchases.reduce((sum, p) => sum + (Number(p.total) || 0), 0);
+        const totalSupReturns = filteredReturns
+            .filter(r => r.type === 'to_supplier')
+            .reduce((sum, r) => sum + (Number(r.total) || 0), 0);
+        const totalSupPayments = filteredSupPayments
+            .reduce((sum, sp) => sum + (Number(sp.amount) || 0), 0);
+        const totalSupDue = totalPurchases - totalSupReturns - totalSupPayments;
 
         const totalExpenses = filteredExpenses.reduce((sum, e) => sum + e.amount, 0);
-        const lowStock = db.items.filter(i => i.qty < 5).length;
+        const lowStock = (db.items || []).filter(i => i.qty < 5).length;
 
-        // ئەژمارکردنی سەرمایەی ئێستای مەوادەکانی ناو کۆگا
         const inventoryValue = (db.items || []).reduce((sum, i) => sum + ((Number(i.qty) || 0) * (Number(i.buyPrice) || 0)), 0);
 
         document.getElementById('dashSales').innerText = `$${totalSales.toFixed(2)}`;
         document.getElementById('dashExpenses').innerText = `$${totalExpenses.toFixed(2)}`;
         document.getElementById('dashDue').innerText = `$${totalCustDue.toFixed(2)}`;
-        document.getElementById('dashSupDue').innerText = `$${totalSupDue.toFixed(2)}`;
+        document.getElementById('dashSupDue').innerText = `$${Math.max(0, totalSupDue).toFixed(2)}`;
         document.getElementById('dashLowStock').innerText = lowStock;
 
         if (document.getElementById('dashInventoryValue')) {
@@ -2472,8 +3087,8 @@
         debtorsTable.innerHTML = '';
         
         let debtorsList = [];
-        db.customers.forEach(cust => {
-            const bal = getCustomerBalance(cust.name);
+        (db.customers || []).forEach(cust => {
+            const bal = getCustomerBalance(cust.name, startDate, endDate);
             if (bal.due > 0) {
                 debtorsList.push({ ...cust, ...bal });
             }
@@ -2487,12 +3102,12 @@
         } else {
             debtorsList.forEach(d => {
                 debtorsTable.innerHTML += `<tr>
-                    <td><strong>${d.name}</strong></td>
-                    <td>${d.phone || '-'}</td>
+                    <td><strong>${escapeHtml(d.name)}</strong></td>
+                    <td>${escapeHtml(d.phone || '-')}</td>
                     <td class="t-center">$${d.totalSales.toFixed(2)}</td>
                     <td class="t-center" style="color:var(--success); font-weight:600;">$${d.totalPaid.toFixed(2)}</td>
                     <td class="t-center"><strong style="color:var(--danger); font-size:15px;">$${d.due.toFixed(2)}</strong></td>
-                    <td class="t-center"><button type="button" class="btn btn-purple btn-sm" onclick="viewCustomerStatement('${d.name}')"><i class="fa-solid fa-receipt"></i> کەشف</button></td>
+                    <td class="t-center"><button type="button" class="btn btn-purple btn-sm" onclick="viewCustomerStatement(decodeURIComponent('${safeInlineArg(d.name)}'))"><i class="fa-solid fa-receipt"></i> کەشف</button></td>
                 </tr>`;
             });
         }
@@ -2505,10 +3120,10 @@
             tbody.innerHTML = `<tr><td colspan="5" class="t-center" style="color: #94a3b8; padding: 25px;">هیچ تۆمارێکی فرۆشتن لەم ماوەیەدا نییە</td></tr>`;
         } else {
             recent.forEach(s => {
-                let itemsSummary = s.items ? s.items.map(i => `${i.name} (${i.qty})`).join(', ') : (s.itemName || 'مەواد');
+                let itemsSummary = s.items ? s.items.map(i => `${escapeHtml(i.name)} (${safeNumber(i.qty)})`).join(', ') : escapeHtml(s.itemName || 'مەواد');
                 tbody.innerHTML += `<tr>
-                    <td><strong>${s.date}</strong></td>
-                    <td><span class="badge badge-cust">${s.customer}</span></td>
+                    <td><strong>${escapeHtml(s.date)}</strong></td>
+                    <td><span class="badge badge-cust">${escapeHtml(s.customer)}</span></td>
                     <td>${itemsSummary}</td>
                     <td class="t-center"><strong style="color:var(--primary);">${s.items ? s.items.reduce((a,b)=>a+b.qty,0) : s.qty}</strong></td>
                     <td class="t-center"><strong style="color:var(--success);">$${s.total.toFixed(2)}</strong></td>
@@ -2528,26 +3143,30 @@
         document.getElementById('voidModal').style.display = 'none';
     }
 
-    function confirmVoidPayment(e) {
+    async function confirmVoidPayment(e) {
         e.preventDefault();
-        const id = parseInt(document.getElementById('voidTargetId').value);
+        const id = document.getElementById('voidTargetId').value;
         const type = document.getElementById('voidTargetType').value;
         const reason = document.getElementById('voidReasonInput').value.trim();
 
         if (!reason) return alert('هۆکارەکە بنووسە');
+        const previousDb = cloneDb(db);
+        let found = false;
 
         if (type === 'customer') {
-            const pay = db.payments.find(p => p.id === id);
-            if (pay) { pay.isVoid = true; pay.voidReason = reason; pay.voidDate = today; }
-            renderPayments();
+            const pay = (db.payments || []).find(p => p.id === id);
+            if (pay && !pay.isVoid) { pay.isVoid = true; pay.voidReason = reason; pay.voidDate = today; found = true; }
         } else if (type === 'supplier') {
-            const supPay = db.supplierPayments.find(sp => sp.id === id);
-            if (supPay) { supPay.isVoid = true; supPay.voidReason = reason; supPay.voidDate = today; }
-            renderSupPayments();
+            const supPay = (db.supplierPayments || []).find(sp => sp.id === id);
+            if (supPay && !supPay.isVoid) { supPay.isVoid = true; supPay.voidReason = reason; supPay.voidDate = today; found = true; }
         }
+        if (!found) return alert('وەسڵەکە نەدۆزرایەوە یان پێشتر پووچەڵ کراوەتەوە.');
 
-        saveData();
+        if (!await saveData()) { await restoreAfterFailedSave(previousDb); return; }
         closeVoidModal();
+        updateAllViews();
+        if (type === 'customer') renderPayments();
+        if (type === 'supplier') renderSupPayments();
     }
 
     function openSupplierModal(selectId) {
@@ -2560,16 +3179,21 @@
         document.getElementById('quickSupplierForm').reset();
     }
 
-    function saveQuickSupplier(e) {
+    async function saveQuickSupplier(e) {
         e.preventDefault();
-        const name = document.getElementById('quickSupName').value;
-        const phone = document.getElementById('quickSupPhone').value || '-';
-        const address = document.getElementById('quickSupAddress').value || '-';
+        const name = document.getElementById('quickSupName').value.trim();
+        const phone = document.getElementById('quickSupPhone').value.trim() || '-';
+        const address = document.getElementById('quickSupAddress').value.trim() || '-';
 
-        const newSupplier = { id: Date.now(), name, phone, address };
+        if ((db.suppliers || []).some(s => s.name.trim().toLowerCase() === name.toLowerCase())) {
+            return alert('ئەم دابینکەرە پێشتر هەیە.');
+        }
+        const newSupplier = { id: newId(), name, phone, address };
+        const previousDb = cloneDb(db);
+        if (!db.suppliers) db.suppliers = [];
         db.suppliers.push(newSupplier);
-        saveData();
-        renderSuppliers();
+        if (!await saveData()) { await restoreAfterFailedSave(previousDb); return; }
+        updateAllViews();
 
         if(targetSelectId === 'purchaseSupplier') updatePurchaseDropdowns();
         if(targetSelectId === 'supPaySupplier') updateSupPaymentDropdowns();
@@ -2587,22 +3211,140 @@
         document.getElementById('categoryForm').reset();
     }
 
-    function saveCategory(e) {
+    async function saveCategory(e) {
         e.preventDefault();
         const catName = document.getElementById('catName').value.trim();
         if(catName && !db.expenseCategories.includes(catName)) {
+            const previousDb = cloneDb(db);
             db.expenseCategories.push(catName);
-            saveData();
-            updateExpenseDropdowns();
+            if (!await saveData()) { await restoreAfterFailedSave(previousDb); return; }
+            updateAllViews();
             document.getElementById('expenseCategory').value = catName;
         }
         closeCategoryModal();
     }
 
-    function updateItemCategoryDropdowns() {
-        const catSelect = document.getElementById('itemCategory');
-        catSelect.innerHTML = '<option value="">کاتیگۆری هەڵبژێرە</option>';
-        db.itemCategories.forEach(cat => catSelect.innerHTML += `<option value="${cat}">${cat}</option>`);
+    function openManageCategoryModal() {
+        renderManageCategoryList();
+        document.getElementById('manageCategoryModal').style.display = 'flex';
+    }
+
+    function closeManageCategoryModal() {
+        document.getElementById('manageCategoryModal').style.display = 'none';
+    }
+
+    function renderManageCategoryList() {
+        const tbody = document.getElementById('categoryManageList');
+        tbody.innerHTML = '';
+        (db.itemCategories || []).forEach((cat, index) => {
+            tbody.innerHTML += `
+                <tr>
+                    <td><strong>${escapeHtml(cat)}</strong></td>
+                    <td class="t-center">
+                        <button type="button" class="btn btn-danger btn-sm" onclick="deleteItemCategory(${index})"><i class="fa-solid fa-trash"></i></button>
+                    </td>
+                </tr>
+            `;
+        });
+    }
+
+    async function saveNewItemCategoryDirect(e) {
+        e.preventDefault();
+        const catName = document.getElementById('inputNewCatManage').value.trim();
+        if (catName && !(db.itemCategories || []).includes(catName)) {
+            const previousDb = cloneDb(db);
+            if (!db.itemCategories) db.itemCategories = [];
+            db.itemCategories.push(catName);
+            if (!await saveData()) { await restoreAfterFailedSave(previousDb); return; }
+            updateAllViews();
+            document.getElementById('inputNewCatManage').value = '';
+            alert('کاتیگۆری نوێ زیادکرا!');
+        } else {
+            alert('ئەم کاتیگۆرییە بوونی هەیە!');
+        }
+    }
+
+    async function deleteItemCategory(index) {
+        const catName = db.itemCategories[index];
+        if (confirm(`دڵنیایت لە سڕینەوەی کاتیگۆری (${catName})؟`)) {
+            const previousDb = cloneDb(db);
+            db.itemCategories.splice(index, 1);
+            if (!await saveData()) { await restoreAfterFailedSave(previousDb); return; }
+            updateAllViews();
+        }
+    }
+
+    function openManageTypesModal() {
+        renderManageTypesList();
+        document.getElementById('manageTypesModal').style.display = 'flex';
+    }
+
+    function closeManageTypesModal() {
+        document.getElementById('manageTypesModal').style.display = 'none';
+    }
+
+    function renderManageTypesList() {
+        const tbody = document.getElementById('typesManageList');
+        tbody.innerHTML = '';
+        (db.itemTypes || []).forEach((type, index) => {
+            tbody.innerHTML += `
+                <tr>
+                    <td><strong>${escapeHtml(type)}</strong></td>
+                    <td class="t-center">
+                        <button type="button" class="btn btn-danger btn-sm" onclick="deleteItemType(${index})"><i class="fa-solid fa-trash"></i></button>
+                    </td>
+                </tr>
+            `;
+        });
+    }
+
+    async function saveNewItemTypeDirect(e) {
+        e.preventDefault();
+        const typeName = document.getElementById('inputNewTypeManage').value.trim();
+        if (typeName && !(db.itemTypes || []).includes(typeName)) {
+            const previousDb = cloneDb(db);
+            if (!db.itemTypes) db.itemTypes = [];
+            db.itemTypes.push(typeName);
+            if (!await saveData()) { await restoreAfterFailedSave(previousDb); return; }
+            updateAllViews();
+            document.getElementById('inputNewTypeManage').value = '';
+            alert('مۆدێلی نوێ زیادکرا!');
+        } else {
+            alert('ئەم مۆدێلە پێشتر هەیە یان ناوەکەی بەتاڵە!');
+        }
+    }
+
+    async function deleteItemType(index) {
+        const typeName = db.itemTypes[index];
+        if (confirm(`دڵنیایت لە سڕینەوەی مۆدێلی (${typeName})؟`)) {
+            const previousDb = cloneDb(db);
+            db.itemTypes.splice(index, 1);
+            if (!await saveData()) { await restoreAfterFailedSave(previousDb); return; }
+            updateAllViews();
+        }
+    }
+
+    function openQuickTypeModal() {
+        document.getElementById('quickTypeModal').style.display = 'flex';
+    }
+
+    function closeQuickTypeModal() {
+        document.getElementById('quickTypeModal').style.display = 'none';
+    }
+
+    async function saveQuickType(e) {
+        e.preventDefault();
+        const typeName = document.getElementById('newQuickTypeName').value.trim();
+        if (typeName && !(db.itemTypes || []).includes(typeName)) {
+            const previousDb = cloneDb(db);
+            if (!db.itemTypes) db.itemTypes = [];
+            db.itemTypes.push(typeName);
+            if (!await saveData()) { await restoreAfterFailedSave(previousDb); return; }
+            updateAllViews();
+            document.getElementById('newPurchType').value = typeName;
+        }
+        document.getElementById('newQuickTypeName').value = '';
+        closeQuickTypeModal();
     }
 
     function openItemCategoryModal() {
@@ -2611,87 +3353,182 @@
 
     function closeItemCategoryModal() {
         document.getElementById('itemCategoryModal').style.display = 'none';
-        document.getElementById('itemCategoryForm').reset();
     }
 
-    function saveItemCategory(e) {
+    async function saveItemCategory(e) {
         e.preventDefault();
         const catName = document.getElementById('newItemCategoryName').value.trim();
-        if(catName && !db.itemCategories.includes(catName)) {
+        if(catName && !(db.itemCategories || []).includes(catName)) {
+            const previousDb = cloneDb(db);
+            if (!db.itemCategories) db.itemCategories = [];
             db.itemCategories.push(catName);
-            saveData();
-            updateItemCategoryDropdowns();
-            document.getElementById('itemCategory').value = catName;
+            if (!await saveData()) { await restoreAfterFailedSave(previousDb); return; }
+            updateAllViews();
+            document.getElementById('newPurchCat').value = catName;
         }
         closeItemCategoryModal();
     }
 
     function updateExpenseDropdowns() {
         const catSelect = document.getElementById('expenseCategory');
+        const filterCatSelect = document.getElementById('filterExpenseCat');
+
         catSelect.innerHTML = '<option value="">کاتیگۆری هەڵبژێرە</option>';
-        db.expenseCategories.forEach(cat => catSelect.innerHTML += `<option value="${cat}">${cat}</option>`);
+        if (filterCatSelect) filterCatSelect.innerHTML = '<option value="">هەموو کاتیگۆرییەکان</option>';
+
+        (db.expenseCategories || []).forEach(cat => {
+            catSelect.innerHTML += `<option value="${escapeHtml(cat)}">${escapeHtml(cat)}</option>`;
+            if (filterCatSelect) filterCatSelect.innerHTML += `<option value="${escapeHtml(cat)}">${escapeHtml(cat)}</option>`;
+        });
     }
 
-    function addExpense(e) {
+    async function addExpense(e) {
         e.preventDefault();
+        const category = document.getElementById('expenseCategory').value;
+        const amount = parseFloat(document.getElementById('expenseAmount').value);
+        if (!category) return alert('تکایە کاتیگۆریی خەرجی هەڵبژێرە.');
+        if (!Number.isFinite(amount) || amount <= 0) return alert('بڕی خەرجی دەبێت زیاتر لە سفر بێت.');
         const expense = {
-            id: Date.now(),
+            id: newId(),
             date: document.getElementById('expenseDate').value || today,
-            category: document.getElementById('expenseCategory').value,
-            amount: parseFloat(document.getElementById('expenseAmount').value),
+            category,
+            amount,
             note: document.getElementById('expenseNote').value || '-'
         };
 
+        const previousDb = cloneDb(db);
+        if (!db.expenses) db.expenses = [];
         db.expenses.push(expense);
-        saveData();
-        renderExpenses();
+        if (!await saveData()) { await restoreAfterFailedSave(previousDb); return; }
+        updateAllViews();
         document.getElementById('expenseForm').reset();
         document.getElementById('expenseDate').value = today;
+    }
+
+    function resetExpenseFilters() {
+        document.getElementById('filterExpenseCat').value = '';
+        document.getElementById('expenseStartDate').value = '';
+        document.getElementById('expenseEndDate').value = '';
+        renderExpenses();
     }
 
     function renderExpenses() {
         const tbody = document.getElementById('expensesTable');
         tbody.innerHTML = '';
-        db.expenses.slice().reverse().forEach((exp) => {
+
+        const selectedCat = document.getElementById('filterExpenseCat') ? document.getElementById('filterExpenseCat').value : '';
+        const startDate = document.getElementById('expenseStartDate') ? document.getElementById('expenseStartDate').value : '';
+        const endDate = document.getElementById('expenseEndDate') ? document.getElementById('expenseEndDate').value : '';
+
+        let filtered = (db.expenses || []).slice();
+
+        if (selectedCat) {
+            filtered = filtered.filter(exp => exp.category === selectedCat);
+        }
+
+        filtered = filterByDateRange(filtered, startDate, endDate);
+
+        const totalExpenseAmount = filtered.reduce((sum, exp) => sum + exp.amount, 0);
+
+        if (document.getElementById('filteredExpCount')) {
+            document.getElementById('filteredExpCount').innerText = `${filtered.length} تۆمار`;
+        }
+        if (document.getElementById('filteredExpTotal')) {
+            document.getElementById('filteredExpTotal').innerText = `$${totalExpenseAmount.toFixed(2)}`;
+        }
+
+        if (filtered.length === 0) {
+            tbody.innerHTML = `<tr><td colspan="6" class="t-center" style="color: #94a3b8; padding: 25px;">هیچ خەرجییەک بەپێی ئەم فلتەرە نەدۆزرایەوە.</td></tr>`;
+            return;
+        }
+
+        filtered.reverse().forEach((exp) => {
             tbody.innerHTML += `<tr>
-                <td>#${exp.id.toString().slice(-4)}</td>
-                <td>${exp.date}</td>
-                <td><span class="badge badge-sup">${exp.category}</span></td>
+                <td>#${escapeHtml(String(exp.id).slice(-4))}</td>
+                <td>${escapeHtml(exp.date)}</td>
+                <td><span class="badge badge-sup">${escapeHtml(exp.category)}</span></td>
                 <td class="t-center"><strong style="color:var(--danger);">$${exp.amount.toFixed(2)}</strong></td>
-                <td>${exp.note}</td>
-                <td class="t-center"><button type="button" class="btn btn-danger btn-sm" onclick="deleteExpense(${exp.id})"><i class="fa-solid fa-trash"></i></button></td>
+                <td>${escapeHtml(exp.note)}</td>
+                <td class="t-center"><button type="button" class="btn btn-danger btn-sm" onclick="deleteExpense(decodeURIComponent('${safeInlineArg(exp.id)}'))"><i class="fa-solid fa-trash"></i></button></td>
             </tr>`;
         });
     }
 
-    function deleteExpense(id) {
+    function printExpensesReport() {
+        const selectedCat = document.getElementById('filterExpenseCat').value;
+        const startDate = document.getElementById('expenseStartDate').value;
+        const endDate = document.getElementById('expenseEndDate').value;
+
+        let filtered = (db.expenses || []).slice();
+        if (selectedCat) filtered = filtered.filter(exp => exp.category === selectedCat);
+        filtered = filterByDateRange(filtered, startDate, endDate);
+
+        if (filtered.length === 0) return alert('هیچ تۆمارێکی خەرجی نییە بۆ چاپکردن بەپێی ئەم فلتەرە!');
+
+        const totalExp = filtered.reduce((sum, e) => sum + e.amount, 0);
+
+        document.getElementById('printExpDate').innerText = new Date().toLocaleDateString('en-CA');
+        document.getElementById('printExpCatName').innerText = selectedCat ? selectedCat : 'هەموو کاتیگۆرییەکان';
+        document.getElementById('printExpGrandTotal').innerText = `$${totalExp.toFixed(2)}`;
+
+        const rangeWrap = document.getElementById('printExpDateRangeWrap');
+        if (startDate || endDate) {
+            rangeWrap.style.display = 'block';
+            document.getElementById('printExpDateRange').innerText = `${startDate || 'دەستپێک'} تا ${endDate || 'ئەمڕۆ'}`;
+        } else {
+            rangeWrap.style.display = 'none';
+        }
+
+        const printTbody = document.getElementById('printableExpensesItems');
+        printTbody.innerHTML = '';
+
+        filtered.forEach(exp => {
+            printTbody.innerHTML += `<tr>
+                <td style="border:1px solid #cbd5e1; padding:8px;">#${exp.id.toString().slice(-4)}</td>
+                <td style="border:1px solid #cbd5e1; padding:8px;">${escapeHtml(exp.date)}</td>
+                <td style="border:1px solid #cbd5e1; padding:8px;">${escapeHtml(exp.category)}</td>
+                <td style="border:1px solid #cbd5e1; padding:8px; text-align:center; font-weight:bold; color:#b91c1c;">$${exp.amount.toFixed(2)}</td>
+                <td style="border:1px solid #cbd5e1; padding:8px;">${escapeHtml(exp.note)}</td>
+            </tr>`;
+        });
+
+        executeMobileSafePrint('printableExpenses');
+    }
+
+    async function deleteExpense(id) {
         if(confirm('دڵنیایت؟')) {
-            db.expenses = db.expenses.filter(e => e.id !== id);
-            saveData();
-            renderExpenses();
+            const previousDb = cloneDb(db);
+            db.expenses = (db.expenses || []).filter(e => e.id !== id);
+            await persistCleaningChange(previousDb, '✅ تۆماری خەرجی سڕایەوە.');
         }
     }
 
     function updatePaymentDropdowns() {
         const custSelect = document.getElementById('payCustomer');
         custSelect.innerHTML = '<option value="">پزیشکێک هەڵبژێرە</option>';
-        db.customers.forEach(c => custSelect.innerHTML += `<option value="${c.name}">${c.name}</option>`);
+        (db.customers || []).forEach(c => custSelect.innerHTML += `<option value="${escapeHtml(c.name)}">${escapeHtml(c.name)}</option>`);
     }
 
-    function addPayment(e) {
+    async function addPayment(e) {
         e.preventDefault();
+        const customer = document.getElementById('payCustomer').value;
+        const customerRecord = (db.customers || []).find(c => c.name === customer);
+        const amount = parseFloat(document.getElementById('payAmount').value);
+        if (!customer || !customerRecord) return alert('تکایە کڕیارێکی دروست هەڵبژێرە.');
+        if (!Number.isFinite(amount) || amount <= 0) return alert('بڕی پارە دەبێت زیاتر لە سفر بێت.');
+        const balance = getCustomerBalance(customer);
+        if (amount > Math.max(0, balance.due)) return alert(`بڕی پارەدان لە قەرزی ماوە زیاترە: $${balance.due.toFixed(2)}`);
         const payment = {
-            id: Date.now(),
-            date: document.getElementById('payDate').value || today,
-            customer: document.getElementById('payCustomer').value,
-            amount: parseFloat(document.getElementById('payAmount').value),
-            note: document.getElementById('payNote').value || 'پارەدانی نەقد',
-            isVoid: false,
-            voidReason: ''
+            id: newId(), date: document.getElementById('payDate').value || today,
+            customer, customerId: customerRecord?.id, amount, note: document.getElementById('payNote').value || 'پارەدانی نەقد',
+            isVoid: false, voidReason: ''
         };
 
+        const previousDb = cloneDb(db);
+        if (!db.payments) db.payments = [];
         db.payments.push(payment);
-        saveData(); renderPayments();
+        if (!await saveData()) { await restoreAfterFailedSave(previousDb); return; }
+        updateAllViews();
         document.getElementById('paymentForm').reset();
         document.getElementById('payDate').value = today;
         printReceipt(payment.id);
@@ -2700,17 +3537,17 @@
     function renderPayments() {
         const tbody = document.getElementById('paymentsTable');
         tbody.innerHTML = '';
-        db.payments.slice().reverse().forEach(p => {
+        (db.payments || []).slice().reverse().forEach(p => {
             const isVoid = p.isVoid;
             const rowClass = isVoid ? 'class="void-row"' : '';
             const amountHtml = isVoid ? `<span class="strikethrough">$${p.amount.toFixed(2)}</span> <br><span class="badge badge-void">پووچەڵکراوە</span>` : `<strong style="color:var(--success);">$${p.amount.toFixed(2)}</strong>`;
-            const noteHtml = isVoid ? `<strong>هۆکار:</strong> ${p.voidReason}` : p.note;
-            const actionsHtml = isVoid ? `<span style="font-size:11px; color:#ef4444;">پووچەڵکراوە</span>` : `<button type="button" class="btn btn-purple btn-sm" onclick="printReceipt(${p.id})"><i class="fa-solid fa-print"></i></button> <button type="button" class="btn btn-danger btn-sm" onclick="openVoidModal(${p.id}, 'customer')"><i class="fa-solid fa-ban"></i></button>`;
+            const noteHtml = isVoid ? `<strong>هۆکار:</strong> ${escapeHtml(p.voidReason)}` : escapeHtml(p.note);
+            const actionsHtml = isVoid ? `<span style="font-size:11px; color:#ef4444;">پووچەڵکراوە</span>` : `<button type="button" class="btn btn-purple btn-sm" onclick="printReceipt(decodeURIComponent('${safeInlineArg(p.id)}'))"><i class="fa-solid fa-print"></i></button> <button type="button" class="btn btn-danger btn-sm" onclick="openVoidModal(decodeURIComponent('${safeInlineArg(p.id)}'), 'customer')"><i class="fa-solid fa-ban"></i></button>`;
 
             tbody.innerHTML += `<tr ${rowClass}>
-                <td>#${p.id.toString().slice(-4)}</td>
-                <td>${p.date}</td>
-                <td>${p.customer}</td>
+                <td>#${escapeHtml(String(p.id).slice(-4))}</td>
+                <td>${escapeHtml(p.date)}</td>
+                <td>${escapeHtml(p.customer)}</td>
                 <td class="t-center">${amountHtml}</td>
                 <td>${noteHtml}</td>
                 <td class="t-center">${actionsHtml}</td>
@@ -2719,7 +3556,7 @@
     }
 
     function printReceipt(id) {
-        const payment = db.payments.find(p => p.id === id);
+        const payment = (db.payments || []).find(p => p.id === id);
         if(!payment || payment.isVoid) return alert('وەسڵەکە پووچەڵکراوەتەوە!');
 
         document.getElementById('recId').innerText = payment.id.toString().slice(-4);
@@ -2728,49 +3565,72 @@
         document.getElementById('recAmount').innerText = payment.amount.toFixed(2);
         document.getElementById('recNote').innerText = payment.note;
 
-        document.getElementById('printableReceipt').classList.add('print-active');
-        window.print();
-        document.getElementById('printableReceipt').classList.remove('print-active');
+        executeMobileSafePrint('printableReceipt');
     }
 
     function updateSupPaymentDropdowns() {
         const supSelect = document.getElementById('supPaySupplier');
         supSelect.innerHTML = '<option value="">دابینکەرێک هەڵبژێرە</option>';
-        db.suppliers.forEach(s => supSelect.innerHTML += `<option value="${s.name}">${s.name}</option>`);
+        (db.suppliers || []).forEach(s => supSelect.innerHTML += `<option value="${escapeHtml(s.name)}">${escapeHtml(s.name)}</option>`);
     }
 
-    function addSupPayment(e) {
+    async function addSupPayment(e) {
         e.preventDefault();
+        const supplierName = document.getElementById('supPaySupplier').value;
+        const supplierRecord = (db.suppliers || []).find(s => s.name === supplierName);
+        const amount = parseFloat(document.getElementById('supPayAmount').value) || 0;
+        
+        if (!supplierName || !supplierRecord) {
+            return alert('تکایە سەرەتا ناوی دابینکەر هەڵبژێرە!');
+        }
+        if (!Number.isFinite(amount) || amount <= 0) return alert('بڕی پارە دەبێت زیاتر لە سفر بێت.');
+
+        const bal = getSupplierBalance(supplierName);
+
+        if (bal.due <= 0) {
+            return alert('ئەم دابینکەرە هیچ قەرزێکی لای تۆ نییە و باڵانسی پاکتاوە!');
+        }
+
+        if (amount > bal.due) {
+            return alert(`⚠️ بڕی پارەی دیاریکراو ($${amount.toFixed(2)}) لە کۆی قەرزی ماوە ($${bal.due.toFixed(2)}) زیاترە! ناتوانیت زیاتر لە قەرز بدەیت.`);
+        }
+
         const supPayment = {
-            id: Date.now(),
+            id: newId(),
             date: document.getElementById('supPayDate').value || today,
-            supplier: document.getElementById('supPaySupplier').value,
-            amount: parseFloat(document.getElementById('supPayAmount').value),
+            supplier: supplierName,
+            supplierId: supplierRecord?.id,
+            amount: amount,
             note: document.getElementById('supPayNote').value || 'پارەدان بۆ دابینکەر',
             isVoid: false,
             voidReason: ''
         };
 
+        const previousDb = cloneDb(db);
+        if (!db.supplierPayments) db.supplierPayments = [];
         db.supplierPayments.push(supPayment);
-        saveData(); renderSupPayments();
+        if (!await saveData()) { await restoreAfterFailedSave(previousDb); return; }
+        updateAllViews();
         document.getElementById('supPaymentForm').reset();
         document.getElementById('supPayDate').value = today;
+        document.getElementById('supDueNotice').innerText = '';
+        alert('✅ پارەدان بە سەرکەوتوویی تۆمارکرا و لە قەرزی دابینکەر دابەزی!');
     }
 
     function renderSupPayments() {
         const tbody = document.getElementById('supPaymentsTable');
         tbody.innerHTML = '';
-        db.supplierPayments.slice().reverse().forEach(sp => {
+        (db.supplierPayments || []).slice().reverse().forEach(sp => {
             const isVoid = sp.isVoid;
             const rowClass = isVoid ? 'class="void-row"' : '';
             const amountHtml = isVoid ? `<span class="strikethrough">$${sp.amount.toFixed(2)}</span> <br><span class="badge badge-void">پووچەڵکراوە</span>` : `<strong style="color:var(--success);">$${sp.amount.toFixed(2)}</strong>`;
-            const noteHtml = isVoid ? `<strong>هۆکار:</strong> ${sp.voidReason}` : sp.note;
-            const actionsHtml = isVoid ? `<span style="font-size:11px; color:#ef4444;">پووچەڵکراوە</span>` : `<button type="button" class="btn btn-danger btn-sm" onclick="openVoidModal(${sp.id}, 'supplier')"><i class="fa-solid fa-ban"></i></button>`;
+            const noteHtml = isVoid ? `<strong>هۆکار:</strong> ${escapeHtml(sp.voidReason)}` : escapeHtml(sp.note);
+            const actionsHtml = isVoid ? `<span style="font-size:11px; color:#ef4444;">پووچەڵکراوە</span>` : `<button type="button" class="btn btn-danger btn-sm" onclick="openVoidModal(decodeURIComponent('${safeInlineArg(sp.id)}'), 'supplier')"><i class="fa-solid fa-ban"></i></button>`;
 
             tbody.innerHTML += `<tr ${rowClass}>
-                <td>#${sp.id.toString().slice(-4)}</td>
-                <td>${sp.date}</td>
-                <td>${sp.supplier}</td>
+                <td>#${escapeHtml(String(sp.id).slice(-4))}</td>
+                <td>${escapeHtml(sp.date)}</td>
+                <td>${escapeHtml(sp.supplier)}</td>
                 <td class="t-center">${amountHtml}</td>
                 <td>${noteHtml}</td>
                 <td class="t-center">${actionsHtml}</td>
@@ -2787,59 +3647,108 @@
             document.getElementById('lblStat1').innerText = 'کۆی فرۆش';
             document.getElementById('lblStat2').innerText = 'کۆی پارەی وەردراو';
             document.getElementById('lblStat3').innerText = 'قەرزی ماوە (دکتۆر)';
-            db.customers.forEach(c => partySelect.innerHTML += `<option value="${c.name}">${c.name}</option>`);
+            (db.customers || []).forEach(c => partySelect.innerHTML += `<option value="${escapeHtml(c.name)}">${escapeHtml(c.name)}</option>`);
         } else {
             document.getElementById('lblStat1').innerText = 'کۆی کڕین';
             document.getElementById('lblStat2').innerText = 'کۆی پارەی دراو';
             document.getElementById('lblStat3').innerText = 'قەرزی ماوە (دابینکەر)';
-            db.suppliers.forEach(s => partySelect.innerHTML += `<option value="${s.name}">${s.name}</option>`);
+            (db.suppliers || []).forEach(s => partySelect.innerHTML += `<option value="${escapeHtml(s.name)}">${escapeHtml(s.name)}</option>`);
         }
+        generateStatement();
+    }
+
+    function resetStatementDateFilter() {
+        document.getElementById('statStartDate').value = '';
+        document.getElementById('statEndDate').value = '';
         generateStatement();
     }
 
     function generateStatement() {
         const type = document.getElementById('statementType').value;
         const party = document.getElementById('statementParty').value;
+        const partyId = (type === 'customer' ? db.customers : db.suppliers || []).find(x => x.name === party)?.id;
+        const startDate = document.getElementById('statStartDate') ? document.getElementById('statStartDate').value : '';
+        const endDate = document.getElementById('statEndDate') ? document.getElementById('statEndDate').value : '';
         const tbody = document.getElementById('statementTable');
         tbody.innerHTML = '';
+
+        if (!party) {
+            document.getElementById('statTotalSales').innerText = '$0.00';
+            document.getElementById('statTotalPaid').innerText = '$0.00';
+            document.getElementById('statBalance').innerText = '$0.00';
+            return;
+        }
 
         let records = [];
         let totalSalesOrPurchases = 0;
         let totalPaid = 0;
 
         if(type === 'customer') {
-            const sales = db.sales.filter(s => s.customer === party).map(s => {
+            let sales = (db.sales || []).filter(s => partyMatches(s, partyId, party, 'customerId', 'customer'));
+            let payments = (db.payments || []).filter(p => partyMatches(p, partyId, party, 'customerId', 'customer'));
+            let returns = (db.returns || []).filter(r => r.type === 'from_customer' && partyMatches(r, partyId, party, 'partyId', 'party'));
+
+            sales = filterByDateRange(sales, startDate, endDate);
+            payments = filterByDateRange(payments, startDate, endDate);
+            returns = filterByDateRange(returns, startDate, endDate);
+
+            const salesRecords = sales.map(s => {
                 totalSalesOrPurchases += s.total;
                 let detailsStr = s.items ? s.items.map(i => `${i.name} (${i.qty})`).join(', ') : (s.itemName || '-');
                 return { ...s, typeName: '🛒 فرۆشتن', details: detailsStr };
             });
-            const payments = db.payments.filter(p => p.customer === party).map(p => {
+            const payRecords = payments.map(p => {
                 if(!p.isVoid) totalPaid += p.amount;
                 return { ...p, typeName: p.isVoid ? '💵 وەسڵ (پووچەڵکراوە)' : '💵 وەسڵی پارەدان', details: p.isVoid ? `پووچەڵ: ${p.voidReason}` : p.note, total: p.amount, qty: '-', unitPrice: '-' };
             });
-            const returns = db.returns.filter(r => r.type === 'from_customer' && r.party === party).map(r => {
-                totalSalesOrPurchases -= r.total;
-                return { ...r, typeName: '↩️ گەڕاندنەوە لە کڕیار', details: `${r.itemName} (${r.reason})`, unitPrice: '-', total: r.total };
+            const retRecords = returns.map(r => {
+                totalSalesOrPurchases -= (r.total || 0);
+                return { ...r, typeName: '↩️ گەڕاندنەوە لە کڕیار', details: `${r.itemName} (${r.reason})`, unitPrice: '-', total: r.total || 0 };
             });
-            records = [...sales, ...payments, ...returns];
+            records = [...salesRecords, ...payRecords, ...retRecords];
         } else {
-            const purchases = db.purchases.filter(p => p.supplier === party).map(p => {
+            let purchases = (db.purchases || []).filter(p => partyMatches(p, partyId, party, 'supplierId', 'supplier'));
+            let supPayments = (db.supplierPayments || []).filter(sp => partyMatches(sp, partyId, party, 'supplierId', 'supplier'));
+            let returns = (db.returns || []).filter(r => r.type === 'to_supplier' && partyMatches(r, partyId, party, 'partyId', 'party'));
+
+            purchases = filterByDateRange(purchases, startDate, endDate);
+            supPayments = filterByDateRange(supPayments, startDate, endDate);
+            returns = filterByDateRange(returns, startDate, endDate);
+
+            const purRecords = purchases.map(p => {
                 totalSalesOrPurchases += p.total;
                 return { ...p, typeName: '📦 کڕین', details: p.itemName };
             });
-            const supPayments = db.supplierPayments.filter(sp => sp.supplier === party).map(sp => {
-                if(!sp.isVoid) totalPaid += p.amount;
-                return { ...sp, typeName: sp.isVoid ? '📤 پارەدان (پووچەڵکراوە)' : '📤 پارەدان بۆ دابینکەر', details: sp.isVoid ? `پووچەڵ: ${p.voidReason}` : p.note, total: p.amount, qty: '-', unitPrice: '-' };
+            
+            const supPayRecords = supPayments.map(sp => {
+                if(!sp.isVoid) totalPaid += (Number(sp.amount) || 0);
+                return { 
+                    ...sp, 
+                    typeName: sp.isVoid ? '📤 پارەدان (پووچەڵکراوە)' : '📤 پارەدان بۆ دابینکەر', 
+                    details: sp.isVoid ? `پووچەڵ: ${sp.voidReason}` : (sp.note || '-'), 
+                    total: sp.amount, 
+                    qty: '-', 
+                    unitPrice: '-' 
+                };
             });
-            const returns = db.returns.filter(r => r.type === 'to_supplier' && r.party === party).map(r => ({ ...r, unitPrice: '-', total: 0, typeName: '↩️ گەڕاندنەوە بۆ دابینکەر', details: r.itemName }));
-            records = [...purchases, ...supPayments, ...returns];
+            
+            const retRecords = returns.map(r => {
+                totalSalesOrPurchases -= (Number(r.total) || 0);
+                return { ...r, unitPrice: '-', typeName: '↩️ گەڕاندنەوە بۆ دابینکەر', details: r.itemName };
+            });
+            records = [...purRecords, ...supPayRecords, ...retRecords];
         }
 
-        records.sort((a, b) => b.id - a.id);
+        records.sort((a, b) => { const bd = new Date(b.date || 0).getTime(); const ad = new Date(a.date || 0).getTime(); return (Number.isFinite(bd) ? bd : 0) - (Number.isFinite(ad) ? ad : 0) || String(b.id).localeCompare(String(a.id)); });
 
         document.getElementById('statTotalSales').innerText = `$${totalSalesOrPurchases.toFixed(2)}`;
         document.getElementById('statTotalPaid').innerText = `$${totalPaid.toFixed(2)}`;
         document.getElementById('statBalance').innerText = `$${(totalSalesOrPurchases - totalPaid).toFixed(2)}`;
+
+        if (records.length === 0) {
+            tbody.innerHTML = `<tr><td colspan="6" class="t-center" style="color: #94a3b8; padding: 25px;">هیچ تۆمارێک لەم ماوەیەدا بۆ ئەم لایەنە نییە.</td></tr>`;
+            return;
+        }
 
         records.forEach(r => {
             const isVoidRow = r.isVoid;
@@ -2847,260 +3756,587 @@
             const totalText = isVoidRow ? `<del>$${(r.total || 0).toFixed(2)}</del>` : (r.typeName.includes('گەڕاندنەوە') ? `<span style="color:var(--danger);">-$${(r.total || 0).toFixed(2)}</span>` : `$${(r.total || 0).toFixed(2)}`);
 
             tbody.innerHTML += `<tr ${strikeClass}>
-                <td>${r.date}</td>
-                <td>${r.typeName}</td>
-                <td>${r.details || '-'}</td>
-                <td class="t-center">${r.qty || '-'}</td>
-                <td class="t-center">${r.unitPrice !== '-' && r.unitPrice !== undefined ? '$' + r.unitPrice : '-'}</td>
+                <td>${escapeHtml(r.date || '-')}</td>
+                <td>${escapeHtml(r.typeName || '-')}</td>
+                <td>${escapeHtml(r.details || '-')}</td>
+                <td class="t-center">${escapeHtml(r.qty || '-')}</td>
+                <td class="t-center">${r.unitPrice !== '-' && r.unitPrice !== undefined ? '$' + escapeHtml(r.unitPrice) : '-'}</td>
                 <td class="t-center"><strong>${totalText}</strong></td>
             </tr>`;
         });
     }
 
-    function addItem(e) {
-        e.preventDefault();
-        db.items.push({
-            id: Date.now(),
-            category: document.getElementById('itemCategory').value,
-            name: document.getElementById('itemName').value,
-            type: document.getElementById('itemType').value || '-',
-            size: document.getElementById('itemSize').value || '-',
-            code: document.getElementById('itemCode').value,
-            qty: parseInt(document.getElementById('itemQty').value) || 0,
-            buyPrice: parseFloat(document.getElementById('itemBuyPrice').value) || 0,
-            sellPrice: parseFloat(document.getElementById('itemSellPrice').value) || 0
+    function printStatementReport() {
+        const type = document.getElementById('statementType').value;
+        const party = document.getElementById('statementParty').value;
+        const partyId = (type === 'customer' ? db.customers : db.suppliers || []).find(x => x.name === party)?.id;
+        if (!party) return alert('تکایە سەرەتا لایەنێک دیاری بکە!');
+
+        const startDate = document.getElementById('statStartDate') ? document.getElementById('statStartDate').value : '';
+        const endDate = document.getElementById('statEndDate') ? document.getElementById('statEndDate').value : '';
+
+        document.getElementById('printStatDate').innerText = new Date().toLocaleDateString('en-CA');
+        document.getElementById('printStatPartyName').innerText = party;
+        document.getElementById('printStatHeaderType').innerText = type === 'customer' ? 'کەشفی حسابی پزیشک / کلینیک' : 'کەشفی حسابی دابینکەر';
+        
+        const dateRangeWrap = document.getElementById('printStatDateRangeWrap');
+        if (startDate || endDate) {
+            dateRangeWrap.style.display = 'block';
+            document.getElementById('printStatDateRange').innerText = `${startDate || 'دەستپێک'} تا ${endDate || 'ئەمڕۆ'}`;
+        } else {
+            dateRangeWrap.style.display = 'none';
+        }
+
+        document.getElementById('printStatLbl1').innerText = type === 'customer' ? 'کۆی فرۆش:' : 'کۆی کڕین:';
+        document.getElementById('printStatLbl2').innerText = type === 'customer' ? 'کۆی پارەی وەرگیراو:' : 'کۆی پارەی دراو:';
+        
+        document.getElementById('printStatTotal1').innerText = document.getElementById('statTotalSales').innerText;
+        document.getElementById('printStatTotal2').innerText = document.getElementById('statTotalPaid').innerText;
+        document.getElementById('printStatBalance').innerText = document.getElementById('statBalance').innerText;
+
+        const printTbody = document.getElementById('printableStatementItems');
+        printTbody.innerHTML = '';
+
+        const origRows = document.querySelectorAll('#statementTable tr');
+        origRows.forEach(row => {
+            const cols = row.querySelectorAll('td');
+            if (cols.length >= 6) {
+                printTbody.innerHTML += `<tr>
+                    <td style="border:1px solid #cbd5e1; padding:8px;">${cols[0].innerText}</td>
+                    <td style="border:1px solid #cbd5e1; padding:8px;">${cols[1].innerText}</td>
+                    <td style="border:1px solid #cbd5e1; padding:8px;">${cols[2].innerText}</td>
+                    <td style="border:1px solid #cbd5e1; padding:8px; text-align:center;">${cols[3].innerText}</td>
+                    <td style="border:1px solid #cbd5e1; padding:8px; text-align:center; font-weight:bold;">${cols[5].innerText}</td>
+                </tr>`;
+            }
         });
-        saveData(); renderItems();
-        document.getElementById('itemForm').reset();
+
+        executeMobileSafePrint('printableStatement');
     }
 
     function renderItems(data = db.items) {
         const tbody = document.getElementById('itemsTable');
         tbody.innerHTML = '';
-        data.forEach(item => {
+        (data || []).forEach(item => {
             const lowQtyBadge = item.qty < 5 ? '<span class="badge badge-low">کەمماوە</span>' : '';
-            const catDisplay = item.category === 'implant' ? 'ئیمپلانت' : (item.category === 'accessory' ? 'ئەکسەسۆری' : item.category);
-
             tbody.innerHTML += `<tr>
-                <td class="t-center"><strong>${item.code}</strong></td>
-                <td>${item.name} ${lowQtyBadge}</td>
-                <td class="t-center"><span class="badge badge-cust">${catDisplay}</span></td>
-                <td class="t-center">${item.type || '-'}</td>
-                <td class="t-center"><strong style="color:var(--primary);">${item.size || '-'}</strong></td>
-                <td class="t-center"><strong>${item.qty}</strong></td>
-                <td class="t-center">$${item.buyPrice}</td>
-                <td class="t-center">$${item.sellPrice}</td>
-                <td class="t-center"><button type="button" class="btn btn-danger btn-sm" onclick="deleteItem(${item.id})"><i class="fa-solid fa-trash"></i></button></td>
+                <td class="t-center"><strong>${escapeHtml(item.code)}</strong></td>
+                <td>${escapeHtml(item.name)} ${lowQtyBadge}</td>
+                <td class="t-center"><span class="badge badge-cust">${escapeHtml(item.category || '-')}</span></td>
+                <td class="t-center">${escapeHtml(item.type || '-')}</td>
+                <td class="t-center"><strong style="color:var(--primary);">${escapeHtml(item.size || '-')}</strong></td>
+                <td class="t-center"><strong>${safeNumber(item.qty)}</strong></td>
+                <td class="t-center">$${safeNumber(item.buyPrice).toFixed(2)}</td>
+                <td class="t-center">$${safeNumber(item.sellPrice).toFixed(2)}</td>
+                <td class="t-center"><button type="button" class="btn btn-danger btn-sm" onclick="deleteItem(decodeURIComponent('${safeInlineArg(item.id)}'))"><i class="fa-solid fa-trash"></i></button></td>
             </tr>`;
         });
     }
 
-    function deleteItem(id) {
-        if(confirm('دڵنیایت؟')) { db.items = db.items.filter(i => i.id !== id); saveData(); renderItems(); }
+    async function deleteItem(id) {
+        const item = (db.items || []).find(x => String(x.id) === String(id));
+        const hasHistory = item ? itemHasHistory(item) : false;
+        if (hasHistory) return alert('ئەم مەوادە مێژووی مامەڵەی هەیە و ناتوانرێت بسڕدرێتەوە. بۆ خاوێنکردنەوەی کۆگا، بڕەکەی بکە بە سفر.');
+        if(confirm('دڵنیایت لە سڕینەوەی ئەم مەوادە لە کۆگا؟')) {
+            const previousDb = cloneDb(db);
+            db.items = (db.items || []).filter(i => String(i.id) !== String(id));
+            await persistCleaningChange(previousDb, '✅ کاڵاکە سڕایەوە.');
+        }
     }
 
-    function filterItems() {
-        const query = document.getElementById('searchItem').value.toLowerCase();
-        renderItems(db.items.filter(i => 
-            i.name.toLowerCase().includes(query) || 
-            i.code.toLowerCase().includes(query) ||
-            (i.type && i.type.toLowerCase().includes(query)) ||
-            (i.size && i.size.toLowerCase().includes(query)) ||
-            (i.category && i.category.toLowerCase().includes(query))
-        ));
+    function updateFilterDropdowns() {
+        const catSelect = document.getElementById('filterItemCat');
+        const typeSelect = document.getElementById('filterItemType');
+        const sizeSelect = document.getElementById('filterItemSize');
+
+        catSelect.innerHTML = '<option value="">هەموو کاتیگۆرییەکان</option>';
+        (db.itemCategories || []).forEach(c => catSelect.innerHTML += `<option value="${escapeHtml(c)}">${escapeHtml(c)}</option>`);
+
+        typeSelect.innerHTML = '<option value="">هەموو جۆرەکان</option>';
+        (db.itemTypes || []).forEach(t => typeSelect.innerHTML += `<option value="${escapeHtml(t)}">${escapeHtml(t)}</option>`);
+
+        const sizes = [...new Set((db.items || []).map(i => i.size).filter(s => s && s !== '-'))];
+        sizeSelect.innerHTML = '<option value="">هەموو قیاسەکان</option>';
+        sizes.forEach(s => sizeSelect.innerHTML += `<option value="${escapeHtml(s)}">${escapeHtml(s)}</option>`);
+    }
+
+    function filterItemsAdvanced() {
+        const txt = (document.getElementById('filterItemText').value || '').toLowerCase().trim();
+        const cat = document.getElementById('filterItemCat').value;
+        const type = document.getElementById('filterItemType').value;
+        const size = document.getElementById('filterItemSize').value;
+
+        const filtered = (db.items || []).filter(item => {
+            const matchesTxt = !txt || 
+                               (item.name && item.name.toLowerCase().includes(txt)) || 
+                               (item.code && item.code.toLowerCase().includes(txt));
+            const matchesCat = !cat || item.category === cat;
+            const matchesType = !type || item.type === type;
+            const matchesSize = !size || item.size === size;
+
+            return matchesTxt && matchesCat && matchesType && matchesSize;
+        });
+
+        renderItems(filtered);
+    }
+
+    function resetItemFilters() {
+        document.getElementById('filterItemText').value = '';
+        document.getElementById('filterItemCat').value = '';
+        document.getElementById('filterItemType').value = '';
+        document.getElementById('filterItemSize').value = '';
+        renderItems();
+    }
+
+    function togglePurchaseMode() {
+        const mode = document.querySelector('input[name="purchaseMode"]:checked').value;
+        const existingGrp = document.getElementById('grpExistingItem');
+        const newFields = document.querySelectorAll('.new-item-field');
+
+        if (mode === 'new') {
+            existingGrp.style.display = 'none';
+            newFields.forEach(el => el.style.display = 'flex');
+        } else {
+            existingGrp.style.display = 'flex';
+            newFields.forEach(el => el.style.display = 'none');
+            autoFillBuyPrice();
+        }
     }
 
     function updatePurchaseDropdowns() {
         const supSelect = document.getElementById('purchaseSupplier');
         const itemSelect = document.getElementById('purchaseItem');
+        const newCatSelect = document.getElementById('newPurchCat');
+        const newTypeSelect = document.getElementById('newPurchType');
+
         supSelect.innerHTML = '<option value="">دابینکەرێک هەڵبژێرە</option>';
-        db.suppliers.forEach(s => supSelect.innerHTML += `<option value="${s.name}">${s.name}</option>`);
-        itemSelect.innerHTML = '<option value="">مەوادێک هەڵبژێرە</option>';
-        db.items.forEach(i => itemSelect.innerHTML += `<option value="${i.id}">[${i.category}] ${i.name} (${i.type || ''} - ${i.size || ''})</option>`);
+        (db.suppliers || []).forEach(s => supSelect.innerHTML += `<option value="${escapeHtml(s.name)}">${escapeHtml(s.name)}</option>`);
+
+        itemSelect.innerHTML = '<option value="">مەوادێکی کۆگا هەڵبژێرە</option>';
+        (db.items || []).forEach(i => itemSelect.innerHTML += `<option value="${escapeHtml(i.id)}">[${escapeHtml(i.category || '-')} ] ${escapeHtml(i.name)} (${escapeHtml(i.type || '')} - ${escapeHtml(i.size || '')})</option>`);
+
+        newCatSelect.innerHTML = '<option value="">کاتیگۆری هەڵبژێرە</option>';
+        (db.itemCategories || []).forEach(c => newCatSelect.innerHTML += `<option value="${escapeHtml(c)}">${escapeHtml(c)}</option>`);
+
+        newTypeSelect.innerHTML = '<option value="">مۆدێل / جۆر هەڵبژێرە</option>';
+        (db.itemTypes || []).forEach(t => newTypeSelect.innerHTML += `<option value="${escapeHtml(t)}">${escapeHtml(t)}</option>`);
     }
 
     function autoFillBuyPrice() {
-        const item = db.items.find(i => i.id == document.getElementById('purchaseItem').value);
+        const item = (db.items || []).find(i => i.id == document.getElementById('purchaseItem').value);
         if(item) document.getElementById('purchaseUnitPrice').value = item.buyPrice;
     }
 
-    function addPurchase(e) {
-        e.preventDefault();
-        const itemId = parseInt(document.getElementById('purchaseItem').value);
-        const qty = parseInt(document.getElementById('purchaseQty').value) || 1;
-        const unitPrice = parseFloat(document.getElementById('purchaseUnitPrice').value) || 0;
-        const item = db.items.find(i => i.id === itemId);
-        if(!item) return alert('مەواد هەڵبژێرە');
-
-        item.qty += qty; item.buyPrice = unitPrice;
-        db.purchases.push({ 
-            id: Date.now(), 
-            date: document.getElementById('purchaseDate').value || today, 
-            supplier: document.getElementById('purchaseSupplier').value, 
-            itemName: `${item.name} (${item.type || ''} - ${item.size || ''})`, 
-            qty, unitPrice, 
-            total: qty * unitPrice 
-        });
-        saveData(); renderItems(); renderPurchases();
-        document.getElementById('purchaseForm').reset();
-        document.getElementById('purchaseDate').value = today;
+    function safeNumber(value, fallback = 0) {
+        const n = Number(value);
+        return Number.isFinite(n) ? n : fallback;
     }
 
-    function renderPurchases() {
-        const tbody = document.getElementById('purchasesTable');
-        tbody.innerHTML = '';
-        db.purchases.slice().reverse().forEach(p => {
-            tbody.innerHTML += `<tr><td>${p.date}</td><td>${p.supplier}</td><td>${p.itemName}</td><td class="t-center">${p.qty}</td><td class="t-center">$${p.unitPrice}</td><td class="t-center"><strong>$${p.total.toFixed(2)}</strong></td></tr>`;
-        });
+    function localToday() {
+        const d = new Date();
+        const y = d.getFullYear();
+        const m = String(d.getMonth() + 1).padStart(2, '0');
+        const day = String(d.getDate()).padStart(2, '0');
+        return `${y}-${m}-${day}`;
     }
 
-    function updateReturnDropdowns() {
-        toggleReturnPartyOptions();
-        const itemSelect = document.getElementById('returnItem');
-        itemSelect.innerHTML = '<option value="">مەوادێک هەڵبژێرە</option>';
-        db.items.forEach(i => itemSelect.innerHTML += `<option value="${i.id}">${i.name} (${i.type || ''} - ${i.size || ''}) - کۆگا: ${i.qty}</option>`);
-    }
-
-    function toggleReturnPartyOptions() {
-        const type = document.getElementById('returnType').value;
-        const partySelect = document.getElementById('returnParty');
-        partySelect.innerHTML = '';
-        if(type === 'to_supplier') {
-            document.getElementById('returnPartyLabel').innerText = 'دابینکەر';
-            db.suppliers.forEach(s => partySelect.innerHTML += `<option value="${s.name}">${s.name}</option>`);
-        } else {
-            document.getElementById('returnPartyLabel').innerText = 'کڕیار/پزیشک';
-            db.customers.forEach(c => partySelect.innerHTML += `<option value="${c.name}">${c.name}</option>`);
+    function validateBackupData(data) {
+        if (!data || typeof data !== 'object' || Array.isArray(data)) return 'شێوەی backup ناسراو نییە.';
+        const arrayFields = ['users','itemCategories','itemTypes','items','suppliers','customers','purchases','sales','returns','payments','supplierPayments','expenseCategories','expenses'];
+        for (const field of arrayFields) {
+            if (data[field] !== undefined && !Array.isArray(data[field])) return `داتای backup هەڵەیە: ${field} دەبێت لیست بێت.`;
         }
-    }
-
-    function processReturn(e) {
-        e.preventDefault();
-        const type = document.getElementById('returnType').value;
-        const itemId = parseInt(document.getElementById('returnItem').value);
-        const qty = parseInt(document.getElementById('returnQty').value) || 1;
-        const party = document.getElementById('returnParty').value;
-        const item = db.items.find(i => i.id === itemId);
-        if(!item) return alert('مەواد هەڵبژێرە');
-
-        let returnTotalAmount = 0;
-
-        if(type === 'to_supplier') {
-            if(item.qty < qty) return alert(`⚠️ بڕی کۆگا بەس نییە! (${item.qty} دانە هەیە).`);
-            item.qty -= qty;
-        } else { 
-            item.qty += qty; 
-            const lastSale = db.sales.slice().reverse().find(s => s.customer === party && (s.itemName ? s.itemName.includes(item.name) : (s.items && s.items.some(i => i.name.includes(item.name)))));
-            const unitSellPrice = lastSale ? (lastSale.unitPrice || item.sellPrice) : item.sellPrice;
-            returnTotalAmount = qty * unitSellPrice;
-        }
-
-        db.returns.push({ 
-            id: Date.now(), 
-            date: today, 
-            type, 
-            party: party, 
-            itemName: `${item.name} (${item.type || ''} - ${item.size || ''})`, 
-            qty, 
-            total: returnTotalAmount,
-            reason: document.getElementById('returnReason').value || 'دیاری نەکراوە' 
-        });
-        saveData(); renderItems(); renderReturns();
-        document.getElementById('returnForm').reset();
-        alert("✅ گەڕاندنەوەکە بە سەرکەوتوویی تۆمارکرا و کۆگا و حسابات نوێکرانەوە!");
-    }
-
-    function renderReturns() {
-        const tbody = document.getElementById('returnsTable');
-        tbody.innerHTML = '';
-        db.returns.slice().reverse().forEach(r => {
-            const badge = r.type === 'to_supplier' ? '<span class="badge badge-sup">↩️ بۆ دابینکەر</span>' : '<span class="badge badge-cust">↪️ لە کڕیارەوە</span>';
-            tbody.innerHTML += `<tr><td>${r.date}</td><td>${badge}</td><td>${r.party}</td><td>${r.itemName}</td><td class="t-center"><strong>${r.qty}</strong></td><td>${r.reason}</td></tr>`;
-        });
-    }
-
-    function addSupplier(e) {
-        e.preventDefault();
-        db.suppliers.push({ id: Date.now(), name: document.getElementById('supName').value, phone: document.getElementById('supPhone').value, address: document.getElementById('supAddress').value });
-        saveData(); renderSuppliers(); document.getElementById('supplierForm').reset();
-    }
-    function renderSuppliers() {
-        const tbody = document.getElementById('suppliersTable'); tbody.innerHTML = '';
-        db.suppliers.forEach(s => tbody.innerHTML += `<tr><td>${s.name}</td><td>${s.phone}</td><td>${s.address}</td><td class="t-center"><button type="button" class="btn btn-danger btn-sm" onclick="deleteSupplier(${s.id})"><i class="fa-solid fa-trash"></i></button></td></tr>`);
-    }
-    function deleteSupplier(id) { if(confirm('دڵنیایت؟')) { db.suppliers = db.suppliers.filter(s => s.id !== id); saveData(); renderSuppliers(); } }
-
-    function addCustomer(e) {
-        e.preventDefault();
-        db.customers.push({ id: Date.now(), name: document.getElementById('custName').value, phone: document.getElementById('custPhone').value, address: document.getElementById('custAddress').value });
-        saveData(); renderCustomers(); document.getElementById('customerForm').reset();
-    }
-
-    function deleteCustomer(id) { if(confirm('دڵنیایت؟')) { db.customers = db.customers.filter(c => c.id !== id); saveData(); renderCustomers(); } }
-
-    function exportBackup() {
-        const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(db, null, 2));
-        const a = document.createElement('a'); a.href = dataStr; a.download = `araguide_backup_${new Date().toISOString().slice(0,10)}.json`;
-        document.body.appendChild(a); a.click(); a.remove();
-    }
-
-    function importBackup(event) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            try {
-                db = JSON.parse(e.target.result);
-                if(!db.users) db.users = defaultUsers;
-                if(!db.itemCategories) db.itemCategories = ['ئیمپلانت (Implant)', 'ئەکسەسۆری (Accessory)'];
-                if(!db.sales) db.sales = [];
-                if(!db.returns) db.returns = [];
-                if(!db.payments) db.payments = [];
-                if(!db.supplierPayments) db.supplierPayments = [];
-                if(!db.expenseCategories) db.expenseCategories = ['کرێی شوێن', 'کارەبا و ئاو', 'مووچە', 'خەرجی گواستنەوە'];
-                if(!db.expenses) db.expenses = [];
-                saveData(); renderItems(); renderSuppliers(); renderCustomers(); renderPurchases(); renderSales(); renderReturns(); renderPayments(); renderSupPayments(); renderExpenses(); renderDashboard();
-                updateItemCategoryDropdowns();
-                renderImplantMatrix();
-                alert('زانیارییەکان گەڕێنرانەوە!');
-            } catch (err) { alert('فایلەکە هەڵەیە!'); }
+        const validNumber = (record, field, min, integer = false, required = true) => {
+            if (!Object.prototype.hasOwnProperty.call(record, field)) return !required;
+            if (record[field] === null || record[field] === '') return false;
+            const n = Number(record[field]);
+            return Number.isFinite(n) && n >= min && (!integer || Number.isInteger(n));
         };
-        reader.readAsText(event.target.files[0]);
+        const validateRows = (field, checks) => {
+            for (const [index, row] of (data[field] || []).entries()) {
+                if (!row || typeof row !== 'object' || Array.isArray(row)) return `تۆماری ${index + 1} لە ${field} هەڵەیە.`;
+                for (const [key, min, integer, required] of checks) {
+                    if (!validNumber(row, key, min, integer, required)) return `ژمارەی ${key} لە تۆماری ${index + 1} ـی ${field} نادروستە.`;
+                }
+            }
+            return '';
+        };
+        let error = validateRows('items', [['qty', 0, true, false], ['buyPrice', 0, false, false], ['sellPrice', 0, false, false]]);
+        if (error) return error;
+        error = validateRows('purchases', [['qty', 1, true, true], ['unitPrice', 0, false, true], ['total', 0, false, false]]);
+        if (error) return error;
+        error = validateRows('sales', [['total', 0, false, true], ['qty', 1, true, false], ['unitPrice', 0, false, false]]);
+        if (error) return error;
+        for (const sale of data.sales || []) {
+            if (sale.items !== undefined && !Array.isArray(sale.items)) return 'لیستی کاڵاکانی تۆماری فرۆشتن هەڵەیە.';
+            for (const [index, item] of (sale.items || []).entries()) {
+                if (!item || typeof item !== 'object' || Array.isArray(item) ||
+                    !validNumber(item, 'qty', 1, true, true) || !validNumber(item, 'unitPrice', 0, false, true) || !validNumber(item, 'total', 0, false, false)) {
+                    return `داتای کاڵای ${index + 1} لە تۆماری فرۆشتن نادروستە.`;
+                }
+            }
+        }
+        error = validateRows('returns', [['qty', 1, true, true], ['total', 0, false, true]]);
+        if (error) return error;
+        for (const field of ['payments','supplierPayments','expenses']) {
+            error = validateRows(field, [['amount', 0.0000001, false, true]]);
+            if (error) return error;
+        }
+        return '';
+    }
+
+    function normalizeDb(data) {
+        const base = {
+            users: defaultUsers,
+            itemCategories: ['ئیمپلانت (Implant)', 'ئەکسەسۆری (Accessory)'],
+            itemTypes: ['Regular', 'Bone Level', 'Tapered'],
+            items: [], suppliers: [], customers: [], purchases: [], sales: [],
+            returns: [], payments: [], supplierPayments: [],
+            expenseCategories: ['کرێی شوێن', 'کارەبا و ئاو', 'مووچە', 'خەرجی گواستنەوە'],
+            expenses: []
+        };
+        const result = { ...base, ...(data || {}) };
+        Object.keys(base).forEach(k => {
+            if (!Array.isArray(result[k])) result[k] = Array.isArray(base[k]) ? [...base[k]] : base[k];
+        });
+
+        // Firestore/backup ـە کۆنەکان هەندێک ژمارە بە string هەڵدەگرن.
+        // یەکسانکردنیان پێش render، حساب و toFixed ڕێگری لە هەڵە دەکات.
+        const num = (value, fallback = 0) => {
+            const n = Number(value);
+            return Number.isFinite(n) ? n : fallback;
+        };
+        const text = (value, fallback = '') => { const t = value === null || value === undefined ? '' : String(value).trim(); return t || fallback; };
+        const idValue = value => value === null || value === undefined || String(value).trim() === '' ? newId() : String(value);
+        const refId = value => value === null || value === undefined || String(value).trim() === '' ? 0 : String(value);
+        const obj = value => (value && typeof value === 'object' && !Array.isArray(value)) ? value : {};
+        result.itemCategories = result.itemCategories.map(x => text(x)).filter(Boolean);
+        result.itemTypes = result.itemTypes.map(x => text(x)).filter(Boolean);
+        result.expenseCategories = result.expenseCategories.map(x => text(x)).filter(Boolean);
+        result.items = result.items.map(raw => {
+            const i = obj(raw);
+            return { ...i, id: idValue(i.id), name: text(i.name, 'مەواد'), code: text(i.code, '-'), category: text(i.category, '-'), type: text(i.type, '-'), size: text(i.size, '-'), qty: num(i.qty), buyPrice: num(i.buyPrice), sellPrice: num(i.sellPrice) };
+        });
+        result.purchases = result.purchases.map(raw => {
+            const x = obj(raw), qty = num(x.qty), unitPrice = num(x.unitPrice);
+            return { ...x, id: idValue(x.id), date: text(x.date), supplier: text(x.supplier), itemId: refId(x.itemId), itemName: text(x.itemName), qty, unitPrice, total: num(x.total, qty * unitPrice) };
+        });
+        result.expenses = result.expenses.map(raw => { const x = obj(raw); return { ...x, id: idValue(x.id), date: text(x.date), category: text(x.category), note: text(x.note, '-'), amount: num(x.amount) }; });
+        result.payments = result.payments.map(raw => { const x = obj(raw); return { ...x, id: idValue(x.id), date: text(x.date), customer: text(x.customer), note: text(x.note), amount: num(x.amount), isVoid: Boolean(x.isVoid), voidReason: text(x.voidReason) }; });
+        result.supplierPayments = result.supplierPayments.map(raw => { const x = obj(raw); return { ...x, id: idValue(x.id), date: text(x.date), supplier: text(x.supplier), note: text(x.note), amount: num(x.amount), isVoid: Boolean(x.isVoid), voidReason: text(x.voidReason) }; });
+        result.returns = result.returns.map(raw => { const x = obj(raw); return { ...x, id: idValue(x.id), date: text(x.date), type: text(x.type), party: text(x.party), itemId: refId(x.itemId), itemName: text(x.itemName), reason: text(x.reason, '-'), qty: num(x.qty), total: num(x.total) }; });
+        result.sales = result.sales.map(raw => {
+            const x = obj(raw), saleItems = Array.isArray(x.items) ? x.items : null;
+            return { ...x, id: idValue(x.id), date: text(x.date), customer: text(x.customer), total: num(x.total),
+                items: saleItems ? saleItems.map(rawItem => { const i = obj(rawItem), qty = num(i.qty), unitPrice = num(i.unitPrice); return { ...i, itemId: refId(i.itemId), name: text(i.name, 'مەواد'), qty, unitPrice, total: num(i.total, qty * unitPrice) }; }) : x.items };
+        });
+        result.customers = result.customers.map(raw => { const x = obj(raw); return { ...x, id: idValue(x.id), name: text(x.name), phone: text(x.phone), address: text(x.address, '-') }; });
+        result.suppliers = result.suppliers.map(raw => { const x = obj(raw); return { ...x, id: idValue(x.id), name: text(x.name), phone: text(x.phone), address: text(x.address, '-') }; });
+        const customerIds = new Map(result.customers.map(c => [c.name, c.id]));
+        const supplierIds = new Map(result.suppliers.map(s => [s.name, s.id]));
+        result.sales = result.sales.map(x => ({ ...x, customerId: refId(x.customerId || customerIds.get(x.customer)) }));
+        result.payments = result.payments.map(x => ({ ...x, customerId: refId(x.customerId || customerIds.get(x.customer)) }));
+        result.purchases = result.purchases.map(x => ({ ...x, supplierId: refId(x.supplierId || supplierIds.get(x.supplier)) }));
+        result.supplierPayments = result.supplierPayments.map(x => ({ ...x, supplierId: refId(x.supplierId || supplierIds.get(x.supplier)) }));
+        result.returns = result.returns.map(x => ({ ...x, partyId: refId(x.partyId || (x.type === 'to_supplier' ? supplierIds.get(x.party) : customerIds.get(x.party))) }));
+        result.users = result.users.map(raw => { const u = obj(raw); const username = text(u.username).toLowerCase(); return { ...u, id: idValue(u.id), username, fullName: text(u.fullName, username), permissions: Array.isArray(u.permissions) ? u.permissions.map(p => text(p)) : [] }; });
+        return result;
     }
 
     async function loadDataFromFirebase() {
         try {
-            const docRef = firestore.collection("SystemData").doc("MainDB");
-            const docSnap = await docRef.get();
-
-            if (docSnap.exists) {
-                db = docSnap.data();
-            } else {
-                db.users = defaultUsers;
-                db.itemCategories = ['ئیمپلانت (Implant)', 'ئەکسەسۆری (Accessory)'];
-                db.expenseCategories = ['کرێی شوێن', 'کارەبا و ئاو', 'مووچە', 'خەرجی گواستنەوە'];
-                db.customers = [{ id: 1, name: 'د. پشتیوان', phone: '07701234567', address: 'سلێمانی' }];
-                db.items = []; db.suppliers = []; db.purchases = []; db.sales = [];
-                db.returns = []; db.payments = []; db.supplierPayments = []; db.expenses = [];
-                await saveData(); 
+            const sys = firestore.collection('SystemData');
+            const [coreSnap, legacyInventory, legacyCommerce, legacyFinancial, users, suppliers, customers, items, sales, purchases, returns, payments, supplierPayments, expenses] = await Promise.all([
+                sys.doc('CoreData').get(), sys.doc('InventoryData').get(), sys.doc('CommerceData').get(), sys.doc('FinancialData').get(),
+                readRecordCollection(sys.doc('CoreData'), 'users'), readRecordCollection(sys.doc('CoreData'), 'suppliers'), readRecordCollection(sys.doc('CoreData'), 'customers'),
+                readRecordCollection(sys.doc('InventoryData'), 'items'), readRecordCollection(sys.doc('CommerceData'), 'sales'), readRecordCollection(sys.doc('CommerceData'), 'purchases'),
+                readRecordCollection(sys.doc('FinancialData'), 'returns'), readRecordCollection(sys.doc('FinancialData'), 'payments'), readRecordCollection(sys.doc('FinancialData'), 'supplierPayments'), readRecordCollection(sys.doc('FinancialData'), 'expenses')
+            ]);
+            const core = coreSnap.exists ? coreSnap.data() : {};
+            const inv = legacyInventory.exists ? legacyInventory.data() : {};
+            const commerce = legacyCommerce.exists ? legacyCommerce.data() : {};
+            const financial = legacyFinancial.exists ? legacyFinancial.data() : {};
+            // لە migration ـی بەشەکی، تۆمارە نوێ و legacy ـەکان یەکبخە؛
+            // collection ـی نوێ نابێت بەهۆی تەنها چەند تۆمارێک داتای کۆن بشارێتەوە.
+            const mergeRecords = (modern, legacy) => {
+                const merged = Array.isArray(legacy) ? [...legacy] : [];
+                const legacyIndexById = new Map();
+                merged.forEach((record, index) => {
+                    if (record && record.id !== undefined && record.id !== null) legacyIndexById.set(String(record.id), index);
+                });
+                (modern || []).forEach(record => {
+                    const id = record && record.id !== undefined && record.id !== null ? String(record.id) : null;
+                    if (id !== null && legacyIndexById.has(id)) merged[legacyIndexById.get(id)] = record;
+                    else {
+                        if (id !== null) legacyIndexById.set(id, merged.length);
+                        merged.push(record);
+                    }
+                });
+                return merged;
+            };
+            const loadedUsers = mergeRecords(users, core.users);
+            const needsUserBootstrap = loadedUsers.length === 0;
+            db = normalizeDb({
+                itemCategories: core.itemCategories, itemTypes: core.itemTypes, expenseCategories: core.expenseCategories,
+                users: needsUserBootstrap ? defaultUsers : loadedUsers, suppliers: mergeRecords(suppliers, core.suppliers), customers: mergeRecords(customers, core.customers),
+                items: mergeRecords(items, inv.items), sales: mergeRecords(sales, commerce.sales), purchases: mergeRecords(purchases, commerce.purchases),
+                returns: mergeRecords(returns, financial.returns), payments: mergeRecords(payments, financial.payments), supplierPayments: mergeRecords(supplierPayments, financial.supplierPayments), expenses: mergeRecords(expenses, financial.expenses)
+            });
+            updateAllViews();
+            const hasLegacyArrays = [core.users, core.suppliers, core.customers, inv.items, commerce.sales, commerce.purchases, financial.returns, financial.payments, financial.supplierPayments, financial.expenses].some(Array.isArray);
+            lastSyncedDb = (hasLegacyArrays || needsUserBootstrap) ? null : cloneDb(db);
+            if (hasLegacyArrays || needsUserBootstrap) {
+                const migrated = await saveData(); // migration/bootstrapping پێش listener جێبەجێ دەکرێت.
+                if (!migrated) return false;
             }
-            
-            updateItemCategoryDropdowns(); 
-            renderItems(); 
-            renderSuppliers(); 
-            renderCustomers(); 
-            renderPurchases(); 
-            renderSales(); 
-            renderReturns(); 
-            renderPayments(); 
-            renderSupPayments(); 
-            renderExpenses(); 
-            renderImplantMatrix();
-            if(currentUser && currentUser.role === 'admin') renderDashboard(); 
-
+            startRealtimeListeners();
+            return true;
         } catch (error) {
-            console.error("هەڵەیەک ڕوویدا لە کاتی هێنانی داتاکان: ", error);
+            console.error('هەڵە لە خوێندنەوەی داتا:', error);
+            alert('نەتوانرا داتاکان لە Firebase بخوێندرێنەوە. تکایە Firestore Rules و پەیوەندیی ئینتەرنێت بپشکنە.');
+            return false;
         }
     }
-</script>
 
+    function updateAllViews() {
+        updateSaleDropdowns(); updatePaymentDropdowns(); updateSupPaymentDropdowns();
+        updateExpenseDropdowns(); updateFilterDropdowns(); updatePurchaseDropdowns();
+        updateReturnDropdowns(); renderItems(); renderCustomers(); renderSuppliers();
+        renderExpenses(); renderPayments(); renderSupPayments(); renderSales(); renderPurchases();
+        renderReturns();
+        if (currentUser && currentUser.role === 'admin') renderDashboard();
+    }
+
+    async function addCustomer(e) {
+        e.preventDefault();
+        const name = document.getElementById('custName').value.trim();
+        if (!name) return alert('ناوی کڕیار پێویستە.');
+        if ((db.customers || []).some(c => c.name.trim().toLowerCase() === name.toLowerCase())) return alert('ئەم کڕیارە پێشتر هەیە.');
+        const previousDb = cloneDb(db);
+        db.customers.push({ id: newId(), name, phone: document.getElementById('custPhone').value.trim(), address: document.getElementById('custAddress').value.trim() || '-' });
+        if (!await saveData()) { await restoreAfterFailedSave(previousDb); return; }
+        updateAllViews(); document.getElementById('customerForm').reset();
+    }
+
+    async function addSupplier(e) {
+        e.preventDefault();
+        const name = document.getElementById('supName').value.trim();
+        if (!name) return alert('ناوی دابینکەر پێویستە.');
+        if ((db.suppliers || []).some(s => s.name.trim().toLowerCase() === name.toLowerCase())) return alert('ئەم دابینکەرە پێشتر هەیە.');
+        const previousDb = cloneDb(db);
+        db.suppliers.push({ id: newId(), name, phone: document.getElementById('supPhone').value.trim(), address: document.getElementById('supAddress').value.trim() || '-' });
+        if (!await saveData()) { await restoreAfterFailedSave(previousDb); return; }
+        updateAllViews(); document.getElementById('supplierForm').reset();
+    }
+
+    function renderSuppliers() {
+        const tbody = document.getElementById('suppliersTable'); if (!tbody) return; tbody.innerHTML = '';
+        (db.suppliers || []).forEach(s => tbody.insertAdjacentHTML('beforeend', `<tr><td>${escapeHtml(s.name)}</td><td>${escapeHtml(s.phone || '-')}</td><td>${escapeHtml(s.address || '-')}</td><td class="t-center"><button type="button" class="btn btn-danger btn-sm" onclick="deleteSupplier(decodeURIComponent('${safeInlineArg(s.id)}'))"><i class="fa-solid fa-trash"></i></button></td></tr>`));
+    }
+
+    function safeInlineArg(value) { return window.encodeURIComponent(String(value ?? '')).replace(/'/g, '%27'); }
+
+    function escapeHtml(value) { return String(value ?? '').replace(/[&<>'"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c])); }
+
+    async function deleteCustomer(id) {
+        const c = (db.customers || []).find(x => String(x.id) === String(id)); if (!c) return;
+        if (customerHasHistory(c)) return alert('ئەم کڕیارە مامەڵەی هەیە و ناتوانرێت بسڕدرێتەوە.');
+        if (confirm('دڵنیایت لە سڕینەوەی کڕیار؟')) {
+            const previousDb = cloneDb(db);
+            db.customers = db.customers.filter(x => String(x.id) !== String(id));
+            await persistCleaningChange(previousDb, '✅ کڕیارەکە سڕایەوە.');
+        }
+    }
+
+    async function deleteSupplier(id) {
+        const s = (db.suppliers || []).find(x => String(x.id) === String(id)); if (!s) return;
+        if (supplierHasHistory(s)) return alert('ئەم دابینکەرە مامەڵەی هەیە و ناتوانرێت بسڕدرێتەوە.');
+        if (confirm('دڵنیایت لە سڕینەوەی دابینکەر؟')) {
+            const previousDb = cloneDb(db);
+            db.suppliers = db.suppliers.filter(x => String(x.id) !== String(id));
+            await persistCleaningChange(previousDb, '✅ دابینکەرەکە سڕایەوە.');
+        }
+    }
+
+    function updateReturnDropdowns() {
+        const type = document.getElementById('returnType')?.value || 'to_supplier';
+        const party = document.getElementById('returnParty'); const item = document.getElementById('returnItem');
+        if (!party || !item) return;
+        document.getElementById('returnPartyLabel').innerText = type === 'to_supplier' ? 'دابینکەر' : 'کڕیار';
+        party.innerHTML = '<option value="">لایەنێک هەڵبژێرە</option>';
+        (type === 'to_supplier' ? db.suppliers : db.customers).forEach(x => party.insertAdjacentHTML('beforeend', `<option value="${escapeHtml(x.name)}">${escapeHtml(x.name)}</option>`));
+        item.innerHTML = '<option value="">مەوادێک هەڵبژێرە</option>';
+        (db.items || []).forEach(x => item.insertAdjacentHTML('beforeend', `<option value="${escapeHtml(x.id)}">${escapeHtml(x.name)} (${escapeHtml(x.type || '')} - ${escapeHtml(x.size || '')})</option>`));
+    }
+    function toggleReturnPartyOptions() { updateReturnDropdowns(); }
+
+    async function processReturn(e) {
+        e.preventDefault();
+        const type = document.getElementById('returnType').value;
+        const party = document.getElementById('returnParty').value;
+        const partyRecord = (type === 'to_supplier' ? db.suppliers : db.customers || []).find(x => x.name === party);
+        const partyId = partyRecord?.id;
+        const itemId = document.getElementById('returnItem').value, qty = Number(document.getElementById('returnQty').value);
+        const item = (db.items || []).find(x => String(x.id) === String(itemId));
+        if (!party || !partyRecord || !item || !Number.isInteger(qty) || qty <= 0) return alert('تکایە هەموو زانیارییەکان بە دروستی پڕبکەرەوە.');
+        if (type === 'to_supplier') {
+            if (safeNumber(item.qty) < qty) return alert('بڕی ناو کۆگا بەس نییە.');
+            const purchased = (db.purchases || []).filter(p => partyMatches(p, partyId, party, 'supplierId', 'supplier') && String(p.itemId) === String(itemId)).reduce((n, p) => n + safeNumber(p.qty), 0);
+            const returned = (db.returns || []).filter(r => r.type === 'to_supplier' && partyMatches(r, partyId, party, 'partyId', 'party') && String(r.itemId) === String(itemId)).reduce((n, r) => n + safeNumber(r.qty), 0);
+            if (qty > purchased - returned) return alert(`ناتوانیت زیاتر لە بڕی کڕراو بگەڕێنیتەوە. بڕی بەردەست: ${Math.max(0, purchased - returned)}`);
+        } else {
+            const sold = (db.sales || []).filter(s => partyMatches(s, partyId, party, 'customerId', 'customer')).reduce((n, sale) => {
+                if (Array.isArray(sale.items)) return n + sale.items.filter(i => String(i.itemId) === String(itemId)).reduce((m, i) => m + safeNumber(i.qty), 0);
+                return n + (String(sale.itemId) === String(itemId) ? safeNumber(sale.qty) : 0);
+            }, 0);
+            const returned = (db.returns || []).filter(r => r.type === 'from_customer' && partyMatches(r, partyId, party, 'partyId', 'party') && String(r.itemId) === String(itemId)).reduce((n, r) => n + safeNumber(r.qty), 0);
+            if (qty > sold - returned) return alert(`ناتوانیت زیاتر لە بڕی فرۆشراو بگەڕێنیتەوە. بڕی بەردەست: ${Math.max(0, sold - returned)}`);
+        }
+        let historicalUnitPrice = 0;
+        if (type === 'to_supplier') {
+            const purchases = (db.purchases || []).filter(p => partyMatches(p, partyId, party, 'supplierId', 'supplier') && String(p.itemId) === String(itemId));
+            const purchasedValue = purchases.reduce((n, p) => n + safeNumber(p.qty) * safeNumber(p.unitPrice), 0);
+            const purchasedQty = purchases.reduce((n, p) => n + safeNumber(p.qty), 0);
+            historicalUnitPrice = purchasedQty > 0 ? purchasedValue / purchasedQty : safeNumber(item.buyPrice);
+        } else {
+            const sales = (db.sales || []).flatMap(s => {
+                if (!partyMatches(s, partyId, party, 'customerId', 'customer')) return [];
+                if (Array.isArray(s.items)) return s.items.filter(i => String(i.itemId) === String(itemId));
+                if (String(s.itemId) !== String(itemId)) return [];
+                const qty = safeNumber(s.qty);
+                return [{ qty, unitPrice: safeNumber(s.unitPrice, qty > 0 ? safeNumber(s.total) / qty : safeNumber(item.sellPrice)) }];
+            });
+            const soldValue = sales.reduce((n, i) => n + safeNumber(i.qty) * safeNumber(i.unitPrice), 0);
+            const soldQty = sales.reduce((n, i) => n + safeNumber(i.qty), 0);
+            historicalUnitPrice = soldQty > 0 ? soldValue / soldQty : safeNumber(item.sellPrice);
+        }
+        const total = qty * historicalUnitPrice;
+        const returnRecord = { id: newId(), date: localToday(), type, party, partyId: partyRecord.id, itemId, itemName: item.name, qty, total, reason: document.getElementById('returnReason').value.trim() || '-' };
+        const sys = firestore.collection('SystemData');
+        const itemRef = sys.doc('InventoryData').collection('items').doc(String(item.id));
+        const returnRef = sys.doc('FinancialData').collection('returns').doc(String(returnRecord.id));
+        try {
+            await firestore.runTransaction(async transaction => {
+                const itemSnap = await transaction.get(itemRef);
+                if (!itemSnap.exists) throw new Error('کاڵا لە Firestore نەدۆزرایەوە');
+                const serverQty = safeNumber(itemSnap.data().qty);
+                if (type === 'to_supplier' && serverQty < qty) throw new Error('کۆگا لە ئامێرێکی تر گۆڕاوە');
+                transaction.update(itemRef, { qty: type === 'to_supplier' ? serverQty - qty : serverQty + qty });
+                transaction.set(returnRef, returnRecord);
+            });
+            item.qty = type === 'to_supplier' ? safeNumber(item.qty) - qty : safeNumber(item.qty) + qty;
+            db.returns.push(returnRecord);
+            lastSyncedDb = cloneDb(db);
+            document.getElementById('returnForm').reset();
+            updateAllViews();
+        } catch (error) {
+            console.error('هەڵە لە transaction ـی گەڕاندنەوە:', error);
+            alert('گەڕاندنەوە نەکرا؛ کۆگا لەوانەیە لە ئامێرێکی تر گۆڕابێت. تکایە دووبارە هەوڵ بدەرەوە.');
+        }
+    }
+
+    function renderReturns() {
+        const tbody = document.getElementById('returnsTable'); if (!tbody) return; tbody.innerHTML = '';
+        (db.returns || []).slice().reverse().forEach(r => tbody.insertAdjacentHTML('beforeend', `<tr><td>${escapeHtml(r.date)}</td><td>${r.type === 'to_supplier' ? 'بۆ دابینکەر' : 'لە کڕیار'}</td><td>${escapeHtml(r.party)}</td><td>${escapeHtml(r.itemName)}</td><td class="t-center">${safeNumber(r.qty)}</td><td>${escapeHtml(r.reason)}</td></tr>`));
+    }
+
+    function renderPurchases() {
+        const tbody = document.getElementById('purchasesTable'); if (!tbody) return; tbody.innerHTML = '';
+        (db.purchases || []).slice().reverse().forEach(p => tbody.insertAdjacentHTML('beforeend', `<tr><td>${escapeHtml(p.date)}</td><td>${escapeHtml(p.supplier)}</td><td>${escapeHtml(p.itemName)}</td><td class="t-center">${safeNumber(p.qty)}</td><td class="t-center">$${safeNumber(p.unitPrice).toFixed(2)}</td><td class="t-center">$${safeNumber(p.total).toFixed(2)}</td></tr>`));
+    }
+
+    async function addPurchase(e) {
+        e.preventDefault();
+        const mode = document.querySelector('input[name="purchaseMode"]:checked')?.value || 'existing';
+        const supplier = document.getElementById('purchaseSupplier').value;
+        const supplierRecord = (db.suppliers || []).find(s => s.name === supplier);
+        const qty = Number(document.getElementById('purchaseQty').value);
+        const unitPrice = Number(document.getElementById('purchaseUnitPrice').value);
+        if (!supplier || !supplierRecord || !Number.isInteger(qty) || qty <= 0 || !Number.isFinite(unitPrice) || unitPrice < 0) return alert('تکایە دابینکەر، بڕ و نرخ بە دروستی بنووسە.');
+        let item;
+        let isNewItem = mode === 'new';
+        if (isNewItem) {
+            const name = document.getElementById('newPurchName').value.trim();
+            if (!name) return alert('ناوی مەواد پێویستە.');
+            const sellPrice = Number(document.getElementById('newPurchSellPrice').value);
+            if (!Number.isFinite(sellPrice) || sellPrice < 0) return alert('نرخی فرۆشتن دەبێت سفر یان زیاتر بێت.');
+            const category = document.getElementById('newPurchCat').value || '-';
+            const itemType = document.getElementById('newPurchType').value || '-';
+            const size = document.getElementById('newPurchSize').value.trim() || '-';
+            const code = document.getElementById('newPurchCode').value.trim() || '-';
+            const duplicate = (db.items || []).some(existing =>
+                (code !== '-' && existing.code && existing.code.trim().toLowerCase() === code.toLowerCase()) ||
+                (existing.name && existing.name.trim().toLowerCase() === name.toLowerCase() && (existing.type || '-') === itemType && (existing.size || '-') === size)
+            );
+            if (duplicate) return alert('ئەم کاڵایە بە هەمان کۆد یان ناو/مۆدێل/قیاس پێشتر هەیە؛ لە لیستی کاڵاکانی هەبوو هەڵیبژێرە.');
+            item = { id: newId(), category, name, type: itemType, size, code, qty: 0, buyPrice: unitPrice, sellPrice };
+        } else {
+            item = db.items.find(x => String(x.id) === String(document.getElementById('purchaseItem').value));
+            if (!item) return alert('مەوادێک هەڵبژێرە.');
+        }
+        const purchase = { id: newId(), date: document.getElementById('purchaseDate').value || localToday(), supplier, supplierId: supplierRecord.id, itemId: item.id, itemName: item.name, qty, unitPrice, total: qty * unitPrice };
+        const sys = firestore.collection('SystemData');
+        const itemRef = sys.doc('InventoryData').collection('items').doc(String(item.id));
+        const purchaseRef = sys.doc('CommerceData').collection('purchases').doc(String(purchase.id));
+        try {
+            await firestore.runTransaction(async transaction => {
+                if (isNewItem) {
+                    transaction.set(itemRef, { ...item, qty });
+                } else {
+                    const itemSnap = await transaction.get(itemRef);
+                    if (!itemSnap.exists) throw new Error('کاڵا لە Firestore نەدۆزرایەوە');
+                    const serverItem = itemSnap.data();
+                    transaction.update(itemRef, { qty: safeNumber(serverItem.qty) + qty, buyPrice: unitPrice });
+                }
+                transaction.set(purchaseRef, purchase);
+            });
+            if (isNewItem) db.items.push({ ...item, qty });
+            else { item.qty = safeNumber(item.qty) + qty; item.buyPrice = unitPrice; }
+            db.purchases.push(purchase);
+            lastSyncedDb = cloneDb(db);
+            document.getElementById('purchaseForm').reset();
+            document.getElementById('purchaseDate').value = localToday();
+            togglePurchaseMode();
+            updateAllViews();
+        } catch (error) {
+            console.error('هەڵە لە transaction ـی کڕین:', error);
+            alert('کڕین نەکرا؛ کۆگا لەوانەیە لە ئامێرێکی تر گۆڕابێت. تکایە دووبارە هەوڵ بدەرەوە.');
+        }
+    }
+
+    function exportBackup() {
+        const blob = new Blob([JSON.stringify({ version: 1, exportedAt: new Date().toISOString(), data: db }, null, 2)], { type: 'application/json' });
+        const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `ara-guide-backup-${localToday()}.json`; a.click(); URL.revokeObjectURL(a.href);
+    }
+    function importBackup() { document.getElementById('importFile')?.click(); }
+    document.getElementById('importFile')?.addEventListener('change', async function(e) {
+        const file = e.target.files?.[0]; if (!file) return;
+        try {
+            const parsed = JSON.parse(await file.text());
+            const imported = parsed.data || parsed;
+            if (!imported || !Array.isArray(imported.items)) throw new Error('invalid');
+            const validationError = validateBackupData(imported);
+            if (validationError) { alert(`Backup هێنەدرا: ${validationError}`); return; }
+            if (!confirm('ئایا دڵنیایت داتای ئێستا بە backup بگۆڕیت؟')) return;
+            const previousDb = cloneDb(db);
+            db = normalizeDb(imported);
+            lastSyncedDb = null;
+            const saved = await saveData();
+            if (!saved) {
+                const restored = await restoreAfterFailedSave(previousDb);
+                alert(restored
+                    ? 'هاوردەکردنی backup تەواو نەبوو؛ داتای پێشوو گەڕێندرایەوە. پەیوەندی و مۆڵەتی Firestore بپشکنە و دووبارە هەوڵ بدەرەوە.'
+                    : 'هاوردەکردنی backup و گەڕاندنەوەی Firestore شکستیان هێنا؛ داتای پێشوو لە وێبگەڕ پارێزراوە، بەڵام Firestore لەوانەیە بەشێکی گۆڕانکارییەکانی تێدا مابێت. پەیوەندی/مۆڵەت بپشکنە و پاشان sync بکە.');
+                return;
+            }
+            updateAllViews();
+            alert('Backup بە سەرکەوتوویی هێنرایەوە.');
+        } catch (err) { console.error(err); alert('فایلی backup هەڵەیە یان ناسراو نییە.'); } finally { e.target.value = ''; }
+    });
+
+    // دامەزراندنی ڕۆژی کار و نیشاندانی داتا لە دوای ئامادەبوونی DOM
+    ['saleDate','payDate','supPayDate','expenseDate','purchaseDate'].forEach(id => { const el = document.getElementById(id); if (el && !el.value) el.value = localToday(); });
+    window.addEventListener('error', ev => console.error('Application error:', ev.error || ev.message));
+</script>
 </body>
 </html>
