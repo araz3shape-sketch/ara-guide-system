@@ -1093,7 +1093,8 @@
                     </div>
                     
                     <div class="form-grid" style="align-items: flex-end; margin-bottom: 0;">
-                        <div class="form-group"><label>مەواد</label><select id="saleItem" onchange="autoFillSellPrice()"></select></div>
+                        <div class="form-group"><label>کاتیگۆری مەواد</label><select id="saleCategory" onchange="updateSaleItemOptions()"></select></div>
+                        <div class="form-group"><label>مەواد</label><select id="saleItem" onchange="autoFillSellPrice()" disabled></select></div>
                         <div class="form-group"><label>بڕ</label><input type="text" inputmode="numeric" id="saleQty" value="1" oninput="fixNumbers(this)"></div>
                         <div class="form-group"><label>نرخی یەک دانە ($)</label><input type="text" inputmode="decimal" id="saleUnitPrice" oninput="fixNumbers(this)"></div>
                         <div class="form-group">
@@ -1738,6 +1739,42 @@
     </div>
 </div>
 
+<div id="editInventoryItemModal" class="modal">
+    <div class="modal-content">
+        <h3><i class="fa-solid fa-pen-to-square"></i> دەستکاریکردنی زانیاریی مەواد</h3>
+        <form onsubmit="saveInventoryItemEdit(event)" style="margin-top: 15px;">
+            <input type="hidden" id="editInventoryItemId">
+            <div class="form-grid">
+                <div class="form-group">
+                    <label>ناوی مەواد / براند</label>
+                    <input type="text" id="editInventoryItemName" required>
+                </div>
+                <div class="form-group">
+                    <label>کۆد / بارکۆد</label>
+                    <input type="text" id="editInventoryItemCode">
+                </div>
+                <div class="form-group">
+                    <label>کاتیگۆری</label>
+                    <select id="editInventoryItemCategory" required></select>
+                </div>
+                <div class="form-group">
+                    <label>جۆر / مۆدێل</label>
+                    <select id="editInventoryItemType" required></select>
+                </div>
+                <div class="form-group">
+                    <label>قیاس</label>
+                    <input type="text" id="editInventoryItemSize" placeholder="4.0 x 10 mm">
+                </div>
+            </div>
+            <p style="font-size:12px;color:var(--text-muted);margin:8px 0 14px;">بڕی کۆگا و نرخەکان لێرە ناگۆڕدرێن؛ مێژووی فرۆشتن و کڕین دەپارێزرێت.</p>
+            <div style="display:flex;gap:10px;justify-content:flex-end;">
+                <button type="button" class="btn btn-danger" onclick="closeInventoryItemEdit()">پاشگەزبوونەوە</button>
+                <button type="submit" class="btn btn-success"><i class="fa-solid fa-floppy-disk"></i> پاشەکەوتکردن</button>
+            </div>
+        </form>
+    </div>
+</div>
+
 <div id="itemCategoryModal" class="modal">
     <div class="modal-content">
         <h3>زیادکردنی کاتیگۆری نوێ</h3>
@@ -2359,11 +2396,28 @@
 
     function updateSaleDropdowns() {
         const custSelect = document.getElementById('saleCustomer');
-        const itemSelect = document.getElementById('saleItem');
         custSelect.innerHTML = '<option value="">کڕیارێک هەڵبژێرە</option>';
         (db.customers || []).forEach(c => custSelect.innerHTML += `<option value="${escapeHtml(c.name)}">${escapeHtml(c.name)}</option>`);
+        const categorySelect = document.getElementById('saleCategory');
+        const selectedCategory = categorySelect.value;
+        const categories = Array.from(new Set((db.items || []).map(i => String(i.category || '').trim()).filter(Boolean)));
+        categorySelect.innerHTML = '<option value="">کاتیگۆرییەک هەڵبژێرە</option>';
+        categories.forEach(category => categorySelect.innerHTML += `<option value="${escapeHtml(category)}">${escapeHtml(category)}</option>`);
+        if (categories.includes(selectedCategory)) categorySelect.value = selectedCategory;
+        updateSaleItemOptions();
+    }
+
+    function updateSaleItemOptions() {
+        const categorySelect = document.getElementById('saleCategory');
+        const itemSelect = document.getElementById('saleItem');
+        const selectedCategory = categorySelect.value;
+        const previousItem = itemSelect.value;
+        const categoryItems = selectedCategory ? (db.items || []).filter(i => String(i.category || '').trim() === selectedCategory) : [];
         itemSelect.innerHTML = '<option value="">مەوادێک هەڵبژێرە</option>';
-        (db.items || []).forEach(i => itemSelect.innerHTML += `<option value="${escapeHtml(i.id)}">${escapeHtml(i.name)} (${escapeHtml(i.type || '')} - ${escapeHtml(i.size || '')}) - کۆگا: ${safeNumber(i.qty)}</option>`);
+        categoryItems.forEach(i => itemSelect.innerHTML += `<option value="${escapeHtml(i.id)}">${escapeHtml(i.name)} (${escapeHtml(i.type || '')} - ${escapeHtml(i.size || '')}) - کۆگا: ${safeNumber(i.qty)}</option>`);
+        itemSelect.disabled = !selectedCategory || categoryItems.length === 0;
+        if (categoryItems.some(i => String(i.id) === String(previousItem))) itemSelect.value = previousItem;
+        else document.getElementById('saleUnitPrice').value = '';
     }
 
     function autoFillSellPrice() {
@@ -2372,16 +2426,19 @@
     }
 
     function addToCart() {
+        const category = document.getElementById('saleCategory').value;
         const itemId = document.getElementById('saleItem').value;
         const qty = Number(document.getElementById('saleQty').value);
         const unitPrice = Number(document.getElementById('saleUnitPrice').value);
 
-        if (!itemId) return alert('تکایە مەوادێک هەڵبژێرە!');
+        if (!category) return alert('تکایە سەرەتا کاتیگۆری مەواد هەڵبژێرە!');
+        if (!itemId) return alert('تکایە مەوادێک لەو کاتیگۆرییە هەڵبژێرە!');
         if (!Number.isInteger(qty) || qty <= 0) return alert('بڕ دەبێت ژمارەیەکی تەواو و زیاتر لە سفر بێت!');
         if (!Number.isFinite(unitPrice) || unitPrice < 0) return alert('نرخ دەبێت ژمارەیەکی دروست و سفر یان زیاتر بێت!');
 
         const item = (db.items || []).find(i => String(i.id) === String(itemId));
         if (!item) return alert('مەواد نەدۆزرایەوە!');
+        if (String(item.category || '').trim() !== category) return alert('مەوادەکە لە کاتیگۆریی هەڵبژێردراودا نییە؛ تکایە دووبارە هەڵیبژێرە.');
 
         const existingInCart = currentCart.find(c => String(c.itemId) === String(itemId));
         const currentQtyInCart = existingInCart ? existingInCart.qty : 0;
@@ -3828,9 +3885,53 @@
                 <td class="t-center"><strong>${safeNumber(item.qty)}</strong></td>
                 <td class="t-center">$${safeNumber(item.buyPrice).toFixed(2)}</td>
                 <td class="t-center">$${safeNumber(item.sellPrice).toFixed(2)}</td>
-                <td class="t-center"><button type="button" class="btn btn-danger btn-sm" onclick="deleteItem(decodeURIComponent('${safeInlineArg(item.id)}'))"><i class="fa-solid fa-trash"></i></button></td>
+                <td class="t-center">
+                    <button type="button" class="btn btn-purple btn-sm" onclick="openInventoryItemEdit(decodeURIComponent('${safeInlineArg(item.id)}'))" title="دەستکاری"><i class="fa-solid fa-pen-to-square"></i></button>
+                    <button type="button" class="btn btn-danger btn-sm" onclick="deleteItem(decodeURIComponent('${safeInlineArg(item.id)}'))" title="سڕینەوە"><i class="fa-solid fa-trash"></i></button>
+                </td>
             </tr>`;
         });
+    }
+
+    function fillEditInventorySelect(selectId, values, currentValue, placeholder) {
+        const select = document.getElementById(selectId);
+        const options = Array.from(new Set([...(values || []), currentValue].map(v => String(v || '').trim()).filter(Boolean)));
+        select.innerHTML = `<option value="">${escapeHtml(placeholder)}</option>` +
+            options.map(value => `<option value="${escapeHtml(value)}">${escapeHtml(value)}</option>`).join('');
+        select.value = currentValue || '';
+    }
+
+    function openInventoryItemEdit(id) {
+        const item = (db.items || []).find(x => String(x.id) === String(id));
+        if (!item) return alert('مەوادەکە نەدۆزرایەوە.');
+        document.getElementById('editInventoryItemId').value = String(item.id);
+        document.getElementById('editInventoryItemName').value = item.name || '';
+        document.getElementById('editInventoryItemCode').value = item.code || '';
+        document.getElementById('editInventoryItemSize').value = item.size === '-' ? '' : (item.size || '');
+        fillEditInventorySelect('editInventoryItemCategory', db.itemCategories, item.category, 'کاتیگۆرییەک هەڵبژێرە');
+        fillEditInventorySelect('editInventoryItemType', db.itemTypes, item.type, 'جۆر / مۆدێلێک هەڵبژێرە');
+        document.getElementById('editInventoryItemModal').style.display = 'flex';
+    }
+
+    function closeInventoryItemEdit() {
+        document.getElementById('editInventoryItemModal').style.display = 'none';
+    }
+
+    async function saveInventoryItemEdit(e) {
+        e.preventDefault();
+        const id = document.getElementById('editInventoryItemId').value;
+        const item = (db.items || []).find(x => String(x.id) === String(id));
+        if (!item) return alert('مەوادەکە نەدۆزرایەوە.');
+        const name = document.getElementById('editInventoryItemName').value.trim();
+        const code = document.getElementById('editInventoryItemCode').value.trim() || '-';
+        const category = document.getElementById('editInventoryItemCategory').value;
+        const type = document.getElementById('editInventoryItemType').value;
+        const size = document.getElementById('editInventoryItemSize').value.trim() || '-';
+        if (!name || !category || !type) return alert('ناو، کاتیگۆری و جۆر/مۆدێل پێویستن.');
+        const previousDb = cloneDb(db);
+        Object.assign(item, { name, code, category, type, size });
+        const saved = await persistCleaningChange(previousDb, '✅ زانیاریی مەوادەکە نوێکرایەوە.');
+        if (saved) closeInventoryItemEdit();
     }
 
     async function deleteItem(id) {
