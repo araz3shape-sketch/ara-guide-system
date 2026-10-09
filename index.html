@@ -1461,6 +1461,7 @@
                             </select>
                         </div>
                         <div class="form-group"><label id="returnPartyLabel">دابینکەر</label><select id="returnParty" required></select></div>
+                        <div class="form-group"><label>کاتیگۆریی مەواد</label><select id="returnCategory" onchange="updateReturnItemOptions()"></select></div>
                         <div class="form-group"><label>مەواد</label><select id="returnItem" required></select></div>
                         <div class="form-group"><label>بڕی گەڕێنراوە</label><input type="text" inputmode="numeric" id="returnQty" value="1" oninput="fixNumbers(this)" required></div>
                         <div class="form-group" id="returnSettlementWrap" style="display:none;"><label>چارەسەری باڵانسی گەڕاندنەوە</label><select id="returnSettlement"><option value="credit">وەک بستانکاری بۆ کڕیار (لە قەرز کەمبکرێتەوە)</option><option value="refund">پارە بە کڕیار بگەڕێندرێتەوە</option></select><small style="color:var(--text-muted);">گەڕاندنەوەی نەقد لە کەشفدا وەک دەرچوونی پارە نیشان دەدرێت.</small></div>
@@ -4555,13 +4556,33 @@
         const type = document.getElementById('returnType')?.value || 'to_supplier';
         const settlementWrap = document.getElementById('returnSettlementWrap');
         if (settlementWrap) settlementWrap.style.display = type === 'from_customer' ? '' : 'none';
-        const party = document.getElementById('returnParty'); const item = document.getElementById('returnItem');
-        if (!party || !item) return;
+        const party = document.getElementById('returnParty');
+        const category = document.getElementById('returnCategory');
+        const item = document.getElementById('returnItem');
+        if (!party || !category || !item) return;
+        const previousCategory = category.value;
+        const previousItem = item.value;
         document.getElementById('returnPartyLabel').innerText = type === 'to_supplier' ? 'دابینکەر' : 'کڕیار';
         party.innerHTML = '<option value="">لایەنێک هەڵبژێرە</option>';
         (type === 'to_supplier' ? db.suppliers : db.customers).forEach(x => party.insertAdjacentHTML('beforeend', `<option value="${escapeHtml(x.name)}">${escapeHtml(x.name)}</option>`));
-        item.innerHTML = '<option value="">مەوادێک هەڵبژێرە</option>';
-        (db.items || []).forEach(x => item.insertAdjacentHTML('beforeend', `<option value="${escapeHtml(x.id)}">${escapeHtml(x.name)} (${escapeHtml(x.type || '')} - ${escapeHtml(x.size || '')})</option>`));
+        const categories = [...new Set((db.items || []).map(x => String(x.category || '-').trim()).filter(Boolean))].sort((a, b) => a.localeCompare(b));
+        category.innerHTML = '<option value="">هەموو کاتیگۆرییەکان</option>';
+        categories.forEach(value => category.insertAdjacentHTML('beforeend', `<option value="${escapeHtml(value)}">${escapeHtml(value)}</option>`));
+        if (categories.includes(previousCategory)) category.value = previousCategory;
+        updateReturnItemOptions(previousItem);
+    }
+
+    function updateReturnItemOptions(preferredItemId = '') {
+        const categorySelect = document.getElementById('returnCategory');
+        const itemSelect = document.getElementById('returnItem');
+        if (!categorySelect || !itemSelect) return;
+        const previousItem = preferredItemId || itemSelect.value;
+        const selectedCategory = categorySelect.value;
+        const items = (db.items || []).filter(item => !selectedCategory || String(item.category || '-').trim() === selectedCategory);
+        itemSelect.innerHTML = '<option value="">مەوادێک هەڵبژێرە</option>';
+        items.forEach(item => itemSelect.insertAdjacentHTML('beforeend', `<option value="${escapeHtml(item.id)}">${escapeHtml(item.name)} (${escapeHtml(item.type || '')} - ${escapeHtml(item.size || '')}) — کۆگا: ${safeNumber(item.qty)}</option>`));
+        itemSelect.value = items.some(item => String(item.id) === String(previousItem)) ? String(previousItem) : '';
+        itemSelect.disabled = items.length === 0;
     }
     function toggleReturnPartyOptions() { updateReturnDropdowns(); }
 
