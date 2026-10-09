@@ -1384,6 +1384,10 @@
                         </div>
 
                         <div class="form-group" id="grpExistingItem">
+                            <label>کاتیگۆریی مەواد</label>
+                            <select id="purchaseCategory" onchange="updatePurchaseItemOptions()"></select>
+                        </div>
+                        <div class="form-group" id="grpExistingItemSelect">
                             <label>مەواد (کۆگا)</label>
                             <select id="purchaseItem" onchange="autoFillBuyPrice()"></select>
                         </div>
@@ -4258,14 +4262,14 @@
 
     function togglePurchaseMode() {
         const mode = document.querySelector('input[name="purchaseMode"]:checked').value;
-        const existingGrp = document.getElementById('grpExistingItem');
+        const existingGroups = [document.getElementById('grpExistingItem'), document.getElementById('grpExistingItemSelect')];
         const newFields = document.querySelectorAll('.new-item-field');
 
         if (mode === 'new') {
-            existingGrp.style.display = 'none';
+            existingGroups.forEach(el => { if (el) el.style.display = 'none'; });
             newFields.forEach(el => el.style.display = 'flex');
         } else {
-            existingGrp.style.display = 'flex';
+            existingGroups.forEach(el => { if (el) el.style.display = 'flex'; });
             newFields.forEach(el => el.style.display = 'none');
             autoFillBuyPrice();
         }
@@ -4273,21 +4277,40 @@
 
     function updatePurchaseDropdowns() {
         const supSelect = document.getElementById('purchaseSupplier');
-        const itemSelect = document.getElementById('purchaseItem');
+        const categorySelect = document.getElementById('purchaseCategory');
         const newCatSelect = document.getElementById('newPurchCat');
         const newTypeSelect = document.getElementById('newPurchType');
+        const selectedCategory = categorySelect.value;
 
         supSelect.innerHTML = '<option value="">دابینکەرێک هەڵبژێرە</option>';
         (db.suppliers || []).forEach(s => supSelect.innerHTML += `<option value="${escapeHtml(s.name)}">${escapeHtml(s.name)}</option>`);
 
-        itemSelect.innerHTML = '<option value="">مەوادێکی کۆگا هەڵبژێرە</option>';
-        (db.items || []).forEach(i => itemSelect.innerHTML += `<option value="${escapeHtml(i.id)}">[${escapeHtml(i.category || '-')} ] ${escapeHtml(i.name)} (${escapeHtml(i.type || '')} - ${escapeHtml(i.size || '')})</option>`);
+        const categories = [...new Set((db.items || []).map(i => String(i.category || '-').trim()).filter(Boolean))].sort((a, b) => a.localeCompare(b));
+        categorySelect.innerHTML = '<option value="">هەموو کاتیگۆرییەکان</option>';
+        categories.forEach(category => categorySelect.innerHTML += `<option value="${escapeHtml(category)}">${escapeHtml(category)}</option>`);
+        if (categories.includes(selectedCategory)) categorySelect.value = selectedCategory;
+        updatePurchaseItemOptions();
 
         newCatSelect.innerHTML = '<option value="">کاتیگۆری هەڵبژێرە</option>';
         (db.itemCategories || []).forEach(c => newCatSelect.innerHTML += `<option value="${escapeHtml(c)}">${escapeHtml(c)}</option>`);
 
         newTypeSelect.innerHTML = '<option value="">مۆدێل / جۆر هەڵبژێرە</option>';
         (db.itemTypes || []).forEach(t => newTypeSelect.innerHTML += `<option value="${escapeHtml(t)}">${escapeHtml(t)}</option>`);
+    }
+
+    function updatePurchaseItemOptions() {
+        const itemSelect = document.getElementById('purchaseItem');
+        if (!itemSelect) return;
+        const previousItem = itemSelect.value;
+        const selectedCategory = document.getElementById('purchaseCategory')?.value || '';
+        const items = (db.items || []).filter(item => !selectedCategory || String(item.category || '-').trim() === selectedCategory);
+        itemSelect.innerHTML = '<option value="">مەوادێکی کۆگا هەڵبژێرە</option>';
+        items.forEach(item => itemSelect.innerHTML += `<option value="${escapeHtml(item.id)}">${escapeHtml(item.name)} (${escapeHtml(item.type || '')} - ${escapeHtml(item.size || '')}) — کۆگا: ${safeNumber(item.qty)}</option>`);
+        if (items.some(item => String(item.id) === String(previousItem))) itemSelect.value = previousItem;
+        else itemSelect.value = '';
+        itemSelect.disabled = items.length === 0;
+        if (itemSelect.value) autoFillBuyPrice();
+        else document.getElementById('purchaseUnitPrice').value = '';
     }
 
     function autoFillBuyPrice() {
