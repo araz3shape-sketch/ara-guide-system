@@ -925,6 +925,7 @@
             </button>
             
             <button type="button" class="tab-btn" data-tab="sales" onclick="switchTab('sales')"><i class="fa-solid fa-cart-shopping"></i> بەشی فرۆشتن</button>
+            <button type="button" class="tab-btn" data-tab="salesHistory" onclick="switchTab('salesHistory')"><i class="fa-solid fa-clock-rotate-left"></i> مێژووی فرۆشتن</button>
             <button type="button" class="tab-btn" data-tab="payments" onclick="switchTab('payments')"><i class="fa-solid fa-receipt"></i> وەسڵی قەبز (پزیشکان)</button>
             <button type="button" class="tab-btn" data-tab="supPayments" onclick="switchTab('supPayments')"><i class="fa-solid fa-money-bill-transfer"></i> پارەدان بە دابینکەر</button>
             <button type="button" class="tab-btn" data-tab="expenses" onclick="switchTab('expenses')"><i class="fa-solid fa-wallet"></i> خەرجییەکان</button>
@@ -952,6 +953,21 @@
                         <button type="button" class="btn btn-purple btn-sm" onclick="renderDashboard()"><i class="fa-solid fa-filter"></i> فلتەر</button>
                         <button type="button" class="btn btn-warning btn-sm" onclick="resetDashFilter()"><i class="fa-solid fa-arrows-rotate"></i> هەمووی</button>
                     </div>
+                </div>
+
+                <div style="background:#f8fafc;border:1px solid var(--border-color);border-radius:var(--radius-md);padding:16px 18px;margin-bottom:18px;">
+                    <h3 style="margin:0 0 10px;color:var(--secondary);"><i class="fa-solid fa-file-export"></i> ڕاپۆرتی ڕۆژانەی فرۆشتن و کۆگا</h3>
+                    <div class="form-grid" style="align-items:flex-end;">
+                        <div class="form-group">
+                            <label for="dailyReportDate">بەرواری ڕاپۆرتی فرۆشتن</label>
+                            <input type="date" id="dailyReportDate">
+                        </div>
+                        <div class="form-group" style="display:flex;gap:8px;flex-wrap:wrap;">
+                            <button type="button" class="btn btn-success" onclick="exportDailyReportExcel()"><i class="fa-solid fa-file-excel"></i> دەرکردن بۆ Excel</button>
+                            <button type="button" class="btn btn-purple" onclick="printDailySalesInventoryReport()"><i class="fa-solid fa-file-pdf"></i> چاپ / PDF</button>
+                        </div>
+                    </div>
+                    <p style="font-size:12px;color:var(--text-muted);margin:8px 0 0;">ڕاپۆرتی فرۆشتن بۆ ئەو بەروارەی هەڵدەبژێریتە؛ کۆگا وێنەی ئێستای بڕ و نرخەکانی کۆگایە لە کاتی دەرکردنی ڕاپۆرت.</p>
                 </div>
 
                 <div class="dash-grid-modern">
@@ -1128,11 +1144,33 @@
 
                 <button type="button" class="btn btn-success" onclick="checkoutSale()" style="padding: 12px 24px; font-size: 16px;"><i class="fa-solid fa-check-double"></i> تەواوکردنی فرۆشتن و دابڕین لە کۆگا (چاپکردن)</button>
 
-                <h3 style="margin-top: 30px; font-size: 16px; font-weight: 700;">مێژووی فرۆشتنەکان</h3>
-                <div class="table-responsive" style="margin-top: 10px;">
+            </div>
+
+            <!-- مێژووی وەسڵەکانی فرۆشتن -->
+            <div id="salesHistory" class="tab-content">
+                <h2><i class="fa-solid fa-clock-rotate-left"></i> مێژووی وەسڵەکانی فرۆشتن</h2>
+                <div class="form-grid" style="align-items:flex-end; margin-bottom:18px;">
+                    <div class="form-group">
+                        <label for="salesHistorySearch">گەڕان بەپێی دکتۆر، کلینیک، ژمارەی وەسڵ یان مەواد</label>
+                        <input type="search" id="salesHistorySearch" oninput="renderSalesHistory()" placeholder="ناو، ژمارەی وەسڵ یان ناوی مەواد بنووسە...">
+                    </div>
+                    <div class="form-group">
+                        <label for="salesHistoryStatus">فلتەر بەپێی دۆخی حیسابی کڕیار</label>
+                        <select id="salesHistoryStatus" onchange="renderSalesHistory()">
+                            <option value="all">هەموو</option>
+                            <option value="debtor">قەرزدار</option>
+                            <option value="settled">وەسڵکراو / قەرزی نییە</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <button type="button" class="btn btn-warning btn-sm" onclick="resetSalesHistoryFilters()" style="height:42px;"><i class="fa-solid fa-arrows-rotate"></i> پاککردنەوەی گەڕان</button>
+                    </div>
+                </div>
+                <h3>وەسڵەکانی فرۆشتن</h3>
+                <div class="table-responsive">
                     <table>
-                        <thead><tr><th>فاکتەر #</th><th>مێژوو</th><th>کڕیار</th><th>مەوادەکان</th><th class="t-center">کۆی گشتی</th><th class="t-center">پرێنت</th></tr></thead>
-                        <tbody id="salesTable"></tbody>
+                        <thead><tr><th>ژمارەی وەسڵ</th><th>بەروار</th><th>دکتۆر / کلینیک</th><th>مەوادەکان</th><th class="t-center">کۆی وەسڵ</th><th class="t-center">دۆخی حیسابی کڕیار</th><th class="t-center">پرێنت</th></tr></thead>
+                        <tbody id="salesHistoryRowsTable"></tbody>
                     </table>
                 </div>
             </div>
@@ -1510,6 +1548,10 @@
                     </div>
                     <button type="submit" class="btn"><i class="fa-solid fa-plus"></i> زیادکردن</button>
                 </form>
+                <div class="form-group" style="margin-top:18px; max-width:420px;">
+                    <label for="customerSearch">گەڕان بە ناو، تەلەفۆن یان ناونیشان</label>
+                    <input type="search" id="customerSearch" oninput="renderCustomers()" placeholder="ناوی دکتۆر یان کلینیک بنووسە...">
+                </div>
                 <div class="table-responsive" style="margin-top: 18px;">
                     <table>
                         <thead><tr><th>ناو</th><th>تەلەفۆن</th><th>ناونیشان</th><th class="t-center">باڵانس (قەرز)</th><th class="t-center">کردارەکان</th></tr></thead>
@@ -1734,6 +1776,24 @@
             <div style="display: flex; gap: 10px; justify-content: flex-end;">
                 <button type="button" class="btn btn-danger" onclick="closeEditUserModal()">پاشگەزبوونەوە</button>
                 <button type="submit" class="btn btn-success"><i class="fa-solid fa-floppy-disk"></i> پاشەکەوتکردنی گۆڕانکاری</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div id="editCustomerModal" class="modal">
+    <div class="modal-content">
+        <h3><i class="fa-solid fa-user-pen"></i> دەستکاریکردنی کڕیار</h3>
+        <form onsubmit="saveCustomerEdit(event)" style="margin-top:15px;">
+            <input type="hidden" id="editCustomerId">
+            <div class="form-grid">
+                <div class="form-group"><label>ناوی پزیشک / کلینیک</label><input type="text" id="editCustomerName" required></div>
+                <div class="form-group"><label>ژمارەی تەلەفۆن</label><input type="text" id="editCustomerPhone" required></div>
+                <div class="form-group"><label>ناونیشان</label><input type="text" id="editCustomerAddress"></div>
+            </div>
+            <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:12px;">
+                <button type="button" class="btn btn-danger" onclick="closeCustomerEdit()">پاشگەزبوونەوە</button>
+                <button type="submit" class="btn btn-success"><i class="fa-solid fa-floppy-disk"></i> پاشەکەوتکردن</button>
             </div>
         </form>
     </div>
@@ -2073,7 +2133,7 @@
     // بەرواری ناوخۆیی بەکاربهێنە؛ toISOString لە ناوچەی کاتی +/−دا
     // دەتوانێت بەرواری هەڵە (ڕۆژی پێشوو/دواتر) دروست بکات.
     const today = localToday();
-    ['saleDate','payDate','supPayDate','expenseDate','purchaseDate'].forEach(id => {
+    ['saleDate','payDate','supPayDate','expenseDate','purchaseDate','dailyReportDate'].forEach(id => {
         const el = document.getElementById(id);
         if (el) el.value = today;
     });
@@ -2334,7 +2394,7 @@
             } else {
                 if (tab === 'dashboard' || tab === 'users' || tab === 'dataCleaning') {
                     btn.style.display = 'none';
-                } else if (perms.includes(tab)) {
+                } else if (perms.includes(tab) || (tab === 'salesHistory' && (perms.includes('sales') || perms.includes('statement')))) {
                     btn.style.display = 'flex';
                 } else {
                     btn.style.display = 'none';
@@ -2355,7 +2415,8 @@
     function switchTab(tabId) {
         if (currentUser && currentUser.role !== 'admin') {
             const permittedTabs = Array.isArray(currentUser.permissions) ? currentUser.permissions : [];
-            if (tabId === 'dashboard' || tabId === 'users' || tabId === 'dataCleaning' || !permittedTabs.includes(tabId)) return;
+            const canViewSalesHistory = tabId === 'salesHistory' && (permittedTabs.includes('sales') || permittedTabs.includes('statement'));
+            if (tabId === 'dashboard' || tabId === 'users' || tabId === 'dataCleaning' || (!permittedTabs.includes(tabId) && !canViewSalesHistory)) return;
         }
 
         const contents = document.querySelectorAll('.tab-content');
@@ -2380,7 +2441,8 @@
             targetBtn.classList.add('active');
         }
         
-        if (tabId === 'sales') { updateSaleDropdowns(); renderCart(); renderSales(); }
+        if (tabId === 'sales') { updateSaleDropdowns(); renderCart(); }
+        if (tabId === 'salesHistory') renderSalesHistory();
         if (tabId === 'payments') updatePaymentDropdowns();
         if (tabId === 'supPayments') { updateSupPaymentDropdowns(); handleSupplierSelectChange(); }
         if (tabId === 'expenses') { updateExpenseDropdowns(); renderExpenses(); }
@@ -2558,28 +2620,6 @@
 
         document.getElementById('invGrandTotal').innerText = sale.total.toFixed(2);
         executeMobileSafePrint('printableInvoice');
-    }
-
-    function renderSales() {
-        const tbody = document.getElementById('salesTable');
-        tbody.innerHTML = '';
-        (db.sales || []).slice().reverse().forEach(s => {
-            let itemsSummary = '';
-            if (s.items && Array.isArray(s.items)) {
-                itemsSummary = s.items.map(i => `${escapeHtml(i.name)} (${safeNumber(i.qty)} دانە)`).join('<br>');
-            } else {
-                itemsSummary = escapeHtml(s.itemName || 'مەواد');
-            }
-
-            tbody.innerHTML += `<tr>
-                <td>#${escapeHtml(String(s.id).slice(-4))}</td>
-                <td>${escapeHtml(s.date)}</td>
-                <td><strong>${escapeHtml(s.customer)}</strong></td>
-                <td style="font-size: 13.5px; color: #475569; line-height: 1.5;">${itemsSummary}</td>
-                <td class="t-center"><strong style="color:var(--success);">$${s.total.toFixed(2)}</strong></td>
-                <td class="t-center"><button type="button" class="btn btn-warning btn-sm" onclick="printMultiItemInvoiceById(decodeURIComponent('${safeInlineArg(s.id)}'))"><i class="fa-solid fa-print"></i></button></td>
-            </tr>`;
-        });
     }
 
     function printMultiItemInvoiceById(id) {
@@ -3074,10 +3114,64 @@
         };
     }
 
+    function resetSalesHistoryFilters() {
+        document.getElementById('salesHistorySearch').value = '';
+        document.getElementById('salesHistoryStatus').value = 'all';
+        renderSalesHistory();
+    }
+
+    function renderSalesHistory() {
+        const salesTbody = document.getElementById('salesHistoryRowsTable');
+        if (!salesTbody) return;
+        const query = (document.getElementById('salesHistorySearch')?.value || '').trim().toLocaleLowerCase();
+        const statusFilter = document.getElementById('salesHistoryStatus')?.value || 'all';
+        const hasQuery = value => !query || String(value || '').toLocaleLowerCase().includes(query);
+        const customerById = new Map((db.customers || []).map(c => [String(c.id), c]));
+        const matchingSales = (db.sales || []).filter(sale => {
+            const customer = sale.customerId ? customerById.get(String(sale.customerId)) : (db.customers || []).find(c => c.name === sale.customer);
+            const customerName = customer?.name || sale.customer || '';
+            const balance = customer ? getCustomerBalance(customer.name) : getCustomerBalance(customerName);
+            const statusMatches = statusFilter === 'all' || (statusFilter === 'debtor' ? balance.due > 0.005 : balance.due <= 0.005);
+            const itemsText = Array.isArray(sale.items) ? sale.items.map(i => i.name || '').join(' ') : (sale.itemName || '');
+            const searchMatches = [customerName, customer?.phone || '', String(sale.id || ''), sale.date || '', itemsText].some(hasQuery);
+            return statusMatches && searchMatches;
+        }).slice().sort((a, b) => String(b.date || '').localeCompare(String(a.date || '')) || String(b.id || '').localeCompare(String(a.id || '')));
+
+        salesTbody.innerHTML = '';
+        if (!matchingSales.length) {
+            salesTbody.innerHTML = '<tr><td colspan="7" class="t-center" style="padding:18px;color:var(--text-muted);">هیچ وەسڵێکی فرۆشتن نەدۆزرایەوە.</td></tr>';
+        } else {
+            matchingSales.forEach(sale => {
+                const customer = sale.customerId ? customerById.get(String(sale.customerId)) : (db.customers || []).find(c => c.name === sale.customer);
+                const customerName = customer?.name || sale.customer || '-';
+                const balance = getCustomerBalance(customerName);
+                const due = Number(balance.due) || 0;
+                const isDebtor = due > 0.005;
+                const statusLabel = isDebtor ? 'قەرزدار' : 'وەسڵکراو / قەرزی نییە';
+                const itemsText = Array.isArray(sale.items) ? sale.items.map(i => `${i.name || 'مەواد'} (${safeNumber(i.qty)} دانە)`).join('، ') : (sale.itemName || 'مەواد');
+                salesTbody.insertAdjacentHTML('beforeend', `<tr>
+                    <td>#${escapeHtml(String(sale.id || '').slice(-4))}</td>
+                    <td>${escapeHtml(sale.date || '-')}</td>
+                    <td><strong>${escapeHtml(customerName)}</strong></td>
+                    <td>${escapeHtml(itemsText)}</td>
+                    <td class="t-center">$${safeNumber(sale.total).toFixed(2)}</td>
+                    <td class="t-center"><span class="badge ${isDebtor ? 'badge-low' : 'badge-cust'}">${statusLabel}</span></td>
+                    <td class="t-center"><button type="button" class="btn btn-warning btn-sm" onclick="printMultiItemInvoiceById(decodeURIComponent('${safeInlineArg(sale.id)}'))"><i class="fa-solid fa-print"></i></button></td>
+                </tr>`);
+            });
+        }
+    }
+
     function renderCustomers() {
         const tbody = document.getElementById('customersTable');
         tbody.innerHTML = '';
-        (db.customers || []).forEach(c => {
+        const query = (document.getElementById('customerSearch')?.value || '').trim().toLocaleLowerCase();
+        const customers = (db.customers || []).filter(c => !query || [c.name, c.phone, c.address].some(v => String(v || '').toLocaleLowerCase().includes(query)));
+        if (!customers.length) {
+            tbody.innerHTML = '<tr><td colspan="5" class="t-center" style="padding:18px;color:var(--text-muted);">هیچ کڕیارێک نەدۆزرایەوە.</td></tr>';
+            return;
+        }
+        customers.forEach(c => {
             const bal = getCustomerBalance(c.name);
             const balanceColor = bal.due > 0 ? 'var(--danger)' : 'var(--success)';
             const balanceText = bal.due > 0 ? `قەرزار: $${bal.due.toFixed(2)}` : 'پاکتاوە';
@@ -3088,11 +3182,60 @@
                 <td>${escapeHtml(c.address)}</td>
                 <td class="t-center"><strong style="color:${balanceColor};">${balanceText}</strong></td>
                 <td class="t-center">
+                    <button type="button" class="btn btn-purple btn-sm" onclick="openCustomerEdit(decodeURIComponent('${safeInlineArg(c.id)}'))" title="دەستکاری"><i class="fa-solid fa-pen-to-square"></i></button>
                     <button type="button" class="btn btn-purple btn-sm" onclick="viewCustomerStatement(decodeURIComponent('${safeInlineArg(c.name)}'))"><i class="fa-solid fa-receipt"></i> کەشف</button>
+                    <button type="button" class="btn btn-warning btn-sm" onclick="openCustomerSalesHistory(decodeURIComponent('${safeInlineArg(c.id)}'))" title="مێژووی فرۆشتن"><i class="fa-solid fa-clock-rotate-left"></i></button>
                     <button type="button" class="btn btn-danger btn-sm" onclick="deleteCustomer(decodeURIComponent('${safeInlineArg(c.id)}'))"><i class="fa-solid fa-trash"></i></button>
                 </td>
             </tr>`;
         });
+    }
+
+    function openCustomerEdit(id) {
+        const customer = (db.customers || []).find(c => String(c.id) === String(id));
+        if (!customer) return alert('کڕیارەکە نەدۆزرایەوە.');
+        document.getElementById('editCustomerId').value = String(customer.id);
+        document.getElementById('editCustomerName').value = customer.name || '';
+        document.getElementById('editCustomerPhone').value = customer.phone || '';
+        document.getElementById('editCustomerAddress').value = customer.address === '-' ? '' : (customer.address || '');
+        document.getElementById('editCustomerModal').style.display = 'flex';
+    }
+
+    function closeCustomerEdit() {
+        document.getElementById('editCustomerModal').style.display = 'none';
+    }
+
+    async function saveCustomerEdit(e) {
+        e.preventDefault();
+        const id = document.getElementById('editCustomerId').value;
+        const customer = (db.customers || []).find(c => String(c.id) === String(id));
+        if (!customer) return alert('کڕیارەکە نەدۆزرایەوە.');
+        const name = document.getElementById('editCustomerName').value.trim();
+        const phone = document.getElementById('editCustomerPhone').value.trim();
+        const address = document.getElementById('editCustomerAddress').value.trim() || '-';
+        if (!name || !phone) return alert('ناو و ژمارەی تەلەفۆن پێویستن.');
+        if ((db.customers || []).some(c => String(c.id) !== String(id) && String(c.name || '').trim().toLocaleLowerCase() === name.toLocaleLowerCase())) return alert('کڕیارێکی تر بەو ناوە پێشتر تۆمارکراوە.');
+        const previousDb = cloneDb(db);
+        const oldName = customer.name;
+        if (name !== oldName) {
+            // بۆ مامەڵە legacy ـەکان کە customerId ـیان نییە، ID پێوەببەستە پێش گۆڕینی ناو بۆ پاراستنی باڵانس.
+            (db.sales || []).forEach(x => { if (!x.customerId && x.customer === oldName) x.customerId = customer.id; });
+            (db.payments || []).forEach(x => { if (!x.customerId && x.customer === oldName) x.customerId = customer.id; });
+            (db.returns || []).forEach(x => { if (x.type === 'from_customer' && !x.partyId && x.party === oldName) x.partyId = customer.id; });
+        }
+        Object.assign(customer, { name, phone, address });
+        if (!await saveData()) { await restoreAfterFailedSave(previousDb); return; }
+        updateAllViews();
+        closeCustomerEdit();
+        alert('✅ زانیاریی کڕیار نوێکرایەوە.');
+    }
+
+    function openCustomerSalesHistory(id) {
+        const customer = (db.customers || []).find(c => String(c.id) === String(id));
+        if (!customer) return alert('کڕیارەکە نەدۆزرایەوە.');
+        document.getElementById('salesHistorySearch').value = customer.name || '';
+        document.getElementById('salesHistoryStatus').value = 'all';
+        switchTab('salesHistory');
     }
 
     function renderDashboard() {
@@ -4203,7 +4346,7 @@
         updateSaleDropdowns(); updatePaymentDropdowns(); updateSupPaymentDropdowns();
         updateExpenseDropdowns(); updateFilterDropdowns(); updatePurchaseDropdowns();
         updateReturnDropdowns(); renderItems(); renderCustomers(); renderSuppliers();
-        renderExpenses(); renderPayments(); renderSupPayments(); renderSales(); renderPurchases();
+        renderExpenses(); renderPayments(); renderSupPayments(); renderSalesHistory(); renderPurchases();
         renderReturns();
         if (currentUser && currentUser.role === 'admin') renderDashboard();
     }
@@ -4405,6 +4548,101 @@
         }
     }
 
+    function getDailyReportPayload() {
+        const reportDate = document.getElementById('dailyReportDate')?.value || localToday();
+        const sales = (db.sales || []).filter(s => String(s.date || '').slice(0, 10) === reportDate && !s.isVoid);
+        const salesLines = [];
+        sales.forEach(sale => {
+            const lines = Array.isArray(sale.items) && sale.items.length ? sale.items : [{ name: sale.itemName || 'مەواد', qty: sale.qty || 1, unitPrice: sale.unitPrice || sale.total, total: sale.total }];
+            lines.forEach(line => salesLines.push({
+                receipt: String(sale.id || '').slice(-4), date: sale.date || reportDate, customer: sale.customer || '-',
+                item: line.name || 'مەواد', qty: safeNumber(line.qty), unitPrice: safeNumber(line.unitPrice), total: safeNumber(line.total)
+            }));
+        });
+        const inventory = (db.items || []).map(item => {
+            const qty = safeNumber(item.qty), buyPrice = safeNumber(item.buyPrice), sellPrice = safeNumber(item.sellPrice);
+            return { code: item.code || '-', name: item.name || '-', category: item.category || '-', type: item.type || '-', size: item.size || '-', qty, buyPrice, sellPrice, buyValue: qty * buyPrice, sellValue: qty * sellPrice };
+        });
+        const payments = (db.payments || []).filter(p => String(p.date || '').slice(0, 10) === reportDate && !p.isVoid).reduce((sum, p) => sum + safeNumber(p.amount), 0);
+        return {
+            reportDate, sales, salesLines, inventory,
+            totalSales: sales.reduce((sum, sale) => sum + safeNumber(sale.total), 0),
+            totalPayments: payments,
+            totalStockQty: inventory.reduce((sum, item) => sum + item.qty, 0),
+            totalBuyValue: inventory.reduce((sum, item) => sum + item.buyValue, 0),
+            totalSellValue: inventory.reduce((sum, item) => sum + item.sellValue, 0)
+        };
+    }
+
+    async function loadXlsxLibrary() {
+        if (window.XLSX) return window.XLSX;
+        if (!window.__araXlsxPromise) {
+            window.__araXlsxPromise = new Promise((resolve, reject) => {
+                const script = document.createElement('script');
+                script.src = 'https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js';
+                script.onload = () => window.XLSX ? resolve(window.XLSX) : reject(new Error('XLSX library unavailable'));
+                script.onerror = () => reject(new Error('Could not load XLSX library'));
+                document.head.appendChild(script);
+            });
+        }
+        try { return await window.__araXlsxPromise; }
+        catch (error) { window.__araXlsxPromise = null; throw error; }
+    }
+
+    async function exportDailyReportExcel() {
+        let XLSXLib;
+        try { XLSXLib = await loadXlsxLibrary(); }
+        catch (error) {
+            console.error('هێنانی SheetJS شکستی هێنا:', error);
+            return alert('کتێبخانەی Excel بارنەبوو؛ ئینتەرنێتەکەت بپشکنە و دووبارە هەوڵ بدەرەوە.');
+        }
+        const report = getDailyReportPayload();
+        const salesAoa = [
+            ['ژمارەی وەسڵ', 'بەروار', 'دکتۆر / کلینیک', 'مەواد', 'بڕ', 'نرخی تاک ($)', 'کۆی هێڵ ($)'],
+            ...report.salesLines.map(line => [line.receipt, line.date, line.customer, line.item, line.qty, line.unitPrice, line.total]),
+            [], ['ژمارەی وەسڵەکان', report.sales.length], ['کۆی فرۆشی ئەم ڕۆژە ($)', report.totalSales], ['پارەی وەرگیراوی ئەم ڕۆژە ($)', report.totalPayments]
+        ];
+        const inventoryAoa = [
+            ['کۆد', 'ناوی مەواد', 'کاتیگۆری', 'جۆر / مۆدێل', 'قیاس', 'بڕی ئێستای کۆگا', 'نرخی کڕین ($)', 'نرخی فرۆشتن ($)', 'کۆی بهای کۆگا بە کڕین ($)', 'کۆی بهای کۆگا بە فرۆشتن ($)'],
+            ...report.inventory.map(item => [item.code, item.name, item.category, item.type, item.size, item.qty, item.buyPrice, item.sellPrice, item.buyValue, item.sellValue]),
+            [], ['کۆی بڕی کۆگا', report.totalStockQty], ['کۆی بهای کۆگا بە کڕین ($)', report.totalBuyValue], ['کۆی بهای کۆگا بە فرۆشتن ($)', report.totalSellValue]
+        ];
+        const summaryAoa = [
+            ['پوختەی ڕاپۆرت', 'بڕ'], ['بەروار', report.reportDate], ['ژمارەی وەسڵی فرۆشتن', report.sales.length],
+            ['کۆی فرۆشی ڕۆژ ($)', report.totalSales], ['پارەی وەرگیراوی ڕۆژ ($)', report.totalPayments],
+            ['ژمارەی جۆری مەواد لە کۆگا', report.inventory.length], ['کۆی دانەی کۆگا', report.totalStockQty],
+            ['بهای کۆگا بە نرخی کڕین ($)', report.totalBuyValue], ['بهای کۆگا بە نرخی فرۆشتن ($)', report.totalSellValue]
+        ];
+        const workbook = XLSXLib.utils.book_new();
+        const salesSheet = XLSXLib.utils.aoa_to_sheet(salesAoa);
+        salesSheet['!cols'] = [{ wch: 14 }, { wch: 14 }, { wch: 24 }, { wch: 30 }, { wch: 10 }, { wch: 16 }, { wch: 16 }];
+        const inventorySheet = XLSXLib.utils.aoa_to_sheet(inventoryAoa);
+        inventorySheet['!cols'] = [{ wch: 16 }, { wch: 28 }, { wch: 20 }, { wch: 20 }, { wch: 16 }, { wch: 18 }, { wch: 16 }, { wch: 16 }, { wch: 24 }, { wch: 26 }];
+        XLSXLib.utils.book_append_sheet(workbook, XLSXLib.utils.aoa_to_sheet(summaryAoa), 'پوختە');
+        XLSXLib.utils.book_append_sheet(workbook, salesSheet, 'فرۆشی ڕۆژانە');
+        XLSXLib.utils.book_append_sheet(workbook, inventorySheet, 'کۆگا');
+        XLSXLib.writeFile(workbook, `ara-guide-daily-report-${report.reportDate}.xlsx`, { bookType: 'xlsx' });
+    }
+
+    function printDailySalesInventoryReport() {
+        const report = getDailyReportPayload();
+        const printWindow = window.open('', '_blank');
+        if (!printWindow) return alert('پەنجەرەی چاپ داخراوە؛ ڕێگە بە popup بدە و دووبارە هەوڵ بدەرەوە.');
+        const salesRows = report.salesLines.length ? report.salesLines.map(line => `<tr><td>#${escapeHtml(line.receipt)}</td><td>${escapeHtml(line.customer)}</td><td>${escapeHtml(line.item)}</td><td>${line.qty}</td><td>$${line.unitPrice.toFixed(2)}</td><td>$${line.total.toFixed(2)}</td></tr>`).join('') : '<tr><td colspan="6">هیچ فرۆشتنێک بۆ ئەم بەروارە تۆمار نەکراوە.</td></tr>';
+        const inventoryRows = report.inventory.length ? report.inventory.map(item => `<tr><td>${escapeHtml(item.code)}</td><td>${escapeHtml(item.name)}</td><td>${escapeHtml(item.category)}</td><td>${escapeHtml(item.type)}</td><td>${escapeHtml(item.size)}</td><td>${item.qty}</td><td>$${item.buyPrice.toFixed(2)}</td><td>$${item.sellPrice.toFixed(2)}</td><td>$${item.buyValue.toFixed(2)}</td></tr>`).join('') : '<tr><td colspan="9">هیچ مەوادێک لە کۆگا نییە.</td></tr>';
+        const reportHtml = `<!doctype html><html lang="ku" dir="rtl"><head><meta charset="utf-8"><title>ڕاپۆرتی ${escapeHtml(report.reportDate)}</title><style>
+            @page{size:A4 landscape;margin:12mm}body{font-family:Arial,"Noto Sans Arabic",sans-serif;color:#172033;margin:0}h1,h2,p{text-align:center;margin:5px 0 12px}h1{font-size:22px}h2{font-size:17px;margin-top:22px}.summary{display:flex;justify-content:space-around;gap:12px;margin:16px 0}.summary div{border:1px solid #cbd5e1;padding:10px;border-radius:6px;text-align:center;flex:1}table{width:100%;border-collapse:collapse;font-size:11px;margin-top:8px}th,td{border:1px solid #9ca3af;padding:6px;text-align:right}th{background:#e2e8f0}thead{display:table-header-group}tr{page-break-inside:avoid}.note{font-size:10px;color:#475569;margin-top:10px}@media print{h2{page-break-after:avoid}}
+            </style></head><body><h1>Ara Guide — ڕاپۆرتی ڕۆژانەی فرۆشتن و کۆگا</h1><p>بەروار: ${escapeHtml(report.reportDate)}</p>
+            <div class="summary"><div>ژمارەی وەسڵ<br><strong>${report.sales.length}</strong></div><div>کۆی فرۆش<br><strong>$${report.totalSales.toFixed(2)}</strong></div><div>پارەی وەرگیراو<br><strong>$${report.totalPayments.toFixed(2)}</strong></div><div>بهای کۆگا بە کڕین<br><strong>$${report.totalBuyValue.toFixed(2)}</strong></div></div>
+            <h2>فرۆشتنی ئەم ڕۆژە</h2><table><thead><tr><th>وەسڵ</th><th>کڕیار</th><th>مەواد</th><th>بڕ</th><th>نرخی تاک</th><th>کۆی هێڵ</th></tr></thead><tbody>${salesRows}</tbody></table>
+            <h2>وەزعی ئێستای کۆگا</h2><table><thead><tr><th>کۆد</th><th>مەواد</th><th>کاتیگۆری</th><th>جۆر/مۆدێل</th><th>قیاس</th><th>بڕ</th><th>نرخی کڕین</th><th>نرخی فرۆشتن</th><th>بهای کۆگا</th></tr></thead><tbody>${inventoryRows}</tbody></table>
+            <p class="note">تێبینی: بەشی کۆگا وێنەی بڕ و نرخەکانی ئێستایە لە کاتی دەرکردنی ڕاپۆرت؛ ڕاپۆرتی فرۆشتن بۆ بەرواری دیاریکراوە.</p>
+            <script>window.onload=()=>setTimeout(()=>window.print(),300);<\/script></body></html>`;
+        printWindow.document.open();
+        printWindow.document.write(reportHtml);
+        printWindow.document.close();
+    }
+
     function exportBackup() {
         const blob = new Blob([JSON.stringify({ version: 1, exportedAt: new Date().toISOString(), data: db }, null, 2)], { type: 'application/json' });
         const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `ara-guide-backup-${localToday()}.json`; a.click(); URL.revokeObjectURL(a.href);
@@ -4436,7 +4674,7 @@
     });
 
     // دامەزراندنی ڕۆژی کار و نیشاندانی داتا لە دوای ئامادەبوونی DOM
-    ['saleDate','payDate','supPayDate','expenseDate','purchaseDate'].forEach(id => { const el = document.getElementById(id); if (el && !el.value) el.value = localToday(); });
+    ['saleDate','payDate','supPayDate','expenseDate','purchaseDate','dailyReportDate'].forEach(id => { const el = document.getElementById(id); if (el && !el.value) el.value = localToday(); });
     window.addEventListener('error', ev => console.error('Application error:', ev.error || ev.message));
 </script>
 </body>
