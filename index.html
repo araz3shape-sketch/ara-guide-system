@@ -3171,6 +3171,7 @@
             tbody.innerHTML = '<tr><td colspan="5" class="t-center" style="padding:18px;color:var(--text-muted);">هیچ کڕیارێک نەدۆزرایەوە.</td></tr>';
             return;
         }
+        const canRecordPayment = currentUser && (currentUser.role === 'admin' || (Array.isArray(currentUser.permissions) && currentUser.permissions.includes('payments')));
         customers.forEach(c => {
             const bal = getCustomerBalance(c.name);
             const balanceColor = bal.due > 0 ? 'var(--danger)' : 'var(--success)';
@@ -3184,11 +3185,30 @@
                 <td class="t-center">
                     <button type="button" class="btn btn-purple btn-sm" onclick="openCustomerEdit(decodeURIComponent('${safeInlineArg(c.id)}'))" title="دەستکاری"><i class="fa-solid fa-pen-to-square"></i></button>
                     <button type="button" class="btn btn-purple btn-sm" onclick="viewCustomerStatement(decodeURIComponent('${safeInlineArg(c.name)}'))"><i class="fa-solid fa-receipt"></i> کەشف</button>
+                    ${canRecordPayment ? `<button type="button" class="btn btn-success btn-sm" onclick="openCustomerPaymentReceipt(decodeURIComponent('${safeInlineArg(c.id)}'))" title="وەسڵی قەبز"><i class="fa-solid fa-money-bill-wave"></i> قەبز</button>` : ''}
                     <button type="button" class="btn btn-warning btn-sm" onclick="openCustomerSalesHistory(decodeURIComponent('${safeInlineArg(c.id)}'))" title="مێژووی فرۆشتن"><i class="fa-solid fa-clock-rotate-left"></i></button>
                     <button type="button" class="btn btn-danger btn-sm" onclick="deleteCustomer(decodeURIComponent('${safeInlineArg(c.id)}'))"><i class="fa-solid fa-trash"></i></button>
                 </td>
             </tr>`;
         });
+    }
+
+    function openCustomerPaymentReceipt(id) {
+        const customer = (db.customers || []).find(c => String(c.id) === String(id));
+        if (!customer) return alert('کڕیارەکە نەدۆزرایەوە.');
+        if (!currentUser || (currentUser.role !== 'admin' && !(Array.isArray(currentUser.permissions) && currentUser.permissions.includes('payments')))) {
+            return alert('مۆڵەتی تۆمارکردنی وەسڵی قەبزت نییە.');
+        }
+        switchTab('payments');
+        if (!document.getElementById('payments')?.classList.contains('active')) return;
+        updatePaymentDropdowns();
+        const customerSelect = document.getElementById('payCustomer');
+        customerSelect.value = customer.name;
+        document.getElementById('payAmount').value = '';
+        document.getElementById('payNote').value = '';
+        const dateInput = document.getElementById('payDate');
+        if (dateInput && !dateInput.value) dateInput.value = localToday();
+        document.getElementById('payAmount').focus();
     }
 
     function openCustomerEdit(id) {
