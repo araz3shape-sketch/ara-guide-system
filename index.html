@@ -1110,7 +1110,7 @@
                     
                     <div class="form-grid" style="align-items: flex-end; margin-bottom: 0;">
                         <div class="form-group"><label>کاتیگۆری مەواد</label><select id="saleCategory" onchange="updateSaleItemOptions()"></select></div>
-                        <div class="form-group"><label>مەواد</label><select id="saleItem" onchange="autoFillSellPrice()" disabled></select></div>
+                        <div class="form-group"><label>مەواد</label><input type="search" id="saleItemSearch" placeholder="گەڕان بە ناو، کۆد، جۆر یان قیاس..." oninput="updateSaleItemOptions()" style="margin-bottom:6px;"><select id="saleItem" onchange="autoFillSellPrice()" disabled></select></div>
                         <div class="form-group"><label>بڕ</label><input type="text" inputmode="numeric" id="saleQty" value="1" oninput="fixNumbers(this)"></div>
                         <div class="form-group"><label>نرخی یەک دانە ($)</label><input type="text" inputmode="decimal" id="saleUnitPrice" oninput="fixNumbers(this)"></div>
                         <div class="form-group">
@@ -1389,6 +1389,7 @@
                         </div>
                         <div class="form-group" id="grpExistingItemSelect">
                             <label>مەواد (کۆگا)</label>
+                            <input type="search" id="purchaseItemSearch" placeholder="گەڕان بە ناو، کۆد، جۆر یان قیاس..." oninput="updatePurchaseItemOptions()" style="margin-bottom:6px;">
                             <select id="purchaseItem" onchange="autoFillBuyPrice()"></select>
                         </div>
 
@@ -1462,7 +1463,7 @@
                         </div>
                         <div class="form-group"><label id="returnPartyLabel">دابینکەر</label><select id="returnParty" required></select></div>
                         <div class="form-group"><label>کاتیگۆریی مەواد</label><select id="returnCategory" onchange="updateReturnItemOptions()"></select></div>
-                        <div class="form-group"><label>مەواد</label><select id="returnItem" required></select></div>
+                        <div class="form-group"><label>مەواد</label><input type="search" id="returnItemSearch" placeholder="گەڕان بە ناو، کۆد، جۆر یان قیاس..." oninput="updateReturnItemOptions()" style="margin-bottom:6px;"><select id="returnItem" required></select></div>
                         <div class="form-group"><label>بڕی گەڕێنراوە</label><input type="text" inputmode="numeric" id="returnQty" value="1" oninput="fixNumbers(this)" required></div>
                         <div class="form-group" id="returnSettlementWrap" style="display:none;"><label>چارەسەری باڵانسی گەڕاندنەوە</label><select id="returnSettlement"><option value="credit">وەک بستانکاری بۆ کڕیار (لە قەرز کەمبکرێتەوە)</option><option value="refund">پارە بە کڕیار بگەڕێندرێتەوە</option></select><small style="color:var(--text-muted);">گەڕاندنەوەی نەقد لە کەشفدا وەک دەرچوونی پارە نیشان دەدرێت.</small></div>
                         <div class="form-group"><label>هۆکاری گەڕاندنەوە</label><input type="text" id="returnReason" placeholder="ئێکسپایەر، تێکچوو..."></div>
@@ -2482,7 +2483,12 @@
         const itemSelect = document.getElementById('saleItem');
         const selectedCategory = categorySelect.value;
         const previousItem = itemSelect.value;
-        const categoryItems = selectedCategory ? (db.items || []).filter(i => String(i.category || '').trim() === selectedCategory) : [];
+        const query = (document.getElementById('saleItemSearch')?.value || '').trim().toLocaleLowerCase();
+        const categoryItems = selectedCategory ? (db.items || []).filter(i => {
+            if (String(i.category || '').trim() !== selectedCategory) return false;
+            const haystack = [i.name, i.code, i.type, i.size].map(value => String(value || '').toLocaleLowerCase()).join(' ');
+            return !query || haystack.includes(query);
+        }) : [];
         itemSelect.innerHTML = '<option value="">مەوادێک هەڵبژێرە</option>';
         categoryItems.forEach(i => itemSelect.innerHTML += `<option value="${escapeHtml(i.id)}">${escapeHtml(i.name)} (${escapeHtml(i.type || '')} - ${escapeHtml(i.size || '')}) - کۆگا: ${safeNumber(i.qty)}</option>`);
         itemSelect.disabled = !selectedCategory || categoryItems.length === 0;
@@ -2695,7 +2701,19 @@
             return true;
         });
 
-        filteredImplants.sort((a, b) => a.qty - b.qty);
+        const sizeNumbers = value => String(value || '')
+            .replace(/[٠-٩]/g, digit => String(digit.charCodeAt(0) - 1632))
+            .replace(/[۰-۹]/g, digit => String(digit.charCodeAt(0) - 1776))
+            .match(/\d+(?:[.,]\d+)?/g)?.map(part => Number(part.replace(',', '.'))) || [];
+        filteredImplants.sort((a, b) => {
+            const aParts = sizeNumbers(a.size), bParts = sizeNumbers(b.size);
+            for (let i = 0; i < Math.max(aParts.length, bParts.length); i++) {
+                const av = aParts[i] ?? Number.POSITIVE_INFINITY;
+                const bv = bParts[i] ?? Number.POSITIVE_INFINITY;
+                if (av !== bv) return av - bv;
+            }
+            return String(a.size || '').localeCompare(String(b.size || ''), undefined, { numeric: true }) || String(a.name || '').localeCompare(String(b.name || ''), undefined, { numeric: true });
+        });
 
         if (filteredImplants.length === 0) {
             container.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 40px; color: var(--text-muted); background: #f8fafc; border-radius: var(--radius-lg); border: 1px dashed var(--border-color);">
@@ -4039,7 +4057,10 @@
 
             const purRecords = purchases.map(p => {
                 totalSalesOrPurchases += p.total;
-                return { ...p, typeName: '📦 کڕین', details: p.itemName };
+                const inventoryItem = (db.items || []).find(item => String(item.id) === String(p.itemId));
+                const itemType = p.itemType || inventoryItem?.type || '-';
+                const itemSize = p.itemSize || inventoryItem?.size || '-';
+                return { ...p, typeName: '📦 کڕین', details: `${p.itemName || inventoryItem?.name || 'مەواد'} — جۆر: ${itemType} — قیاس: ${itemSize}` };
             });
             
             const supPayRecords = supPayments.map(sp => {
@@ -4304,7 +4325,12 @@
         if (!itemSelect) return;
         const previousItem = itemSelect.value;
         const selectedCategory = document.getElementById('purchaseCategory')?.value || '';
-        const items = (db.items || []).filter(item => !selectedCategory || String(item.category || '-').trim() === selectedCategory);
+        const query = (document.getElementById('purchaseItemSearch')?.value || '').trim().toLocaleLowerCase();
+        const items = (db.items || []).filter(item => {
+            if (selectedCategory && String(item.category || '-').trim() !== selectedCategory) return false;
+            const haystack = [item.name, item.code, item.type, item.size].map(value => String(value || '').toLocaleLowerCase()).join(' ');
+            return !query || haystack.includes(query);
+        });
         itemSelect.innerHTML = '<option value="">مەوادێکی کۆگا هەڵبژێرە</option>';
         items.forEach(item => itemSelect.innerHTML += `<option value="${escapeHtml(item.id)}">${escapeHtml(item.name)} (${escapeHtml(item.type || '')} - ${escapeHtml(item.size || '')}) — کۆگا: ${safeNumber(item.qty)}</option>`);
         if (items.some(item => String(item.id) === String(previousItem))) itemSelect.value = previousItem;
@@ -4578,7 +4604,12 @@
         if (!categorySelect || !itemSelect) return;
         const previousItem = preferredItemId || itemSelect.value;
         const selectedCategory = categorySelect.value;
-        const items = (db.items || []).filter(item => !selectedCategory || String(item.category || '-').trim() === selectedCategory);
+        const query = (document.getElementById('returnItemSearch')?.value || '').trim().toLocaleLowerCase();
+        const items = (db.items || []).filter(item => {
+            if (selectedCategory && String(item.category || '-').trim() !== selectedCategory) return false;
+            const haystack = [item.name, item.code, item.type, item.size].map(value => String(value || '').toLocaleLowerCase()).join(' ');
+            return !query || haystack.includes(query);
+        });
         itemSelect.innerHTML = '<option value="">مەوادێک هەڵبژێرە</option>';
         items.forEach(item => itemSelect.insertAdjacentHTML('beforeend', `<option value="${escapeHtml(item.id)}">${escapeHtml(item.name)} (${escapeHtml(item.type || '')} - ${escapeHtml(item.size || '')}) — کۆگا: ${safeNumber(item.qty)}</option>`));
         itemSelect.value = items.some(item => String(item.id) === String(previousItem)) ? String(previousItem) : '';
@@ -4628,7 +4659,7 @@
         }
         const total = qty * historicalUnitPrice;
         const refundAmount = type === 'from_customer' && document.getElementById('returnSettlement').value === 'refund' ? total : 0;
-        const returnRecord = { id: newId(), date: localToday(), type, party, partyId: partyRecord.id, itemId, itemName: item.name, qty, total, refundAmount, reason: document.getElementById('returnReason').value.trim() || '-' };
+        const returnRecord = { id: newId(), date: localToday(), type, party, partyId: partyRecord.id, itemId, itemName: item.name, itemType: item.type || '-', itemSize: item.size || '-', qty, total, refundAmount, reason: document.getElementById('returnReason').value.trim() || '-' };
         const sys = firestore.collection('SystemData');
         const itemRef = sys.doc('InventoryData').collection('items').doc(String(item.id));
         const returnRef = sys.doc('FinancialData').collection('returns').doc(String(returnRecord.id));
@@ -4656,13 +4687,25 @@
         const tbody = document.getElementById('returnsTable'); if (!tbody) return; tbody.innerHTML = '';
         (db.returns || []).slice().reverse().forEach(r => {
             const settlement = r.type === 'from_customer' ? (safeNumber(r.refundAmount) > 0 ? ` — پارەی گەڕێندراوە: $${safeNumber(r.refundAmount).toFixed(2)}` : ' — بستانکاری کڕیار') : '';
-            tbody.insertAdjacentHTML('beforeend', `<tr><td>${escapeHtml(r.date)}</td><td>${r.type === 'to_supplier' ? 'بۆ دابینکەر' : 'لە کڕیار'}</td><td>${escapeHtml(r.party)}</td><td>${escapeHtml(r.itemName)}</td><td class="t-center">${safeNumber(r.qty)}</td><td>${escapeHtml(r.reason + settlement)}</td></tr>`);
+            const inventoryItem = (db.items || []).find(item => String(item.id) === String(r.itemId));
+            const itemType = r.itemType || inventoryItem?.type || '-';
+            const itemSize = r.itemSize || inventoryItem?.size || '-';
+            const itemDetails = `${r.itemName || inventoryItem?.name || 'مەواد'} — جۆر: ${itemType} — قیاس: ${itemSize}`;
+            tbody.insertAdjacentHTML('beforeend', `<tr><td>${escapeHtml(r.date)}</td><td>${r.type === 'to_supplier' ? 'بۆ دابینکەر' : 'لە کڕیار'}</td><td>${escapeHtml(r.party)}</td><td>${escapeHtml(itemDetails)}</td><td class="t-center">${safeNumber(r.qty)}</td><td>${escapeHtml(r.reason + settlement)}</td></tr>`);
         });
     }
 
     function renderPurchases() {
         const tbody = document.getElementById('purchasesTable'); if (!tbody) return; tbody.innerHTML = '';
-        (db.purchases || []).slice().reverse().forEach(p => tbody.insertAdjacentHTML('beforeend', `<tr><td>${escapeHtml(p.date)}</td><td>${escapeHtml(p.supplier)}</td><td>${escapeHtml(p.itemName)}</td><td class="t-center">${safeNumber(p.qty)}</td><td class="t-center">$${safeNumber(p.unitPrice).toFixed(2)}</td><td class="t-center">$${safeNumber(p.total).toFixed(2)}</td></tr>`));
+        (db.purchases || []).slice().sort((a, b) =>
+            String(b.date || '').localeCompare(String(a.date || '')) || String(b.id || '').localeCompare(String(a.id || ''))
+        ).forEach(p => {
+            const item = (db.items || []).find(x => String(x.id) === String(p.itemId));
+            const type = p.itemType || item?.type || '-';
+            const size = p.itemSize || item?.size || '-';
+            const itemDetails = `${p.itemName || item?.name || 'مەواد'} — جۆر: ${type} — قیاس: ${size}`;
+            tbody.insertAdjacentHTML('beforeend', `<tr><td>${escapeHtml(p.date)}</td><td>${escapeHtml(p.supplier)}</td><td>${escapeHtml(itemDetails)}</td><td class="t-center">${safeNumber(p.qty)}</td><td class="t-center">$${safeNumber(p.unitPrice).toFixed(2)}</td><td class="t-center">$${safeNumber(p.total).toFixed(2)}</td></tr>`);
+        });
     }
 
     async function addPurchase(e) {
@@ -4696,7 +4739,7 @@
             item = db.items.find(x => String(x.id) === String(document.getElementById('purchaseItem').value));
             if (!item) return alert('مەوادێک هەڵبژێرە.');
         }
-        const purchase = { id: newId(), date: document.getElementById('purchaseDate').value || localToday(), supplier, supplierId: supplierRecord.id, itemId: item.id, itemName: item.name, qty, unitPrice, total: qty * unitPrice, isFree: isFreePurchase };
+        const purchase = { id: newId(), date: document.getElementById('purchaseDate').value || localToday(), supplier, supplierId: supplierRecord.id, itemId: item.id, itemName: item.name, itemType: item.type || '-', itemSize: item.size || '-', qty, unitPrice, total: qty * unitPrice, isFree: isFreePurchase };
         const sys = firestore.collection('SystemData');
         const itemRef = sys.doc('InventoryData').collection('items').doc(String(item.id));
         const purchaseRef = sys.doc('CommerceData').collection('purchases').doc(String(purchase.id));
